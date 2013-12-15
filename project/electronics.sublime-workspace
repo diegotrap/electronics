@@ -1,0 +1,482 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 93.0,
+		"selected_items":
+		[
+			[
+				"pand pdf",
+				"Build: Pandown: LaTeX - PDF"
+			],
+			[
+				"pand doc",
+				"Build: Pandown: Word Document"
+			],
+			[
+				"pand tex",
+				"Build: Pandown: LaTeX"
+			],
+			[
+				"pand pd",
+				"Build: Pandown: LaTeX - PDF"
+			],
+			[
+				"pand p",
+				"Build: Pandown: LaTeX - PDF"
+			],
+			[
+				"pAND PDF",
+				"Build: Pandown: LaTeX - PDF"
+			],
+			[
+				"PAND PDF",
+				"Build: Pandown: LaTeX - PDF"
+			],
+			[
+				"pan pdf",
+				"Build: Pandown: LaTeX - PDF"
+			],
+			[
+				"pandpd",
+				"Build: Pandown: LaTeX - PDF"
+			],
+			[
+				"pan dpdf",
+				"Build: Pandown: LaTeX - PDF"
+			],
+			[
+				"pan dp",
+				"Build: Pandown: LaTeX - PDF"
+			],
+			[
+				"pand dpf",
+				"Build: Pandown: LaTeX - PDF"
+			],
+			[
+				"pand psd",
+				"Build: Pandown: LaTeX Beamer Slideshow - PDF"
+			],
+			[
+				"",
+				"Build: Build"
+			],
+			[
+				"pand",
+				"Build: Pandown: DocBook XML"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"pand ",
+				"Build: Pandown: LaTeX - PDF"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"set synta mar",
+				"Set Syntax: Markdown"
+			],
+			[
+				"pant p",
+				"Build: Pandown: LaTeX - PDF"
+			],
+			[
+				"table",
+				"Table Editor: Set table syntax 'Simple' for current view"
+			],
+			[
+				"TABLE",
+				"Table Editor: Set table syntax 'Pandoc' for current view"
+			],
+			[
+				"pa",
+				"Build: Pandown: AsciiDoc"
+			],
+			[
+				"Pand pdf",
+				"Build: Pandown: LaTeX - PDF"
+			],
+			[
+				"pand df",
+				"Build: Pandown: LaTeX - PDF"
+			],
+			[
+				"table set syn",
+				"Table Editor: Set table syntax 'MultiMarkdown' for current view"
+			],
+			[
+				"table ",
+				"Table Editor: Enable for current syntax"
+			],
+			[
+				"table editor",
+				"Table Editor: Enable for current view"
+			],
+			[
+				"ppdf",
+				"Build: Pandown: LaTeX - PDF"
+			],
+			[
+				"pand la",
+				"Build: Pandown: LaTeX"
+			],
+			[
+				"pandpdf",
+				"Build: Pandown: LaTeX - PDF"
+			],
+			[
+				"and pdf",
+				"Build: Pandown: LaTeX - PDF"
+			]
+		],
+		"width": 588.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/diegotrap/Dropbox/markdocs/electronics/project/electronics.sublime-project",
+		"/Users/diegotrap/Dropbox/markdocs/electronics/pandoc-config.json",
+		"/Users/diegotrap/Dropbox/markdocs/electronics/files/electronics.sublime-project",
+		"/Users/diegotrap/Dropbox/markdocs/electronics/accheatsheet.mdown",
+		"/Users/diegotrap/Dropbox/markdocs/electronics/opamp.mdown",
+		"/Users/diegotrap/Dropbox/markdocs/electronics/vhdl.mdown",
+		"/Users/diegotrap/Dropbox/markdocs/electronics/mtemplate.latex",
+		"/Users/diegotrap/Library/Application Support/Sublime Text 3/Packages/User/Pandown.sublime-settings",
+		"/Users/diegotrap/Library/Application Support/Sublime Text 3/Packages/User/pandoc-config.json",
+		"/Users/diegotrap/Library/Application Support/Sublime Text 3/Packages/Pandown/Pandown.sublime-settings",
+		"/Users/diegotrap/Dropbox/markdocs/odes copia.mdown",
+		"/Users/diegotrap/Dropbox/markdocs/odes.mdown",
+		"/Users/diegotrap/Dropbox/markdocs/memoria.mdown",
+		"/Users/diegotrap/Dropbox/markdocs/circuits.mdown",
+		"/Users/diegotrap/Dropbox/markdocs/Electronica.sublime-workspace",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/pandoc-config.json",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/opamp.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/opamp.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/tfg/polymerextrusion.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/formulas_potencia.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/dcdcconv.txt",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/acdcconv.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/formulas_potencia.docx",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/formulas_potencia.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/formulas_potencia.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/mtemplate.latex",
+		"/Users/diegotrap/Dropbox/win.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/vhdl.mdown",
+		"/Users/diegotrap/Downloads/acdcconvtables.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/acdcconvtables.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/acdcconvtables.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuitikzComponents/dFlipFlop2x2.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/digital.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/acdcconv.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/integrals.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/acdcconv.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuitikzComponents/dFlipFlop.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/dFlipFlop2x2.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuitikzComponents/1qDFkioFlop.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuitikzComponents/fullWaveRectifier.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/digital.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuitikzComponents/3x3template.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuitikzComponents/jkFlipFlop.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuitikzComponents/srFlipFlop.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuitikzComponents/2to1MUX.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/csvhdl.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/jkFlipFlop.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/dFlipFlop.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/myCircuitikzComponents.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuitikzComponents/gsrLatch.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuitikzComponents/gdLatch.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuitikzComponents/halfAdder.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuitikzComponents/srLatch.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuitikzComponents/ic8pin.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuitikzComponents/fullAdder.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/digital.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuitikzComponents/2x2template.tex",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/dcacconv.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/dcdcconv.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/dcacconv.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/genome.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/genome.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/vhdl.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/trigonometry.pdf",
+		"/Users/diegotrap/Desktop/markdown_fenced_code.sublime-snippet",
+		"/Users/diegotrap/Library/Application Support/Sublime Text 3/Packages/User/markdown_fenced_code.sublime-snippet",
+		"/Users/diegotrap/Library/Application Support/Sublime Text 3/Packages/User/markdown_fenced_code",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/trigonometry.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/formulas potencia",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/memoria.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/memoria.mdown",
+		"/Users/diegotrap/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/iss.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/diffeq.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/dtvariable.pdf",
+		"/Users/diegotrap/Library/Application Support/Sublime Text 3/Packages/WordCount/WordCount.sublime-settings",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/iss.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/La Conquista del Espacio/script.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/dtvariable.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/dtvariable.html",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/signals.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/signals.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/ACcheatsheet.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/odes.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/ACcheatsheet.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/odes copia.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuits.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/diffeq.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuits.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/dcdcconv.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/Electronics/opamp.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/rlc.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/SolveRLC.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/SolveRLC.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuitkz.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/circuitkz.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/opamp.html",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/SolveRLC.odt",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/TableEditorPackageManual.html",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/SolveRLC.html",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/TableEditorPackageManual.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/dcdcsconv.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/dcdcsconv.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/diodes.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/mosfet.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/mosfet.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/opamp.tex",
+		"/Users/diegotrap/Library/Application Support/Sublime Text 3/Packages/Pandown/README.mdown",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/c.pdf",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/SolveRLC (Copia en conflicto de MacBook-Pro-de-Diego 2013-09-21).pdf",
+		"/Users/diegotrap/Library/Application Support/Sublime Text 3/Packages/SideBarEnhancements/CHANGELOG",
+		"/Users/diegotrap/Dropbox/MiUniversidad/4.1/Electronica/Resolver un Circuito RLC.mdown"
+	],
+	"find":
+	{
+		"height": 37.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"templa",
+			"temple",
+			"circuitikzComponents",
+			"templa",
+			"template",
+			"direc",
+			"cita",
+			"@item1",
+			"citat",
+			"black",
+			"Algebra",
+			"col",
+			"when",
+			"¬",
+			"''",
+			"left",
+			"xor",
+			"xnor",
+			"nor",
+			"||",
+			"''",
+			"!!",
+			"↔",
+			"'''",
+			"]]",
+			"[[",
+			"'''[[",
+			"||",
+			"-",
+			"(human)|",
+			"(human)",
+			"chromosome",
+			"Chromosome",
+			"]]",
+			"[[",
+			"]]",
+			"||",
+			"|-",
+			"!!",
+			"predefined",
+			"concurrent",
+			"sequential",
+			"and",
+			"or",
+			"and",
+			"The NOT gate output is the complementary of the input\nThe AND gate output is 1 only when all the inputs are 1.\nThe OR gate output is 1 when any of the inputs is 1",
+			"\\hl{",
+			"*****",
+			"́",
+			"''",
+			"||",
+			"|-",
+			"!!",
+			"</math>",
+			"<math>",
+			"!!",
+			"</sub>",
+			"<sub>",
+			"point-of-view",
+			"</math>",
+			"<math>",
+			"Separation of variables",
+			"\\,\\!",
+			"</math>",
+			"<math>",
+			"]]",
+			"[[",
+			"(''x'',''y'')",
+			"(''y'')",
+			"(''x'')",
+			"lambda",
+			"&nbsp;",
+			"'''",
+			"</math>",
+			"<math>",
+			"AVG",
+			"I",
+			"- \\infty",
+			"R_eq",
+			"right",
+			"2.3",
+			"0",
+			"font",
+			"head",
+			"Golden Rules",
+			"{in}"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"golden rules"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 139.0
+	},
+	"project": "electronics.sublime-project",
+	"replace":
+	{
+		"height": 66.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 223.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

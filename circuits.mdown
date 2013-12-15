@@ -1,0 +1,339 @@
+#Circuits
+
+**Circuit definitions**
+
+* Component: A device with two or more terminals into which, or out of which, charge may flow.
+* Node:A point at which terminals of more than two components are joined.  A conductor with a substantially zero resistance is considered to be a node for the purpose of analysis.
+* Branch: The component(s) joining two nodes.
+* Mesh: A group of branches within a network joined so as to form a complete loop.
+* Port: Two terminals where the current into one is identical to the current out of the other.
+* Circuit: A current from one terminal of a generator, through load component(s) and back into the other terminal.  A circuit is, in this sense, a one-port network and is a trivial case to analyse.  If there is any connection to any other circuits then a non-trivial network has been formed and at least two ports must exist.  Often, "circuit" and "network" are used interchangeably, but many analysts reserve "network" to mean an idealised model consisting of ideal components.
+* Transfer function: The relationship of the currents and/or voltages between two ports.  Most often, an input port and an output port are discussed and the transfer function is described as gain or attenuation.
+* Component transfer function: For a two-terminal component (i.e. one-port component), the current and voltage are taken as the input and output and the transfer function will have units of impedance or admittance (it is usually a matter of arbitrary convenience whether voltage or current is considered the input).  A three (or more) terminal component effectively has two (or more) ports and the transfer function cannot be expressed as a single impedance.  The usual approach is to express the transfer function as a matrix of parameters.  These parameters can be impedances, but there is a large number of other approaches, see two-port network.
+
+From WIKIPEDIA: (http://en.wikipedia.org/wiki/Circuit_analysis#Definitions)
+
+* A circuit consists of circuit elements attached to each other with ideal wires or connectors.
+* Node: A node is a point in the circuit that is connected to two or more circuit elements with ideal wires.
+* Loop: A loop is a closed path in a circuit through at least two circuit elements which return to start- ing node without passing through any node twice.
+
+From http://aries.ucsd.edu/najmabadi/CLASS/MAE140/NOTES/
+
+
+
+##Circuit variables
+
+###Voltage
+
+$$v = \frac{dW}{dq}$$
+
+###Current
+
+$$i = \frac{}{dt}$$
+
+###Power
+
+$$P = dW/dt$$
+
+$$P = i \cdot v$$
+
+###Sign Convention
+
+4 combinations of current and voltage directions in a 2-terminal component
+
+\vspace{30mm}
+
+Power consumption/generation:
+
+\vspace{30mm}
+
+## $i-v$ characteristic 
+
+##Kirchhoff Laws
+
+* Kirchhoff Current Law (KCL)
+
+*Sum of currents entering a node is equal to sum of currents leaving a node.*
+
+* KCL follows from our assumption that no net charge can be accumulated at any point in the circuit (or in a node):
+* Alternatively, as a current leaving a node can be replaced with a current entering a node with opposite sign, KCL can be stated as *Algebraic sum of currents entering a node is zero.* or *Algebraic sum of currents leaving a node is zero.*
+
+**How to apply KCL**
+
+1. You should have identified the nodes and mark currents and their reference directions on it.
+2. Draw a closed path around the node and mark a starting a point.
+3. Go around the path in the clockwise direction. Whenever you pass a wire, write down
+the current with a + sign if exiting and a - sign if entering.
+4. Stop when you are back to the starting point (and write = 0).
+
+FROM http://aries.ucsd.edu/najmabadi/CLASS/MAE140/NOTES/
+
+* Kirchhoff Voltage Law (KVL)
+
+* *Algebraic sum of all voltages around any closed path in a circuit is zero.*
+
+* KVL follows from the definition of the voltage between points. Voltage is defined as the amount energy to move unit charge from one point to another. Zero net energy should be expanded if a charge q is moved around a closed loop and is returned back to its original position, i.e., 
+
+* Alternative enuntiation: *Sum of voltage drops around a loop - Sum of voltage rises around a loop = 0.*
+
+
+**How to apply KVL**
+
+1. You should have marked voltages and their reference directions on it.
+2. Draw the loop and mark a starting a point.
+3. Go around the path in the clockwise direction. Whenever you go over a circuit element, write down the voltage across element with a + sign if entering the + terminal of an element and a - sign if entering the - terminal of an element.
+4. Stop when you are back to the starting point (and write = 0).
+
+FROM http://aries.ucsd.edu/najmabadi/CLASS/MAE140/NOTES/
+
+###Solving a circuit with Kirchoff Laws
+
+KVLs and KCLs are constraints on circuit variables which arise because of the circuit ar- rangement (attachment of connection wires). In addition, internal of each circuit element impose a relationship between the current flowing in the element and the voltage across that element (element Laws or i-v characteristics). Combination of these two set of constraints results in a unique set of values for the circuit variables (currents and voltages).
+In a circuit with E elements, there are 2E circuit variables (i and v for each element). We need 2E equations to find these circuit variables. If the circuit has N nodes, we can write N - 1 KCL equations (KCL on the Nth node is exactly the sum of KCL on the other N - 1 nodes). We can also write E - N + 1 independent KVLs and E i-v characteristic equations:
+
+* No. of KCL equations: N - 1
+* No. of KCV equations: E - N + 1
+* No. of i-v characteristics: E
+* Total: 2E
+
+If the i-v characteristic is a linear relationship between i and v, the element is a linear element. If a circuit is made of linear element, the resulting set of 2E equations in 2E variables for a linear algebraic set of equations. In this course, we only use linear elements, thus, the term “linear circuit theory.”
+
+**Procedure Circuit Analysis using KVL and KCL**
+
+1. Note how you can calculate problem unknown (e.g., power dissipation in an element) from the circuit variables.
+2. Go through the circuit in an orderly fashion (e.g., from left to right, top to bottom). Take each element and
+2a) Identify nodes (terminals of each element should be connected to a node.)
+2b) Assign voltages and currents and their reference directions to each element. Use passive sign convention.
+2c) Identify circuit variables. This will tell you how many equations you have to write. 2d) Write down i-v characteristics equation.
+3. If you have N nodes, write N - 1 KCLs.
+4. Calculate number of KVLs you need: $N_{KVL} =2E - (E) - (N - 1)=E-N+1$ (where $E$ is no. of elements). Note that as some element laws (e.g., IVS, ICS) result in trivial equations for some circuit variables, it is better to count the circuit unknowns from step 2 above and use $N_{KVL} = N_{unknowns} - N_{element laws} - N_{Nodes} + 1$.
+5. Choose NKVL loops and write KVLs. Choose loops that go through the smallest number of elements.
+6. Solve the system of equations and find circuit variables.
+7. Check your solution by applying your solution to some KVL and KCL (specially KVL on loops you have not considered).
+8. Find problem unknown, if any, from the circuit variables.
+Note: It is not always possible or practical to assign passive sign convention to all elements. If so, note that i-v characteristics of IVS and ICS are independent of sign convention. You do NOT need to use passive sign convention for these elements. But be careful if you need to find power supplied or absorbed by IVS or ICS.
+Note: You can readily reduce the number of equations to solve by half if you substitute i-v characteristics equations in KVLs and KCLs to get a set of E equations in either voltages or currents (or a combination of both). In fact, after you are fluent in using the above procedure, you only need to mark either the current or voltage for an element and use the element law to directly write the other circuit variable on the circuit diagram. Then, write only KCLs and KVLs and solve.
+
+FROM http://aries.ucsd.edu/najmabadi/CLASS/MAE140/NOTES/
+
+##Linear circuits
+
+**Linear circuit** A linear circuit is a circuit that can be solved with a system of linear equations.
+
+* Linear circuits are composed of resistors and independent sources.
+
+**Linearity Theorem**. For any circuit containing resistors and independent voltage and current sources, every node voltage and branch current is a linear function of the source values and has the form PaiUi where the Ui are the source values and the ai are suitably dimensioned constants.
+
+**Superposition theorem** The superposition theorem for electrical circuits states that for a linear system the response (voltage or current) in any branch of a bilateral linear circuit having more than one independent source equals the algebraic sum of the responses caused by each independent source acting alone, while all other independent sources are cancelled.
+
+* Applicable to linear networks (time varying or time invariant) consisting of independent sources, linear dependent sources, linear passive elements Resistors, Inductors, Capacitors and linear transformers.
+* Another point that should be considered is that superposition only works for voltage and current but not power. In other words the sum of the powers is not the real consumed power. To calculate power we should first use superposition to find both current and voltage of that linear element and then calculate sum of the multiplied voltages and currents respectively.
+
+FROM http://en.wikipedia.org/wiki/Superposition_theorem
+
+**Cancellation of sources**
+
+* A zero-valued voltage source has zero volts between its terminals for any current. It is equivalent to a short-circuit or piece of wire or resistor of 0 ohm (or infinite S).
+* A zero-valued current source has no current flowing between its terminals. It is equivalent to an open-circuit or a broken wire or a resistor of infinite resistance (or 0 S).
+
+###Linear circuit elements
+
+Resistor
+Ohm Law
+Independent Voltage Source
+Independent Current Source
+Short circuit
+Open circuit
+
+## Circuit Reduction techniques
+
+**Equivalent circuit** Two circuits are said to be equivalent if...
+
+###Thévenin, Norton equivalents of a circuit
+
+**Teorema de Thevenin**. Cualquier circuito lineal formado por elementos activos y pasivos puede ser sustuido, de cara al resto de circuito, por una fuente de tensión ideal $v_{th}$ y una resistencia en serie $R_{th}$.
+
+**Cálculo de $v_{th}$, $R_{th}$** Existen varios métodos para calcular los parámetros del equivalente Thevenin de un circuito
+
+* A partir de los datos de cortocircuito, circuito abierto: 
+	1. Medir la tensión en circuito abierto entre los terminales, $v_open$: $v_{th} = v_open$
+	2. Medir la intensidad en cortocircuito entre los terminales, $i_cc$: $R_{th} = \frac{v_{th}}{i_cc}$
+* Calcular la $R_{th}$ anulando las fuentes
+	1. Anular las fuentes independientes de tensión. Esto equivale a sustituirlas por un elemento cuya tensión en cualquier circunstancia, sea igual a cero voltos, es decir, por un cortocircuito.
+	2. Anular las fuentes independientes de corriente. Esto equivale a sustituirlas por un elemento cuya intensidad, en cualquier circunstancia, sea igual a cero amperios, es decir, por un circuito abierto.
+	3. Calcular la resistencia equivalente del circuito resultante vista desde los terminales del equivalente Thévenin.
+
+
+**Teorema de Norton**. Cualquier circuito lineal formado por elementos activos y pasivos puede ser sustuido, de cara al resto de circuito, por una fuente de corriente ideal $i_N$ y una resistencia en paralelo $R_N$.
+
+**Cálculo de $i_N$, $R_N$** 
+
+**Cambio de equivalente Thévenin a Norton, Norton a Thévenin**.
+
+##Circuit Solving
+
+##Dynamic Circuits
+
+##Alternate Current
+
+###Alternate signals
+
+### Current Root Mean Square Value
+
+**Root Mean Square Value Current** The Root Mean Square Value Current $I_{RMS}$ of a periodic current signal i(t) is
+
+$$ I_{RMS} = \sqrt { {1 \over T} \int_{t_0}^{t_0 + T} {i(t)^2 dt} }$$
+
+**Motivation for RMSV of current** RMS Current has the property ... equivalent power AC-DC
+
+The power dissipated in a resistor is $P = v(t) i(t)$. If we write it in terms of $i$ and $Z$, $P= i R i = R i^2$.
+
+* Power dissipated in a resistor in a DC circuit is $P = R I^2$
+* We want the same formula ($P = R I^2$) to be valid for average power in AC, using the root mean value of the current: $P = R I_{RMS}^2$
+
+Since the average power is
+
+$$ P = {1 \over T} \int_{t_0}^{t_0 + T} {p(t) dt} = R \left( {1 \over T} \int_{t_0}^{t_0 + T} {i(t)^2 dt} \right)$$
+
+The equation is
+
+$$ P = \cancel{R} \left( {1 \over T} \int_{t_0}^{t_0 + T} {i(t)^2 dt} \right) = \cancel{R} I^2 $$
+
+And the definition of RMS current comes from
+
+$$ I^2 = {1 \over T} \int_{t_0}^{t_0 + T} {i(t)^2 dt} $$
+
+# More
+
+## Resistor equivalents
+
+###Series resistors
+
+Te equivalent resistance $R_{eq}$ of $n$ resistors in series is
+
+$$R_{eq} = R_1 + R_2 + ... + R_n $$
+
+###Parallel resistors
+
+The equivalent resistance $R_{eq}$ of $n$ resistors in parallel is
+
+$$R_{eq} = \left[ \frac{1}{R_1} + \frac{1}{R_1} + ... + \frac{1}{R_1} \right]^{-1} $$
+
+Te equivalent resistance $R_{eq}$ or $R_1 // R_2$ of 2 resistors in parallel is
+
+$$ R_1 // R_2 = R_{eq}(R_1, R_2) = \frac{R_1 R_2}{R_1+R_2} $$
+
+## Voltage divider
+
+
+**Voltage divider circuit**
+$$
+\begin{circuitikz}[scale = 0.6]
+	\draw
+	(0,0) node[ground] {}
+	(0,0) to[R, l=$R_2$](0,2)
+	(0,2) to[R, l=$R_1$, -o](0,4)
+	(0,4) node[above] {$v_i$}
+	(0,2) to[short, -o](0.5,2) node[right] {$v_o$}
+	;
+\end{circuitikz}
+$$
+
+$$  v_0 = \frac{R_2}{R_1 + R_2} v_i $$
+
+## Current divider
+
+$$  i_0 = \frac{R_1}{R_1 + R_2} i_i $$
+
+
+
+
+## Alternate Current Circuit. Steady State Alternate Current
+
+##Alternate Current Power
+
+
+
+
+##Circuit Analysis Methods
+
+**Solving a circuit** Solving a circuit is computing all the components voltage and current values. 
+
+The methods for solving a circuit are:
+
+* Reduction to equivalent circuit
+* Superposition
+* Nodal analysis
+* Mesh analysis
+
+##Signals
+
+A signal is a function of time that represents how the instantaneous value of a electrical magnitude changes in time. Signals are represented by lowercase letters: $v(t)$, $i(t)$ ...
+
+###Periodic signals
+
+**Periodic signal** A periodic signal is a function that meets the condition
+
+$$f(t) = f(t + kT), for any t$$
+
+where $T$ is the period of the signal.
+
+**Period and frecuency of a periodic signal**
+
+* Period, $T$, of a signal, is
+* Frequency, $f$ of a signal, is 
+
+Period and frecuency are inverse quantities: $f = 1/T$
+
+**Sinusoidal signals**
+
+**¿Why we don't use cosine signals?** The sinusoidal signals are described in terms of sines, and cosines are not used, even when they arise from sine derivatives or some other situations.
+
+They are not used because sine and cosine can both be defined in terms of the other function, with a time offset. All the definitions are defined with the sine, and to change from a cosine function to the sine function we use
+
+$$CORREGIR: \sin(x) = \cos{(x + t)}$$
+
+
+
+## Resistor, capacitor, inductor impedance
+
+* Resistor:
+
+$$ v = Ri $$
+$$ V e^{j \omega t} = R I e^{j \omega t} $$
+$$ V = IR $$
+
+* Capacitor:
+
+$$ i = \frac{dv}{dt} $$
+$$ I e^{j \omega t} = C \frac{d}{dt}[V e^{j \omega t}] = j \omega C V e^{j \omega t} $$
+$$ V = \frac{1}{j \omega C} I $$
+
+* Inductor:
+
+$$ v = \frac{di}{dt} $$
+$$ V e^{j \omega t} = L \frac{d}{dt}[I e^{j \omega t}] = j \omega L I e^{j \omega t} $$
+$$ V = j \omega L I $$
+
+
+The **Generalized Ohm Law**:
+
+$$ v = Zi $$
+
+where $Z$ is
+
+* $Z = R$ for resistors
+* $Z = \frac{1}{j \omega C}$ for capacitors
+* $Z = j \omega L$ for inductors
+
+
+
+# Notation
+
+* Lowercase letters for time-dependent variables: $i = i(t)$, $v = v(t)$, etc
+* Uppercase letters for constant variables: $R$, $V = V_RMS$, etc
+* Bold for phasors, complex impedances and complex power (last two are not phasors).
+
+#Reference
+
+* http://aries.ucsd.edu/najmabadi/CLASS/MAE140/NOTES/

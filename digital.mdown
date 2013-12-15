@@ -1,0 +1,1019 @@
+%Digital Electronics
+%Diego Trapero
+
+# Digital Electronics
+
+
+
+
+## Binary
+
+
+
+
+
+## Boolean 
+
+
+
+
+## Logic Gates
+
+$$
+\Tree
+	[.{Logic Gates} [.Basic NOT AND OR ] [.Derived NAND NOR XOR XNOR ] ]
+$$
+
+* **Basic gates** perform the three basic boolean operations: conjunction (AND), disjunction (OR) and negation (NOT). Only one the two other gates is neccesary in conjuntion with the NOT gate to implement everty boolean function. The other operation can be expressed in therms of the other two.
+* **Derived gates** perform derived boolean operations, operations that can be composed from basic operations. The most common are NAND, NOR, XOR, and XNOR gates.
+
+
+### NOT Gate
+
+$$
+\begin{circuitikz}
+\draw
+	(0,0) node[not port](notGate) {}
+	(notGate.in) node[left] {$A$}
+	(notGate.out) node[right] {$\text{NOT } A$}
+;
+\end{circuitikz}
+$$
+
+**Rule:** The NOT gate output is the complementary of the input
+
+|  A  | NOT A |
+| :-: | :---: |
+|   0 |     1 |
+|   1 |     0 |
+
+
+### AND Gate
+
+$$
+\begin{circuitikz}
+\draw
+	(0,0) node[and port](andGate) {}
+	(andGate.in 1) node[left] {$A$}
+	(andGate.in 2) node[left] {$B$}
+	(andGate.out) node[right] {$A \text{ AND } B$}
+;
+\end{circuitikz}
+$$
+
+**Rule:** The AND gate output is 1 only when all the inputs are 1.
+
+|  A  |  B  | A AND B |
+| :-: | :-: | :-----: |
+|  0  |  0  |    0    |
+|  0  |  1  |    0    |
+|  1  |  0  |    0    |
+|  1  |  1  |    1    |
+
+
+
+
+### OR Gate
+
+$$
+\begin{circuitikz}
+\draw
+	(0,0) node[or port](orGate) {}
+	(orGate.in 1) node[left] {$A$}
+	(orGate.in 2) node[left] {$B$}
+	(orGate.out) node[right] {$A \text{ OR } B$}
+;
+\end{circuitikz}
+$$
+
+**Rule:** The OR gate output is 1 when any of the inputs is 1.
+
+|  A  |  B  | A OR B |
+| :-: | :-: | :----: |
+|  0  |  0  |   0    |
+|  0  |  1  |   1    |
+|  1  |  0  |   1    |
+|  1  |  1  |   1    |
+
+### NAND Gate
+
+$$
+\begin{circuitikz}
+\draw
+	(0,0) node[nand port](nandGate) {}
+	(nandGate.in 1) node[left] {$A$}
+	(nandGate.in 2) node[left] {$B$}
+	(nandGate.out) node[right] {$A \text{ NAND } B$}
+;
+\end{circuitikz}
+$$
+
+**Rule:** The NAND gate output is 0 when all the inputs are 1
+
+* The NAND gate is a NOT-AND gate
+* The NAND gate can be viewed as a negative-OR whose output is 1 when any inputs is 0
+
+**VHDL Code:**
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.vhdl}
+entity NANDGate is
+	port (
+		a, b : in bit;
+		x : out bit
+	);
+end NANDGate;
+
+architecture NANDArch of NANDGate is
+begin
+	x <= a NAND b;
+end NANDArch;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### NOR Gate
+
+$$
+\begin{circuitikz}
+\draw
+	(0,0) node[nor port](norGate) {}
+	(norGate.in 1) node[left] {$A$}
+	(norGate.in 2) node[left] {$B$}
+	(norGate.out) node[right] {$A \text{ NOR } B$}
+;
+\end{circuitikz}
+$$
+
+**Rule:** The NOR gate output is 0 when any of the inputs is 1.
+
+
+* The NOR gate is a NOT-OR gate
+* The NOR gate can be viewd as a negative-AND whose output is 1 only when all the inputs are 0.
+
+
+
+
+### XOR Gate
+
+$$
+\begin{circuitikz}
+\draw
+	(0,0) node[xor port](xorGate) {}
+	(xorGate.in 1) node[left] {$A$}
+	(xorGate.in 2) node[left] {$B$}
+	(xorGate.out) node[right] {$A \text{ XOR } B$}
+;
+\end{circuitikz}
+$$
+
+**Rule:** The XOR gate output is 1 when all the inputs are not the same
+
+
+
+
+### XNOR Gate
+
+$$
+\begin{circuitikz}
+\draw
+	(0,0) node[xnor port](xnorGate) {}
+	(xnorGate.in 1) node[left] {$A$}
+	(xnorGate.in 2) node[left] {$B$}
+	(xnorGate.out) node[right] {$A \text{ XNOR } B$}
+;
+\end{circuitikz}
+$$
+
+**Rule:** The XNOR gate output when the inputs are not the same
+
+
+
+
+
+## Adders
+
+### Half adder
+
+$$
+\begin{circuitikz}
+	\draw
+	(0, 0) node[halfAdder](HA1) {HA}
+	;
+\end{circuitikz}
+$$
+
+A half adder is a two input, two output circuit, that takes two input bits, $A$ and $B$, and ouputs the two-digit sum, $A + B$. The MSB of the sum is referred as C (carry) and the LSB digit is S (sum). If performing addition digit by digit, the $S$ ouput it's the result digit and the $C$ output is the carry resulting of the operation. This adder does't take into account the carry of the previous digit addition, this is why it is called half adder.
+
+**Truth table**
+
+| $A$ | $B$ | $C$ | $S$ |
+| :-: | :-: | :-: | :-: |
+|  0  |  0  |  0  |  0  |
+|  1  |  0  |  0  |  1  |
+|  0  |  1  |  0  |  1  |
+|  1  |  1  |  1  |  0  |
+
+
+**Logic operations**
+
+* $S = A \oplus B$
+* $C = AB$
+
+**Gate implementation**
+
+$$
+\begin{circuitikz}
+\draw
+	(4,2) node[xor port](xorGate) {} %xor gate
+	(0,2.25) to[short](xorGate.in 1) %xor A wiring
+	(0,1.75) to[short](xorGate.in 2) %xor B wiring
+	(0,2.25) node[ocirc] {} %A node
+	(0,2.25) node[left] {$A$} %A label
+	(0,1.75) node[ocirc] {} %B node
+	(0,1.75) node[left] {$B$} %B label
+	(xorGate.out) to[short](5,2) %S output wiring
+	(5,2) node[ocirc] {} %S node
+	(5,2) node[right] {$S$} %S label
+	(4,0) node[and port](andGate) {} %AND gate
+	(1,2.25) node[circ] {}
+	(1.5,1.75) node[circ] {}
+	(1.5,1.75) |- (andGate.in 1)
+	(1,2.25) |- (andGate.in 2)
+	(andGate.out) to[short](5,0) %C output wiring
+	(5,0) node[ocirc] {} %C node
+	(5,0) node[right] {$C$} %C label
+;
+\end{circuitikz}
+$$
+
+
+
+
+### Full adder
+
+$$
+\begin{circuitikz}
+	\draw
+	(0, 0) node[fullAdder](FA) {}
+	;
+\end{circuitikz}
+$$
+
+A full adder is a three input, two output circuit, that takes three input bits, $A$, $B$ and $C_i$, and ouputs the two-digit sum, $A + B + C_i$. If performing addition digit by digit, $A$ and $B$ are the operands, $C_i$ the previous carry, the $S$ ouput it's the result digit and the $C$ output is the carry resulting of the operation.
+
+**Truth table**
+
+| $A$ | $B$ | $C_i$ | $C_o$ | $S$ |
+| --- | --- | ----- | ----- | --- |
+|   0 |   0 |     0 |     0 |   0 |
+|   1 |   0 |     0 |     0 |   1 |
+|   0 |   1 |     0 |     0 |   1 |
+|   1 |   1 |     0 |     1 |   0 |
+|   0 |   0 |     1 |     0 |   1 |
+|   1 |   0 |     1 |     1 |   0 |
+|   0 |   1 |     1 |     1 |   0 |
+|   1 |   1 |     1 |     1 |   1 |
+
+**Logic operations**
+
+* $S = A \oplus B \oplus C_i$
+* $C_o = (A \cdot B) + (C_i \cdot (A \oplus B))$
+
+**Gate implementation**
+
+![Source: http://commons.wikimedia.org/wiki/File:Full_Adder.svg](images/full_adder_gates.png)
+
+**Full adder from two half adders** A full adder can be implemented from two half adders and an OR gate:
+
+$$
+\begin{circuitikz} %Full adder from two half adders, Diego Trapero
+\draw
+	(1.2, 0.0) node[halfAdder](HA1) {HA1} %HA1
+	(3.6, 0.0) node[halfAdder](HA2) {HA2} %HA2
+	(0.0, 0.5) node[ocirc](A) {}
+	(0.0, 0.5) node[left] {$A$}
+	(0.0, 0.5) to[short](HA1.A)
+	(0.0, -0.5) node[ocirc](B) {}
+	(0.0, -0.5) node[left] {$B$}
+	(0.0, -0.5) to[short](HA1.B)
+	(0.0, -1.5) node[ocirc](Ci) {}
+	(0.0, -1.5) node[left] {$C_i$}
+	(HA1.S) to[short](HA2.A)
+	(HA2.S) to[short](6.6, 0.5)
+	(6.0, -1.5) node[or port](OR) {}
+	(6.6, 0.5) node[ocirc](S) {}
+	(6.6, 0.5) node[right] {$S$}
+	(6.6, -1.5) node[ocirc](Co) {}
+	(6.6, -1.5) node[right] {$C_o$}
+	(Ci) -| (HA2.B)
+	(HA1.C) |- (OR.in 2)
+	(HA2.C) |- (OR.in 1)
+	(OR.out) -- (Co)
+;
+\end{circuitikz}
+$$
+
+
+
+## Comparators
+
+### Equality Comparators
+
+**1-bit equality comparator** A 1 bit equality comparator can be implemented with a XNOR gate:
+
+$$
+\begin{circuitikz}
+\draw
+	(0,0) node[xnor port](xnorGate) {}
+	(xnorGate.in 1) node[left] {$A$}
+	(xnorGate.in 2) node[left] {$B$}
+	(xnorGate.out) node[right] {$Y$}
+;
+\end{circuitikz}
+$$
+
+|  A  |  B  |  Y  |
+| :-: | :-: | :-: |
+|  0  |  0  |  1  |
+|  0  |  1  |  0  |
+|  1  |  0  |  0  |
+|  1  |  1  |  1  |
+
+
+**$n$-bit equality comparator** A $n$-bit comparator can be implemented by comparing two numbers digit by digit with $n$ XNOR gates and then processing the outputs through an AND gate to check if every bit is the same in the two numbers
+
+
+
+
+## Multiplexers, Demultiplexers, Encoders, Decoders
+
+
+
+### Multiplexer
+
+A Multiplexer is...
+
+**2 to 1 Multiplexer** 
+
+$$
+\begin{circuitikz}
+	\draw
+		(0,0) node[2to1MUX](MUX) {}
+	;
+\end{circuitikz}
+$$
+
+$$Y = ( D_1 \cdot \overline{S}) + (D_0 \cdot S)$$
+
+| $S$ | $D_0$ | $D_1$ | $Y$ |
+| --- | ----- | ----- | --- |
+|   0 |     0 |     0 |   0 |
+|   0 |     0 |     1 |   0 |
+|   0 |     1 |     0 |   1 |
+|   0 |     1 |     1 |   1 |
+|   1 |     0 |     0 |   0 |
+|   1 |     0 |     1 |   1 |
+|   1 |     1 |     0 |   0 |
+|   1 |     1 |     1 |   1 |
+
+
+|  S  |   Y   |
+| --- | ----- |
+|   0 | $D_0$ |
+|   1 | $D_1$ |
+
+
+A straightforward realization of this 2-to-1 multiplexer would need 2 AND gates, an OR gate, and a NOT gate.
+
+**MUX implementation of truth table** A mux based circuit can be used to implement a boolean function.
+
+A logic function with $n$ input bits and 1 ouput bit can be implemented in a MUX with $n$ selection bits and $2^n$ data inputs, i.e. a $2^n$-to-1 MUX.
+
+[***** poner ejemplo]
+
+![4 to 1 multiplexer. Source: http://www.ecgf.uakron.edu/grover/web/ee263/slides/Chapter%2006B.pdf](images/4to1_multiplexer.png)
+
+### Demultiplexer
+
+![4 to 1 demultiplexer. Source: http://en.wikipedia.org/wiki/File:Demultiplexer_Example01.svg](images/4to1_demultiplexer.png)
+
+
+### Encoder
+
+
+
+
+### Decoder
+
+
+## Biestables
+
+**Biestables** are devices that have two stable states (SET and RESET); they can retain either of these states indefininitly, making them useful as storage devices.
+
+$$
+\Tree
+	[.Biestables Latches Flip-Flops ]
+$$
+
+
+
+
+### Latches
+
+**Latches** are...
+
+$$
+\Tree
+	[.Latches {SR Latch} {Gated SR Latch} {Gated D Latch} ]
+$$
+
+**SR (SET-RESET) Latch** 
+
+$$
+\begin{circuitikz}
+	\draw
+	(0, 0) node[srLatch](IC) {SRL}
+	;
+\end{circuitikz}
+$$
+
+**Gate implementations**
+
+$$
+\begin{circuitikz}
+	\draw
+	(0, 1) node[nor port](NOR1) {}
+	(0, -1) node[nor port](NOR2) {}
+	;
+\end{circuitikz}
+$$
+
+
+**Internal signal implementation**
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.vhdl }
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity S_R_latch_top is
+    Port ( S : in    STD_LOGIC;
+           R : in    STD_LOGIC;
+           Q : out   STD_LOGIC);
+end S_R_latch_top;
+
+architecture Behavioral of S_R_latch_top is
+signal Q2   : STD_LOGIC;
+signal notQ : STD_LOGIC;
+begin
+
+Q    <= Q2;
+Q2   <= R nor notQ;
+notQ <= S nor Q2;
+
+end Behavioral;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+**Inout ports implementation**
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.vhdl}
+entity SR_Latch is  
+  Port ( S,R : in STD_LOGIC;  
+         Q : inout STD_LOGIC;  
+         Q_n : inout STD_LOGIC);  
+ end SR_Latch;  
+   
+ architecture SR_Latch_arch of SR_Latch is  
+ begin  
+ process (S,R,Q,Q_n)  
+       begin  
+             Q <= R NOR Q_n;  
+             Q_n <= S NOR Q;  
+       end process;  
+   
+ end SR_Latch_arch;  
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.vhdl }
+-- http://vhdlbynaresh.blogspot.com.es/2013/07/design-of-sr-latch-using-behavior.html
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+
+entity SR_Latch is
+     port(
+         enable : in STD_LOGIC;
+         s : in STD_LOGIC;
+         r : in STD_LOGIC;
+         reset : in STD_LOGIC;
+         q : out STD_LOGIC;
+         qb : out STD_LOGIC
+         );
+end SR_Latch;
+
+architecture SR_Latch_arc of SR_Latch is
+begin
+
+    latch : process (s,r,enable,reset) is
+    begin
+        if (reset='1') then
+            q <= '0';
+            qb <= '1';
+        elsif (enable='1') then
+            if (s/=r) then
+                q <= s;
+                qb <= r;
+            elsif (s='1' and r='1') then
+                q <= 'Z';
+                qb <= 'Z';
+            end if;
+        end if;
+    end process latch;
+
+end SR_Latch_arc;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Gated SR Latch**
+
+$$
+\begin{circuitikz}
+	\draw
+	(0, 0) node[gsrLatch](IC) {}
+	;
+\end{circuitikz}
+$$
+
+**Gated D Latch**
+
+$$
+\begin{circuitikz}
+	\draw
+	(0, 0) node[gdLatch](IC) {}
+	;
+\end{circuitikz}
+$$
+
+### Flip-Flops
+
+**Flip-flops** are...
+
+$$
+\Tree
+	[.{Flip-Flops} {SR Flip-Flop} {D Flip-Flop} {JK Flip-Flop} ]
+$$
+
+
+$$
+\begin{circuitikz}
+	\draw
+	(0, 0) node[srFlipFlop](IC) {}
+	;
+\end{circuitikz}
+$$
+
+
+**D FlipFlop**
+
+$$
+\begin{circuitikz}
+	\draw
+	(0, 0) node[dFlipFlop](IC) {}
+	;
+\end{circuitikz}
+$$
+
+$$
+\begin{circuitikz}
+	\draw
+	(0, 0) node[dFlipFlop2x2](IC) {}
+	;
+\end{circuitikz}
+$$
+
+
+| $CLK$ | $D$ | $Q_{next}$ |
+| :---: | :-: | :--------: |
+|   ^   |  0  |     0      |
+|   ^   |  1  |     1      |
+|   0   |  X  |     Q      |
+|   1   |  X  |     Q      |
+
+
+**VHDL Implementations**
+
+
+~~~~~~~~{.vhdl}
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity DFF is
+	port(
+		D : in std_logic; --Data input
+		C : in std_logic; --Clock signal
+		Q : out std_logic	--Data output
+	);
+end DFF;
+
+architecture Behavioral of DFF is
+
+begin
+	process(C)
+	begin
+		if rising_edge(C) then
+			Q <= D;
+		end if;
+	end process;
+end Behavioral;
+
+~~~~~~~~
+
+![Synthesis Result](images/DFF_synthesis.png)
+
+
+**D Flip Flop with Enable and Reset**
+
+~~~~~~~~{.vhdl}
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx primitives in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity DFF is
+	port(
+		D 	: in  std_logic; --Data input
+		C 	: in  std_logic; --Clock signal
+		EN : in  std_logic; --Enable signal
+		R  : in  std_logic; -- Asyncronous reset
+		Q 	: out std_logic  --Data output
+	);
+end DFF;
+
+architecture Behavioral of DFF is
+begin
+	
+	process(C, R)
+	begin
+		if (R = '1') then
+			Q <= '0';
+		else if rising_edge(C) AND EN='1' then
+			Q <= D;
+		end if;
+		end if;
+	end process;
+
+end Behavioral;
+
+~~~~~~~~
+
+![Synthesis Result](images/DFF2_synthesis.png)
+
+**D Flip Flop with Enable, Reset and Preset**
+
+~~~~~~~~{.vhdl}
+
+-- Code from Wikibooks:
+-- https://en.wikibooks.org/wiki/VHDL_for_FPGA_Design/D_Flip_Flop
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+ 
+entity DFF is
+   port
+   (
+      clk : in std_logic;
+ 
+      rst : in std_logic;
+      pre : in std_logic;
+      ce  : in std_logic;
+ 
+      d : in std_logic;
+ 
+      q : out std_logic
+   );
+end entity DFF;
+ 
+architecture Behavioral of DFF is
+begin
+   process (clk) is
+   begin
+      if rising_edge(clk) then  
+         if (rst='1') then   
+            q <= '0';
+         elsif (pre='1') then
+            q <= '1';
+         elsif (ce='1') then
+            q <= d;
+         end if;
+      end if;
+   end process;
+end architecture Behavioral;
+
+~~~~~~~~
+
+**With Guarded Block**
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.vhdl}
+-- D Flip Flop with Guarded Block, from Circuit Design with VHDL
+
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+
+ENTITY dff IS
+	PORT (
+		d, clk, rst: IN STD_LOGIC;
+     	q : out std_logic
+END dff;
+
+ARCHITECTURE dff OF dff IS
+BEGIN
+    b1: BLOCK (clk'EVENT AND clk='1')
+	BEGIN
+		q <= GUARDED '0' WHEN rst='1' ELSE d;
+    END BLOCK b1;
+END dff;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+$$
+\begin{circuitikz}
+	\draw
+	(0, 0) node[jkFlipFlop](IC) {}
+	;
+\end{circuitikz}
+$$
+
+
+## Finite State Machines
+
+**Finite State Machines (FSM)** are...
+
+* Moore machine: The FSM uses only entry actions, i.e., output depends only on the state.
+* Mealy machine: The FSM uses only input actions, i.e., output depends on input and state.
+
+
+
+**VHDL Template for FSMs**
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.vhdl}
+-- FSM template: from Circuit Design with VHDL
+
+LIBRARY ieee;
+USE ieee.std_logic_1164.all; 
+-----------------------------------------------------
+ENTITY <entity_name> IS
+   PORT ( input: IN <data_type>;
+          reset, clock: IN STD_LOGIC;
+          output: OUT <data_type>);
+END <entity_name>;
+-----------------------------------------------------
+ARCHITECTURE <arch_name> OF <entity_name> IS
+TYPE state IS (state0, state1, state2, state3, ...);
+   SIGNAL pr_state, nx_state: state;
+BEGIN
+   ---------- Lower section: ------------------------
+   PROCESS (reset, clock)
+   BEGIN
+      IF (reset='1') THEN
+         pr_state <= state0;
+      ELSIF (clock'EVENT AND clock='1') THEN
+         pr_state <= nx_state;
+      END IF;
+   END PROCESS;
+   ---------- Upper section: ------------------------
+   PROCESS (input, pr_state)
+   BEGIN
+      CASE pr_state IS
+         WHEN state0 =>
+            IF (input = ...) THEN
+               output <= <value>;
+               nx_state <= state1;
+ELSE ...
+            END IF;
+         WHEN state1 =>
+            IF (input = ...) THEN
+               output <= <value>;
+               nx_state <= state2;
+ELSE ...
+            END IF;
+         WHEN state2 =>
+            IF (input = ...) THEN
+               output <= <value>;
+               nx_state <= state3;
+ELSE ...
+END IF; ...
+      END CASE;
+   END PROCESS;
+END <arch_name>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+## Lookup tables
+
+A Lookup Table (LUT) can enconde a $n$-bit boolean function, with 1 bit output.
+
+A $n$-bit LUT can be implemented with a mux whose select lines are the $n$ inputs of the LUT and whose $2^n$ inputs are constants.
+
+**2-bit LUT**
+
+| $X_0$ | $X_1$ |  $Y$  |
+| ----- | ----- | ----- |
+|     0 |     0 | $y_0$ |
+|     0 |     1 | $y_1$ |
+|     1 |     0 | $y_2$ |
+|     1 |     1 | $y_3$ |
+
+
+**FPGA logic cell** FPGAs are built of many interconnected logic cells. A basic logic cell could be composed of a 4 LUT, a flipflop and a 2to1 mux to bypass the register. 
+
+$$
+\begin{circuitikz}
+	\draw
+	(2,0) node[jkFlipFlop](LUT) {$4LUT$}
+	(5,-0.5) node[dFlipFlop2x2](DFF) {}
+	(7,0) node[2to1MUX](MUX) {}
+	(LUT.Q) -| (MUX.D0)
+	(LUT.Q) -| (DFF.D)
+	(DFF.Q) -| (MUX.D1)
+	(0, 1) node[ocirc](X0){}
+	(0, 0.5) node[ocirc](X1){}
+	(0, 0) node[ocirc](X2){}
+	(0, -0.5) node[ocirc](X3){}
+	(0, -2.5) node[ocirc](S){}
+	(0, -2) node[ocirc](CLK){}
+	(S) -| (MUX.S)
+	(CLK) -| (DFF.C)
+	;
+\end{circuitikz}
+$$
+
+
+\newpage
+
+# Reference tables
+
+\newpage
+
+## Logic Gates
+
+\tabulinesep=1mm
+\begin{longtabu} to\linewidth{|X[1,m,c]|X[1,m,c]|X[2,m,c]|X[2,m,c]|}
+
+	\hline
+	Gate & Symbol & Rule & Truth table \\
+	\hline
+
+	NOT
+	& 
+	\begin{circuitikz} \draw (0,0) node[not port](notGate) {}; \end{circuitikz}
+	&
+	The NOT gate output is the complementary of the input
+	&
+	not
+	\\
+	\hline
+
+	AND
+	&
+	\begin{circuitikz} \draw (0,0) node[and port](andGate) {}; \end{circuitikz}
+	&
+	The AND gate output is 1 only when all the inputs are 1
+	&
+	and
+	\\
+	\hline
+
+	OR
+	&
+	\begin{circuitikz} \draw (0,0) node[or port](orGate) {}; \end{circuitikz}
+	&
+	The OR gate output is 1 when any of the inputs is 1
+	&
+	or
+	\\
+	\hline
+
+	NAND
+	&
+	\begin{circuitikz} \draw (0,0) node[nand port](nandGate) {}; \end{circuitikz}
+	&
+	The NAND gate output is 0 when all the inputs are 1
+	&
+	or
+	\\
+	\hline
+
+	NOR
+	&
+	NOR
+	\begin{circuitikz} \draw (0,0) node[nor port](norGate) {}; \end{circuitikz}
+	&
+	The NOR gate output is 0 when any of the inputs is 1
+	&
+	or
+	\\
+	\hline
+
+	XOR
+	&
+	\begin{circuitikz} \draw (0,0) node[xor port](xorGate) {}; \end{circuitikz}
+	&
+	The XOR gate output is 1 when all the inputs are not the same
+	&
+	or
+	\\
+	\hline
+
+	XNOR
+	&
+	\begin{circuitikz} \draw (0,0) node[xnor port](xnorGate) {}; \end{circuitikz}
+	&
+	The XNOR gate output when the inputs are not the same
+	&
+	or
+	\\
+	\hline
+
+\end{longtabu}
+
+
+\newpage
+
+## Biestables
+
+$$
+\Tree
+	[.Biestables [.Latches {SR Latch} {Gated SR Latch} {Gated D Latch} ] [.{Flip-Flops} {SR Flip-Flop} {D Flip-Flop} {JK Flip-Flop} ] ]
+$$
+
+\tabulinesep=1mm
+\begin{longtabu} to\linewidth{X[1,m,c]X[1,m,c]}
+
+	\hline
+	Latch & asd \\
+	\hline
+
+	\begin{circuitikz} \draw (0,0) node[srLatch](notGate) {}; \end{circuitikz}
+	&
+	q
+	\\
+	\hline
+
+	\begin{circuitikz} \draw (0,0) node[gsrLatch](notGate) {}; \end{circuitikz}
+	&
+	q
+	\\
+	\hline
+
+	\begin{circuitikz} \draw (0,0) node[gdLatch](notGate) {}; \end{circuitikz}
+	&
+	q
+	\\
+	\hline
+
+\end{longtabu}
+
+\tabulinesep=1mm
+\begin{longtabu} to\linewidth{X[1,m,c]X[1,m,c]}
+
+	\hline
+	FlipFlop & asd \\
+	\hline
+
+	\begin{circuitikz} \draw (0,0) node[srFlipFlop](notGate) {}; \end{circuitikz}
+	&
+	q
+	\\
+	\hline
+
+	\begin{circuitikz} \draw (0,0) node[dFlipFlop](notGate) {}; \end{circuitikz}
+	&
+	q
+	\\
+	\hline
+
+	\begin{circuitikz} \draw (0,0) node[jkFlipFlop](notGate) {}; \end{circuitikz}
+	&
+	q
+	\\
+	\hline
+
+\end{longtabu}
+
+
+\newpage
+
+# Bibliography
+
+* Digital Fundamentals, Thomas L. Floyd, 10th ed. Pearson
+
+
+
+
+# More
+

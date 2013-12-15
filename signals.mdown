@@ -1,0 +1,127 @@
+% Circuit Signals
+% Diego Trapero
+
+#Circuit Signals
+
+**Circuit signal** A circuit signal, $s(t)$, is a function of time that represents the variation of an electrical magnitude in a circuit.
+
+
+
+##Periodic signals
+
+**Periodic signal** A periodic signal is a signal $s(t)$ that fulfills $s(t) = s(t + T)$ for all $t$
+
+**Periodic signal parameters**
+
+* The period is the smallest value of T satisfying $u(t + T) = u(t)$ for all t
+* Frecuency,  $f = 1/T$ $[Hz]$ $[s^{-1}]$
+* Angular frecuency, $\omega = 2 \pi f$ $[rad]$
+* Amplitudes
+	* Peak-to-peak amplitude
+	* Peak amplitude, commonly referred as just amplitude
+
+
+
+###Average value of a periodic signal
+
+The average value $S_{avg}$ or $\bar{s(t)}$ of a periodic signal $S(t)$ is
+
+$$S_{avg} = \bar{s(t)} = \frac{1}{T} \int_{t}^{t+T} s(t) dt$$
+
+* $S_{avg}$ can be negative, positive or zero
+
+**Average power** Average power in a component is a case of the average value of a periodic signal. The average power $P$ or $\bar{p(t)}$ dissipated in a component is
+
+$$ P = \bar{p(t)} = \frac{1}{T} \int_{t}^{t+T} p(t) dt = \frac{1}{T} \int_{t}^{t+T} v(t)i(t) dt$$
+
+
+
+###Root Mean Square of a periodic signal
+
+The Root Mean Square $S_{RMS}$ of a periodic signal $s(t)$ is
+
+$$ S_{RMS} = \sqrt { {1 \over T} \int_{t_0}^{t_0 + T} {s(t)^2 dt} }$$
+
+**Motivation for RMSV of current** RMS Current has the property ... equivalent power AC-DC
+
+The power dissipated in a resistor is $P = v(t) i(t)$. If we write it in terms of $i$ and $R$, $P= i(t) R i(t) = R i(t)^2$.
+
+* Power dissipated in a resistor in a DC circuit is $P = R I^2$
+* We want the same formula ($P = R I^2$) to be valid for average power in AC, using the root mean value of the current: $P = R I_{RMS}^2$
+
+Since the average power is
+
+$$ P = {1 \over T} \int_{t_0}^{t_0 + T} {p(t) dt} = R \left( {1 \over T} \int_{t_0}^{t_0 + T} {i(t)^2 dt} \right)$$
+
+The equation is
+
+$$ P = \cancel{R} \left( {1 \over T} \int_{t_0}^{t_0 + T} {i(t)^2 dt} \right) = \cancel{R} I^2 $$
+
+And the definition of RMS current comes from
+
+$$ I^2 = {1 \over T} \int_{t_0}^{t_0 + T} {i(t)^2 dt} $$
+
+
+
+###Signal Examples
+
+
+
+####Sinusoidal signal
+
+$$s(t) = A \cdot \sin{\omega t + \varphi}$$
+
+**Average value of the sinusoidal signal**
+
+$$ S_{AVG} = \frac{1}{T} \int_{t}^{t+T} A \cos{t} dt$$
+
+$$ S_{AVG} = \frac{A}{T} \left[ \sin{t} \right]_{t}^{t+T} dt = 0 $$
+
+**RMS value of the sinusoidal signal**
+
+\begin{align*}
+S_{RMS} &= \sqrt { {1 \over T} \int_{t_0}^{t_0 + T} { [A \cos{t}]^2 dt} } \\
+        &= \sqrt { {1 \over T} \int_{t_0}^{t_0 + T} { [A \cos{t}^2 dt} } \\
+        &= \sqrt { {A^2 \over T} \int_{t_0}^{t_0 + T} { \frac{1 + \cos{2t} }{2} dt} } \\
+        &= \sqrt { {A^2 \over T} [1/2(t + 1/2 \sin{2t} ) ]_{t}^{t+T} } \\
+        &= \sqrt { {A^2 \over 2T} T } = \sqrt { {A^2 \over 2} } = \frac{A}{\sqrt{2}}
+\end{align*}
+
+###Periodic signal decomposition in Fourier Series
+
+**Motivation** The phasor method can be used to solve circuits with sinusoidal signals (AC circuits), avoiding the necessity of solving the time-domain differential equations. A circuit with other type of waveforms cannot be analysed with this method, unless it is decomposed into its sinusoidal components. The Fourier series allows us to decompose any waveform to a series of sine and cosine functions. Then, we can solve each circuit (an AC circuit for each sinusoidal component of the wave) separatedly and, apllying superposition, add up all the solutions to get the solution of the original circuit.
+
+**Fourier decomposition** Any periodic signal can be decomposed in a sum of a constant value plus a (possibly infinite) series of sine and cosine functions.
+$$s(x) = S_{avg} + \sum_{n=1}^\infty A_n \cos{n \omega t} + \sum_{n=1}^\infty B_n \sin{n \omega t}$$
+
+**Superposition theorem** The superposition theorem for electrical circuits states that for a linear system the response (voltage or current) in any branch of a bilateral linear circuit having more than one independent source equals the algebraic sum of the responses caused by each independent source acting alone, while all other independent sources are cancelled.
+
+**Solving a circuit with a Fourier decomposed periodic signal** From the superposition theorem, we know that the reponse of the circuit can be derived from the contribution of many different signals ...
+
+**Parseval formula** The Parseval formula expresses the RMS value of a signal in terms of the RMS values of the harmonic components of the signal
+$$ S_{RMS}^2 = S_{avg}^2 + S_{1 RMS}^2 + S_{2 RMS}^2 + S_{3 RMS}^2 + ... $$
+
+* *The squared RMS value of a signal is the sum of all the squared RMS values its sinusoidal components*
+* *The RMS value of a signal is the geometric mean of the RMS values of its sinusoidal components*
+
+**Ripple RMS value** In constant signals, ripple are the harmonics other than the signal average value. According to Parseval formula, the RMS value of the ripple is the geometric mean of the RMS values of its sinusoidal components:
+$$ S_{RMS ripple}^2 = S_{1 RMS}^2 + S_{2 RMS}^2 + S_{3 RMS}^2 + ... $$
+
+We can derive the ripple RMS value from the DC signal's Parseval formula:
+$$ S_{RMS}^2 = S_{avg}^2 + S_{1 RMS}^2 + S_{2 RMS}^2 + S_{3 RMS}^2 + ... = S_{avg}^2 + S_{RMSripple}^2 $$
+\begin{align*}
+S_{RMS ripple}^2 &= S_{RMS}^2 - S_{avg}^2 \\
+S_{RMS ripple}   &= \sqrt{ S_{RMS}^2 - S_{avg}^2 }
+\end{align*}
+
+**Average power from harmonics**
+
+$$P = V_{avg} I_{avg} + V_{1 RMS} I_{1 RMS} \cos{\varphi_1} + V_{2 RMS} I_{2 RMS} \cos{\varphi_2} + ... $$
+
+* Only same frecuency harmonics produce power.
+
+
+
+
+
+

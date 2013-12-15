@@ -1,0 +1,2199 @@
+% Rectifier Tables
+% Diego Trapero
+
+
+
+
+# Rectifier Tables
+
+1. Monophasic Uncontrolled Rectifiers with R load
+2. Monophasic Uncontrolled Full Wave Rectifier loads
+3. Monophasic Controlled Full Wave Rectifier, R vs RL load
+4. Triphasic Uncontrolled Rectifiers with R load
+5. Triphasic Controlled Half Wave Rectifier, R vs RL load
+6. Triphasic Controlled Full Wave Rectifier, R vs RL load
+
+\newpage
+
+
+
+
+## Monophasic Uncontrolled Rectifiers with R load
+
+\tabulinesep=1mm
+\begin{longtabu} to\linewidth{|X[0.6,m,c]|X[2,m,c]|X[2,m,c]|}
+
+	\hline
+	What & Half Wave Rectifier & Full Wave Rectifier \\
+	\hline
+
+	Circuit Diagram
+	&
+	$$ % AC to DC Half Wave rectifier, by Diego Trapero
+	\begin{circuitikz}[scale = 0.5, transform shape]
+		\draw
+		(0,0) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](0,4)
+		(0,4) to[diode, l^=$D$](4,4)
+		(0,0) to[short](4,0)
+		(4,4) to[R, l=$R$, v_<=$v_o$](4,0)
+		;
+	\end{circuitikz}
+	$$
+	&
+	$$ % AC to DC Full Wave rectifier, by Diego Trapero
+	\begin{circuitikz}[scale = 0.5, transform shape]
+		\draw
+		%Sinusoidal source and connections
+		(0,2) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](0,4)
+		(0,2) to[short](4,2)
+		(4,2) node[circ] {}
+		(0,4) to[short](2,4)
+		(2,4) node[circ] {}
+		%Rectifier branch left
+		(2,0) to[diode, l^=$D3$](2,2)
+		(2,2) to[short](2,4)
+		(2,4) to[diode, l^=$D1$](2,6)
+		%Rectifier branch right
+		(4,0) to[diode, l^=$D4$](4,2)
+		(4,2) to[short](4,4)
+		(4,4) to[diode, l^=$D2$](4,6)
+		%Load and connections
+		(2,6) to[short](8,6) %upper node
+		(2,0) to[short](8,0) %lower node
+		(8,6) to[R](8,0) %load
+		;
+	\end{circuitikz}
+	$$
+	\\
+	\hline
+
+	$v_i > 0$ equivalent
+	&
+	$$ % AC to DC Half Wave rectifier, by Diego Trapero
+	\begin{circuitikz}[scale = 0.5, transform shape]
+		\draw
+		(0,0) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](0,4)
+		(0,4) to[short](4,4)
+		(0,0) to[short](4,0)
+		(4,4) to[R, l=$R$, v_<=$v_o$](4,0)
+		;
+	\end{circuitikz}
+	$$
+	&
+	$$ % AC to DC Full Wave rectifier, by Diego Trapero
+	\begin{circuitikz}[scale = 0.5, transform shape]
+		\draw
+		%Sinusoidal source and connections
+		(0,2) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](0,4)
+		(0,2) to[short](4,2)
+		(4,2) node[circ] {}
+		(0,4) to[short](2,4)
+		(2,4) node[circ] {}
+		%Rectifier branch left
+		(2,0) to[open](2,2)
+		(2,4) to[short](2,6)
+		%Rectifier branch right
+		(4,0) to[short](4,2)
+		(4,4) to[open](4,6)
+		%Load and connections
+		(2,6) to[short](8,6) %upper node
+		(4,0) to[short](8,0) %lower node
+		(8,6) to[R](8,0) %load
+		;
+	\end{circuitikz}
+	$$
+	\\
+	\hline
+
+	$v_i < 0$ equivalent
+	&
+	$$ % AC to DC Half Wave rectifier, by Diego Trapero
+	\begin{circuitikz}[scale = 0.5, transform shape]
+		\draw
+		(0,0) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](0,4)
+		(0,4) to[open](4,4)
+		(0,0) to[short](4,0)
+		(4,4) to[R, l=$R$, v_<=$v_o$](4,0)
+		;
+	\end{circuitikz}
+	$$
+	&
+	$$ % AC to DC Full Wave rectifier, by Diego Trapero
+	\begin{circuitikz}[scale = 0.5, transform shape]
+		\draw
+		%Sinusoidal source and connections
+		(0,2) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](0,4)
+		(0,2) to[short](4,2)
+		(4,2) node[circ] {}
+		(0,4) to[short](2,4)
+		(2,4) node[circ] {}
+		%Rectifier branch left
+		(2,0) to[short](2,2)
+		(2,2) to[short](2,4)
+		(2,4) to[open](2,6)
+		%Rectifier branch right
+		(4,0) to[open](4,2)
+		(4,2) to[short](4,4)
+		(4,4) to[short](4,6)
+		%Load and connections
+		(4,6) to[short](8,6) %upper node
+		(2,0) to[short](8,0) %lower node
+		(8,6) to[R](8,0) %load
+		;
+	\end{circuitikz}
+	$$
+	\\
+	\hline
+
+	Diode table
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	$v_o$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=0:pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=pi:2*pi,samples=100]{0};
+			\addplot[no marks,red,-] expression[domain=2*pi:3*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=3*pi:4*pi,samples=100]{0};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=0:pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=pi:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=2*pi:3*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=3*pi:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$\bar{v_o}$
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	$i_o = i_R$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$i_i$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	Diodes Voltage $v_d$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	
+\end{longtabu}
+
+\newpage
+
+
+
+
+## Monophasic Uncontrolled Full Wave Rectifier loads
+
+\tabulinesep=1mm
+\begin{longtabu} to\linewidth{|X[1,m,c]|X[2,m,c]|X[2,m,c]|X[2,m,c]|}
+
+	\hline
+	What & R load & RC load & RLC load \\
+	\hline
+
+	Circuit Diagram
+	&
+	$$ % AC to DC Full Wave Rectifier with R load, by Diego Trapero
+	\begin{circuitikz}[scale = 0.6, transform shape]
+		\draw
+		(0,0) node[fullWaveRectifier](FWR){}
+		(-19mm, -5mm) to[sinusoidal voltage source](-19mm, 5mm)
+		(9mm, 5mm) to[short](19mm,5mm)
+		(19mm, 5mm) to[open](19mm,-5mm)
+		(29mm, 5mm) to[R](29mm,-5mm)
+		(-19mm, 5mm) -- (FWR.1)
+		(-19mm, -5mm) -- (FWR.2)
+		(19mm,5mm) -- (29mm, 5mm)
+		(FWR.3) -- (29mm,-5mm)
+		;
+	\end{circuitikz}
+	$$	
+	&
+	$$ % AC to DC Full Wave Rectifier with RC load, by Diego Trapero
+	\begin{circuitikz}[scale = 0.6, transform shape]
+		\draw
+		(0,0) node[fullWaveRectifier](FWR){}
+		(-19mm, -5mm) to[sinusoidal voltage source](-19mm, 5mm)
+		(9mm, 5mm) to[short](19mm,5mm)
+		(19mm, 5mm) to[C](19mm,-5mm)
+		(29mm, 5mm) to[R](29mm,-5mm)
+		(-19mm, 5mm) -- (FWR.1)
+		(-19mm, -5mm) -- (FWR.2)
+		(19mm,5mm) -- (29mm, 5mm)
+		(FWR.3) -- (29mm,-5mm)
+		;
+	\end{circuitikz}
+	$$
+	&
+	$$ % AC to DC Full Wave Rectifier with RLC load, by Diego Trapero
+	\begin{circuitikz}[scale = 0.6, transform shape]
+		\draw
+		(0,0) node[fullWaveRectifier](FWR){}
+		(-19mm, -5mm) to[sinusoidal voltage source](-19mm, 5mm)
+		(9mm, 5mm) to[L](19mm,5mm)
+		(19mm, 5mm) to[C](19mm,-5mm)
+		(29mm, 5mm) to[R](29mm,-5mm)
+		(-19mm, 5mm) -- (FWR.1)
+		(-19mm, -5mm) -- (FWR.2)
+		(19mm,5mm) -- (29mm, 5mm)
+		(FWR.3) -- (29mm,-5mm)
+		;
+	\end{circuitikz}
+	$$
+	\\
+	\hline
+
+	$v_o$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=0:pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=pi:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=2*pi:3*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=3*pi:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=0:pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=pi:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=2*pi:3*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=3*pi:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=0:pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=pi:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=2*pi:3*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=3*pi:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$v_R$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$\bar{v_R}$
+	&
+	\vspace{40mm}
+	&
+	\vspace{40mm}
+	&
+	\vspace{40mm}
+	\\
+
+	$i_R$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$i_o$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$i_i$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$i_{D1}$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$i_{D3}$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$i_C$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	
+\end{longtabu}
+
+\newpage
+
+
+
+## Monophasic Controlled Full Wave Rectifier, R vs RL load
+
+\tabulinesep=1mm
+\begin{longtabu} to\linewidth{|X[0.6,m,c]|X[2,m,c]|X[2,m,c]|}
+
+	\hline
+	What & Controlled FWR R load & Controlled FWR RL load \\
+	\hline
+
+	Circuit Diagram
+	&
+	$$ % AC to DC Full Wave rectifier, by Diego Trapero
+	\begin{circuitikz}[scale = 0.5, transform shape]
+		\draw
+		%Sinusoidal source and connections
+		(0,2) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](0,4)
+		(0,2) to[short](4,2)
+		(4,2) node[circ] {}
+		(0,4) to[short](2,4)
+		(2,4) node[circ] {}
+		%Rectifier branch left
+		(2,0) to[diode, l^=$D3$](2,2)
+		(2,2) to[short](2,4)
+		(2,4) to[diode, l^=$D1$](2,6)
+		%Rectifier branch right
+		(4,0) to[diode, l^=$D4$](4,2)
+		(4,2) to[short](4,4)
+		(4,4) to[diode, l^=$D2$](4,6)
+		%Load and connections
+		(2,6) to[short](8,6) %upper node
+		(2,0) to[short](8,0) %lower node
+		(8,6) to[R](8,0) %load
+		;
+	\end{circuitikz}
+	$$
+	&
+	$$ % AC to DC Full Wave rectifier, by Diego Trapero
+	\begin{circuitikz}[scale = 0.5, transform shape]
+		\draw
+		%Sinusoidal source and connections
+		(0,2) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](0,4)
+		(0,2) to[short](4,2)
+		(4,2) node[circ] {}
+		(0,4) to[short](2,4)
+		(2,4) node[circ] {}
+		%Rectifier branch left
+		(2,0) to[diode, l^=$D3$](2,2)
+		(2,2) to[short](2,4)
+		(2,4) to[diode, l^=$D1$](2,6)
+		%Rectifier branch right
+		(4,0) to[diode, l^=$D4$](4,2)
+		(4,2) to[short](4,4)
+		(4,4) to[diode, l^=$D2$](4,6)
+		%Load and connections
+		(2,6) to[short](8,6) %upper node
+		(2,0) to[short](8,0) %lower node
+		(8,6) to[R](8,0) %load
+		;
+	\end{circuitikz}
+	$$
+	\\
+	\hline
+
+	$v_o$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$v_R$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$\bar{v_o}(\alpha)$
+	&
+	$$ \bar{v_o} = \frac{V_i}{\pi} ( \cos{\alpha} + 1 ) $$
+	&
+	$$ \bar{v_o} = \frac{2 V_i}{\pi} \cos{\alpha} $$
+	\\
+	\hline
+
+	Thyristor table
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	$i_o(t)$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$\bar{i_o}$
+	&
+	\vspace{20mm}
+	&
+	\vspace{20mm}
+	\\
+	\hline
+
+	$i_i(t)$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$v_{T1}(t)$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	Power Factor
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+	
+\end{longtabu}
+
+\newpage
+
+
+## Triphasic Uncontrolled Rectifiers with R load
+
+\tabulinesep=1mm
+\begin{longtabu} to\linewidth{|X[0.6,m,c]|X[2,m,c]|X[2,m,c]|}
+
+	\hline
+	What & $3 \Phi$ Half Wave Rectifier & $3 \Phi$ Full Wave Rectifier \\
+	\hline
+
+	Circuit Diagram
+	&
+	\vspace{40mm}
+	&
+	\vspace{40mm}
+	\\
+	\hline
+
+	$v_o$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	Peaks/period
+	&
+	3 peaks/period
+	&
+	3 peaks/period
+	\\
+	\hline
+
+	Period
+	&
+	$$ \frac{2\pi}{3} $$
+	&
+	$$ \frac{2\pi}{6} = \frac{\pi}{3} $$
+	\\
+	\hline
+
+	Integration limits
+	&
+	$$ \frac{\pi}{6}, \frac{5\pi}{6} $$
+	&
+	\vspace{10mm}
+	\\
+	\hline
+
+	Load Voltage
+	&
+	Phase Voltage
+	&
+	Line Voltage
+	\\
+	\hline
+
+	$\bar{v_o}$
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	Diode table
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	$i_o$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$i_i$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	
+\end{longtabu}
+
+
+\newpage
+
+
+
+## Triphasic Controlled Half Wave Rectifier, R vs RL load
+
+\tabulinesep=1mm
+\begin{longtabu} to\linewidth{|X[0.6,m,c]|X[2,m,c]|X[2,m,c]|}
+
+	\hline
+	What & $3 \Phi$ Controlled HWR R load & $3 \Phi$ Controlled HWR R load \\
+	\hline
+
+	Circuit Diagram
+	&
+	\vspace{40mm}
+	&
+	\vspace{40mm}
+	\\
+	\hline
+
+	$v_o$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$v_R$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	Peaks/period
+	&
+	3 peaks/period
+	&
+	3 peaks/period
+	\\
+	\hline
+
+	Period
+	&
+	\vspace{10mm}
+	&
+	\vspace{10mm}
+	\\
+	\hline
+
+	Integration limits
+	&
+	\vspace{10mm}
+	&
+	\vspace{10mm}
+	\\
+	\hline
+
+	Load Voltage
+	&
+	\vspace{10mm}
+	&
+	\vspace{10mm}
+	\\
+	\hline
+
+	$\bar{v_o}(\alpha)$
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	Thyristor table
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	$i_o$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$i_i$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	
+\end{longtabu}
+
+
+\newpage
+
+
+
+
+## Triphasic Controlled Full Wave Rectifier, R vs RL load
+
+\tabulinesep=1mm
+\begin{longtabu} to\linewidth{|X[0.6,m,c]|X[2,m,c]|X[2,m,c]|}
+
+	\hline
+	What & $3 \Phi$ Controlled FWR R load & $3 \Phi$ Controlled FWR R load \\
+	\hline
+
+	Circuit Diagram
+	&
+	\vspace{40mm}
+	&
+	\vspace{40mm}
+	\\
+	\hline
+
+	$v_o$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$v_R$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	Peaks/period
+	&
+	6 peaks/period
+	&
+	6 peaks/period
+	\\
+	\hline
+
+	Period
+	&
+	\vspace{10mm}
+	&
+	\vspace{10mm}
+	\\
+	\hline
+
+	Integration limits
+	&
+	\vspace{10mm}
+	&
+	\vspace{10mm}
+	\\
+	\hline
+
+	Load Voltage
+	&
+	\vspace{10mm}
+	&
+	\vspace{10mm}
+	\\
+	\hline
+
+	$\bar{v_o}(\alpha)$
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	Thyristor table
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	$i_o$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	$i_i$
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=6.5,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28},
+			xticklabels={0, $\pi$, $2\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{sin(deg(x-2.09440))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-1.04719))};
+			\addplot[no marks,gray,-] expression[domain=0:2*pi,samples=100]{-sin(deg(x-2.09440))};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	
+\end{longtabu}
+
+
+\newpage

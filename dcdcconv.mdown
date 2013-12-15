@@ -1,0 +1,214 @@
+% DC to DC Converters
+% Diego Trapero
+
+#DC to DC Converters
+
+**Analysis hypothesis for the DC-DC converter**
+
+1. Periodic Steady state condition. The converter is in a periodic steady state regime, so all the waveforms are periodic.	If the circuit is in PSS, the following is also true:
+
+	i. At the inductors, the average voltage is zero, $v_L = 0$.
+
+	ii. At the capacitors, the average current is zero, $i_L = 0$
+
+2. No power loss, unitary efficiency: $\eta = \frac{P_i}{P_o} = 1$
+
+3. The voltage in the capacitors is considered to be approximately constant, $v_c \approx \text{constant}$
+
+4. Ideal components: diodes, switches, capacitors...
+
+Proof of 1.ii:
+
+
+Small ripple approximation: In a well-designed converter, the output voltage ripple is small. Hence,
+the waveforms can be easily determined by ignoring the ripple:
+v_o(t) approx V
+
+**Converter types:**
+
+* **Step-down**: A converter where output voltage is lower than the input voltage (like a Buck converter).
+* **Step-up**: A converter that outputs a voltage higher than the input voltage (like a Boost converter).
+
+**Converter operation regimes, conduction modes:**
+
+* **Continuous Current Mode**: Current and thus the magnetic field in the inductive energy storage never reach zero.
+* **Discontinuous Current Mode**: Current and thus the magnetic field in the inductive energy storage may reach or cross zero.
+
+**Control signal** The control signal of a DC converter is a square signal, which applied to the MOSFET or IGBT gate is responsible of switching of the current.
+
+The control signal is a square function
+
+$$ f(t) = $$ 
+
+Some of the parameters of the control signal are:
+
+* $T$, period of the signal
+* $t_{ON}$, time of high value
+* $t_{OFF}$, time of low value (zero)
+* $D$, duty cycle
+
+$$ D = \frac{t_{ON}}{T} $$
+
+**Switching component** 
+
+
+## Step-down Converter (Buck)
+
+$$ % DC to DC Buck Converter, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1, v^>=$v_i$, i^>=$i_i$](0,2)
+	(0,2) to[closing switch](2,2)
+	(0,0) to[short](2,0)
+	(2,0) to[diode, i^>=$i_D$, v_<=$v_D$](2,2)
+	(2,0) to[short](4,0)
+	(2,2) to[L, v^<=$v_L$, i_>=$i_L$](4,2)
+	(4,2) to[C, i^>=$i_C$](4,0)
+	(4,2) to[short, i^>=$i_o$](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R, l=$R$, v_<=$v_o$](6,0)
+	;
+\end{circuitikz}
+$$
+
+**State of the diode**
+
+* **ON Circuit**: During the ON state of the circuit, the diode is backwards polarized by the DC source (OFF, not conducting).
+
+$$ % Buck Converter ON with diode, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1](0,2)
+	(0,2) to[short](2, 2) % Make the open switch
+	(1.33,2) node[circ] {}
+	(0.66, 2) node[circ] {} % End of the open switch
+	(0,0) to[short](2,0)
+	(2,0) to[diode](2,2)
+	(2,0) to[short](4,0)
+	(2,2) to[L](4,2)
+	(4,2) to[C](4,0)
+	(4,2) to[short](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R](6,0)
+	;
+\end{circuitikz}
+$$
+
+* **OFF circuit**. We can't know the state of the diode until the $v_o$ and $v_L$ voltages are known. Since in the ON circuit the diode is not conducting, the diode should be conducting in the OFF circuit or it won't have a purpouse in the circuit. We suposse the diode to be forward polarized (ON or conducting state), although at the end of the circuit analysis it will be necessary to check if the hypothesis was correct.
+
+$$ % Buck Converter OFF with diode, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1](0,2)
+	(0,2) to[short](0.66, 2) % Make the open switch
+	(1.33,2) to[short](2,2) 
+	(1.33,2) node[circ] {}
+	(0.66, 2) node[circ] {} % End of the open switch
+	(0,0) to[short](2,0)
+	(2,0) to[diode](2,2)
+	(2,0) to[short](4,0)
+	(2,2) to[L](4,2)
+	(4,2) to[C](4,0)
+	(4,2) to[short](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R](6,0)
+	;
+\end{circuitikz}
+$$
+
+**ON equivalent circuit**
+
+$$ % Buck Converter ON, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1](0,2)
+	(0,2) to[short](0.66, 2) % Switch
+	(1.33,2) to[short](2,2) 
+	(1.33,2) node[circ] {}
+	(0.66, 2) node[circ] {} % End switch
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %Diode
+	(2,1.33) to[short](2,2)
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End Diode
+	(0,2) to[short](2,2) %Close switch
+	(2,0) to[short](4,0)
+	(2,2) to[L](4,2)
+	(4,2) to[C](4,0)
+	(4,2) to[short](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R](6,0)
+	;
+\end{circuitikz}
+$$
+
+**OFF equivalent circuit**
+
+$$ % Buck Converter OFF, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1](0,2)
+	(0,2) to[short](0.66, 2) % Switch
+	(1.33,2) to[short](2,2) 
+	(1.33,2) node[circ] {}
+	(0.66, 2) node[circ] {} % End switch
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %Diode
+	(2,1.33) to[short](2,2)
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End Diode
+	(2,0) to[short](2,2) %Close diode
+	(2,0) to[short](4,0)
+	(2,2) to[L](4,2)
+	(4,2) to[C](4,0)
+	(4,2) to[short](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R](6,0)
+	;
+\end{circuitikz}
+$$
+
+**Inductor voltage**
+
+1. ON Circuit, KVL: $v_i = v_L + v_o \rightarrow v_L = v_i - v_o$
+2. OFF circuit, KVL: $0 = v_L + v_o \rightarrow v_L = - v_o$
+
+To know the sign of the voltage in the inductor, we need to obtain the sign of $v_i$ and $v_o$ first. Knowing that this is a step-down and non-inverting converter, we can suppose both $v_i$ and $v_o$ positive and $v_i > v_o$. To demostrate this is the case, we have to apply the periodic steady state of the inductor condition.
+
+1. In periodic steady state, the average voltage of an inductor is zero, $\bar{v_L} = 0$
+
+
+## Step-up Converter (Boost)
+
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1, v^>=$v_s$, i^>=$i_i$](0,2)
+	(0,2) to[L, v^<=$v_L$, i_>=$i_L$](2,2)
+	(0,0) to[short](2,0)
+	(2,0) to[opening switch](2,2)
+	(2,2) to[diode, i^>=$i_D$, v_<=$v_D$](4,2)
+	
+	(2,0) to[short](4,0)
+	(4,2) to[C, i^>=$i_C$](4,0)
+	(4,2) to[short, i^>=$i_o$](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R, l=$R$, v_<=$v_o$](6,0)
+	;
+\end{circuitikz}
+
+## Buck-Boost Converter 
+
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1, v^>=$v_s$, i^>=$i_i$](0,2)
+	(0,2) to[opening switch](2,2)
+	(2,2) to[L, v^<=$v_L$, i_>=$i_L$](2,0)
+	(0,0) to[short](2,0)
+	(4,2) to[diode, i>=$i_D$, v_<=$v_D$](2,2)
+	(2,0) to[short](4,0)
+	(4,2) to[C, i^>=$i_C$](4,0)
+	(4,2) to[short, i^>=$i_o$](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R, l=$R$, v_>=$v_o$](6,0)
+	;
+\end{circuitikz}

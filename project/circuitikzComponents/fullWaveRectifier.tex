@@ -1,0 +1,32 @@
+\pgfdeclareshape{fullWaveRectifier}{
+  \anchor{center}{\pgfpointorigin} % within the node, (0,0) is the center
+
+  \anchor{text} % this is used to center the text in the node
+  {\pgfpoint{-.5\wd\pgfnodeparttextbox}{-.5\ht\pgfnodeparttextbox}}
+
+  \savedanchor\icpina{\pgfpoint{-9mm}{+5mm}} % pin 1
+  \anchor{1}{\icpina}
+  \savedanchor\icpind{\pgfpoint{-9mm}{-5mm}} % pin 4
+  \anchor{2}{\icpind}
+  \savedanchor\icpine{\pgfpoint{+9mm}{-5mm}} % pin 5
+  \anchor{3}{\icpine}
+  \savedanchor\icpinh{\pgfpoint{+9mm}{+5mm}} % pin 8
+  \anchor{4}{\icpinh}
+
+  \foregroundpath{ % border and pin numbers are drawn here
+    \pgfsetlinewidth{0.03cm}
+    \pgfpathrectanglecorners{\pgfpoint{6mm}{10mm}}{\pgfpoint{-6mm}{-10mm}}
+    \pgfusepath{draw} %draw rectangle
+    % Pin wires
+    \pgfsetlinewidth{0.01cm}
+    \draw
+      (-9mm, 5mm) -- (-6mm, +5mm)
+      (-9mm, -0.5cm) -- (-6mm, -5mm)
+      (+6mm, -5mm) -- (+9mm, -5mm)
+      (+6mm, +5mm) -- (+9mm, 5mm)
+    ;
+    \draw
+      (0,-5mm) to[diode](0,+5mm)
+    ;
+  }
+}

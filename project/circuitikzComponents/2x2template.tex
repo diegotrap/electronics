@@ -1,0 +1,47 @@
+\pgfdeclareshape{2x2template}{
+  \anchor{center}{\pgfpointorigin} % within the node, (0,0) is the center
+
+  \anchor{text} % this is used to center the text in the node
+  {\pgfpoint{-.5\wd\pgfnodeparttextbox}{-.5\ht\pgfnodeparttextbox}}
+
+  \savedanchor\icpina{\pgfpoint{-9mm}{+5mm}} % pin 1
+  \anchor{1}{\icpina}
+  \savedanchor\icpind{\pgfpoint{-9mm}{-5mm}} % pin 4
+  \anchor{2}{\icpind}
+  \savedanchor\icpine{\pgfpoint{+9mm}{-5mm}} % pin 5
+  \anchor{3}{\icpine}
+  \savedanchor\icpinh{\pgfpoint{+9mm}{+5mm}} % pin 8
+  \anchor{4}{\icpinh}
+
+  \foregroundpath{ % border and pin numbers are drawn here
+    \pgfsetlinewidth{0.03cm}
+    \pgfpathrectanglecorners{\pgfpoint{6mm}{10mm}}{\pgfpoint{-6mm}{-10mm}}
+    \pgfusepath{draw} %draw rectangle
+    \pgfsetlinewidth{0.02cm}
+    \pgfmoveto{\pgfpoint{-.3cm}{10mm}}
+    \pgfpatharc{-180}{0}{.3cm}
+    \pgfusepath{draw} %draw semicircle
+    % Pin labels
+    \pgftext[left,at={\pgfpoint{-5mm}{+5mm}}]{\scriptsize $1$}
+    \pgftext[left,at={\pgfpoint{-5mm}{-5mm}}]{\scriptsize $2$}
+    \pgftext[right,at={\pgfpoint{+5mm}{-5mm}}]{\scriptsize $3$}
+    \pgftext[right,at={\pgfpoint{+5mm}{+5mm}}]{\scriptsize $4$}
+    % Pin wires
+    \pgfsetlinewidth{0.01cm}
+    \draw
+      (-9mm, 5mm) -- (-6mm, +5mm)
+      (-9mm, -0.5cm) -- (-6mm, -5mm)
+      (+6mm, -5mm) -- (+9mm, -5mm)
+      (+6mm, +5mm) -- (+9mm, 5mm)
+    ;
+    %Low-active bubbles, delete if unnecessary
+    \fill[color=white] (-6.9mm, +5mm) circle (.7mm); %1 is low-active
+    \draw (-6.9mm, +5mm) circle (.8mm);
+    \fill[color=white] (-6.9mm, -5mm) circle (.7mm); %2 is low-active
+    \draw (-6.9mm, -5mm) circle (.8mm);
+    \fill[color=white] (+6.9mm, -5mm) circle (.7mm); %3 is low-active
+    \draw (+6.9mm, -5mm) circle (.8mm);
+    \fill[color=white] (+6.9mm, +5mm) circle (.7mm); %4 is low-active
+    \draw (+6.9mm, +5mm) circle (.8mm);
+  }
+}

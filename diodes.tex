@@ -1,0 +1,160 @@
+\documentclass[a4paper, 9pt]{article}
+\usepackage{etex} %fix for error: http://tex.stackexchange.com/questions/7896/no-room-for-a-new-dimen-when-including-tikz
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+
+% Geometry, margin settings, column spacing
+\usepackage[a4paper, top=15mm, bottom=15mm, left=20mm, right=15mm]{geometry}
+\setlength{\columnsep}{8mm}
+
+% My packages
+\usepackage[americanvoltages, americancurrents]{circuitikz}
+  % Component sizes
+  \ctikzset{bipoles/length=0.9cm}
+  \tikzset{diode/.append style={bipoles/length=0.7cm}}
+  \tikzset{battery1/.append style={bipoles/length=1.4cm}}
+  \tikzset{voltage source/.append style={bipoles/length=1.2cm}}
+  \tikzset{current source/.append style={bipoles/length=1.2cm}}
+
+  %My Components
+  \input{project/circuitikzComponents/ic8pin.tex}
+  \input{project/circuitikzComponents/2x2template.tex}
+  \input{project/circuitikzComponents/halfAdder.tex}
+  \input{project/circuitikzComponents/srLatch.tex}
+  \input{project/circuitikzComponents/fullWaveRectifier.tex}
+  \input{project/circuitikzComponents/dFlipFlop2x2.tex}
+  \input{project/circuitikzComponents/3x3template.tex}
+  \input{project/circuitikzComponents/fullAdder.tex}
+  \input{project/circuitikzComponents/gsrLatch.tex}
+  \input{project/circuitikzComponents/gdLatch.tex}
+  \input{project/circuitikzComponents/srFlipFlop.tex}
+  \input{project/circuitikzComponents/dFlipFlop.tex}
+  \input{project/circuitikzComponents/jkFlipFlop.tex}
+  \input{project/circuitikzComponents/2to1MUX.tex}
+
+
+%\usepackage{multicol}
+\usepackage{pgfplots} % to plto functions
+\usepackage{cancel} % to cancel math expressions \cancel{}, \cancelto{}{}
+\usepackage{soul} %to highlight text, only meant to be used in drafts, \hl{text}. Doesn't seem to accept accents
+\usepackage{longtable} %required for longtabu
+\usepackage{tabu}
+
+
+\usepackage{tikz-qtree} %trees
+
+\tikzset{grow'=right,level distance=80pt} %horizontal trees
+\tikzset{execute at begin node=\strut}
+\tikzset{every tree node/.style={anchor=base west}}
+
+% My fonts
+
+% Ad parenthesis to the argument of some functions, for example, \sin, \cos, \log
+% From: http://tex.stackexchange.com/questions/35636/add-missing-to-mathematical-functions/35646#35646
+\newcommand*{\redefinesymbolwitharg}[1]{%
+  \expandafter\newcommand\csname ltx#1\endcsname{}%
+  \expandafter\let\csname ltx#1\expandafter\endcsname\csname #1\endcsname
+  \expandafter\renewcommand\csname #1\endcsname[1]{%
+   \csname ltx#1\endcsname\left(##1\right)%
+ }%
+}
+
+\redefinesymbolwitharg{sin}
+\redefinesymbolwitharg{cos} 
+\redefinesymbolwitharg{tan}
+\redefinesymbolwitharg{sec}
+\redefinesymbolwitharg{csc}
+\redefinesymbolwitharg{cot}
+\redefinesymbolwitharg{log}
+
+
+% Headings
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\sffamily\huge\bfseries\color{blue}}
+  {\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titleformat{\section}
+  {\normalfont\sffamily\Large\bfseries\color{cyan}}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\sffamily\large\bfseries\color{cyan}}
+  {\thesection}{1em}{}
+\titleformat{\subsubsection}
+  {\normalfont\sffamily\normalsize\bfseries\color{cyan}}
+  {\thesection}{1em}{}
+
+% Set custom table of contents title
+\renewcommand{\contentsname}{Table of contents}
+
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \usepackage{fontspec}
+  \ifxetex
+    \usepackage{xltxtra,xunicode}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+
+
+
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={},
+            colorlinks=true,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+\author{}
+\date{}
+
+\begin{document}
+
+{
+\hypersetup{linkcolor=black}
+\setcounter{tocdepth}{4}
+\tableofcontents
+\clearpage
+}
+
+
+\setcounter{secnumdepth}{4}
+% Body
+%\begin{multicols}{2}
+\[ \begin{circuitikz} 
+    \draw
+    (0,0) node[op amp](opamp){}
+    (opamp.+) node[left] {$v1$}
+    (opamp.−) node[left] {$v2$}
+    (opamp.out) node[right] {$v3$}
+    (opamp.down) node[ground] {}
+    (opamp.up) ++ (0,.5) node[above] {$12V$}
+    −− (opamp.up);
+\end{circuitikz}
+\]
+%\end{multicols}
+
+
+\end{document}

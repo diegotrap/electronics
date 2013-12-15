@@ -1,0 +1,47 @@
+\pgfdeclareshape{jkFlipFlop}{
+  \anchor{center}{\pgfpointorigin} % within the node, (0,0) is the center
+
+  \anchor{text} % this is used to center the text in the node
+  {\pgfpoint{-.5\wd\pgfnodeparttextbox}{-.5\ht\pgfnodeparttextbox}}
+
+  \savedanchor\icpina{\pgfpoint{-9mm}{+10mm}} % pin 1
+  \anchor{J}{\icpina}
+  \savedanchor\icpind{\pgfpoint{-9mm}{0mm}} % pin 2
+  \anchor{C}{\icpind}
+  \savedanchor\icpine{\pgfpoint{-9mm}{-10mm}} % pin 3
+  \anchor{K}{\icpine}
+  \savedanchor\icpinh{\pgfpoint{+9mm}{-10mm}} % pin 4
+  \anchor{notQ}{\icpinh}
+  \savedanchor\icpinh{\pgfpoint{+9mm}{+10mm}} % pin 6
+  \anchor{Q}{\icpinh}
+
+  \foregroundpath{ % border and pin numbers are drawn here
+    \pgfsetlinewidth{0.03cm}
+    \pgfpathrectanglecorners{\pgfpoint{6mm}{15mm}}{\pgfpoint{-6mm}{-15mm}}
+    \pgfusepath{draw} %draw rectangle
+    % Pin labels
+    \pgftext[left,at={\pgfpoint{-4.5mm}{+10mm}}]{\scriptsize $J$}
+    \pgftext[left,at={\pgfpoint{-4.5mm}{0mm}}]{\scriptsize $C$}
+    \pgftext[left,at={\pgfpoint{-4.5mm}{-10mm}}]{\scriptsize $K$}
+    \pgftext[right,at={\pgfpoint{+4.5mm}{-10mm}}]{\scriptsize $\bar{Q}$}
+    \pgftext[right,at={\pgfpoint{+4.5mm}{+10mm}}]{\scriptsize $Q$}
+    % Pin wires
+    \pgfsetlinewidth{0.01cm}
+    \draw
+      (-9mm, 10mm) -- (-6mm, +10mm) %1
+      (-9mm, 0mm) -- (-6mm, 0mm) %2
+      (-9mm, -10mm) -- (-6mm, -10mm) %3
+      (+6mm, -10mm) -- (+9mm, -10mm) %4
+      (+6mm, +10mm) -- (+9mm, +10mm) %6
+    ;
+    %Clock input triangle in pin 2
+    \pgfsetlinewidth{0.02cm}
+    \draw
+      (-6mm, 1mm) -- (-4.5mm, 0mm)
+      (-4.5mm, 0mm) -- (-6mm, -1mm)
+    ;
+    %Low-active bubbles, delete if unnecessary
+    \fill[color=white] (+6.9mm, -10mm) circle (.7mm); %4 is low-active
+    \draw (+6.9mm, -10mm) circle (.8mm);
+  }
+}

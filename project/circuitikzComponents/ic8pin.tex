@@ -1,0 +1,41 @@
+  \pgfdeclareshape{ic8pin}{
+    \anchor{center}{\pgfpointorigin} % within the node, (0,0) is the center
+
+    \anchor{text} % this is used to center the text in the node
+    {\pgfpoint{-.5\wd\pgfnodeparttextbox}{-.5\ht\pgfnodeparttextbox}}
+
+    \savedanchor\icpina{\pgfpoint{-.75cm}{-.625cm}} % pin 1
+    \anchor{p1}{\icpina}
+    \savedanchor\icpinb{\pgfpoint{-.25cm}{-.625cm}} % pin 2
+    \anchor{p2}{\icpinb}
+    \savedanchor\icpinc{\pgfpoint{.25cm}{-.625cm}} % pin 3
+    \anchor{p3}{\icpinc}
+    \savedanchor\icpind{\pgfpoint{.75cm}{-.625cm}} % pin 4
+    \anchor{p4}{\icpind}
+    \savedanchor\icpine{\pgfpoint{.75cm}{.625cm}} % pin 5
+    \anchor{p5}{\icpine}
+    \savedanchor\icpinf{\pgfpoint{.25cm}{.625cm}} % pin 6
+    \anchor{p6}{\icpinf}
+    \savedanchor\icping{\pgfpoint{-.25cm}{.625cm}} % pin 7
+    \anchor{p7}{\icping}
+    \savedanchor\icpinh{\pgfpoint{-.75cm}{.625cm}} % pin 8
+    \anchor{p8}{\icpinh}
+
+    \foregroundpath{ % border and pin numbers are drawn here
+      \pgfsetlinewidth{0.05cm}
+      \pgfpathrectanglecorners{\pgfpoint{1cm}{.625cm}}{\pgfpoint{-1cm}{-.625cm}}
+      \pgfusepath{draw} %draw rectangle
+      \pgfsetlinewidth{0.03cm}
+      \pgfmoveto{\pgfpoint{-1cm}{-.3cm}}
+      \pgfpatharc{-90}{90}{.3cm}
+      \pgfusepath{draw} %draw semicircle
+      \pgftext[bottom,at={\pgfpoint{-.75cm}{-.55cm}}]{\scriptsize 1}
+      \pgftext[bottom,at={\pgfpoint{-.25cm}{-.55cm}}]{\scriptsize 2}
+      \pgftext[bottom,at={\pgfpoint{.25cm}{-.55cm}}]{\scriptsize 3}
+      \pgftext[bottom,at={\pgfpoint{.75cm}{-.55cm}}]{\scriptsize 4}
+      \pgftext[top,at={\pgfpoint{.75cm}{.55cm}}]{\scriptsize 5}
+      \pgftext[top,at={\pgfpoint{.25cm}{.55cm}}]{\scriptsize 6}
+      \pgftext[top,at={\pgfpoint{-.25cm}{.55cm}}]{\scriptsize 7}
+      \pgftext[top,at={\pgfpoint{-.75cm}{.55cm}}]{\scriptsize 8}
+    }
+  }

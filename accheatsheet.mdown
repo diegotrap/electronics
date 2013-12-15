@@ -1,0 +1,95 @@
+% AC Cheatsheet
+% Diego Trapero
+
+# AC Cheatsheet
+
+## Sinusoidal signal
+
+A sinusoidal signal in AC takes the form
+
+$$s(t) = \sqrt{2} A \cdot \sin{\omega t + \varphi}$$
+
+where
+
+* $A \equiv A_{RMS}$ is the RMS value of the signal
+* $\omega$ is the angular frecuency, $\omega = 2 \pi f$ $[rad]$
+* Frecuency,  $f = \omega / 2\pi$
+* Period, $T = 1/f$
+* Amplitude of the signal is $A/\sqrt{2}$
+
+*Note*: In AC the sinusoidal function amplitude is taken as $A/\sqrt{2}$, so $A$ is the RMS value of the signal. This way, we can directly use the RMS values of the signals to make calculations with power.
+
+**Average and RMS values**
+
+* Average value: $S_{AVG} = 0$
+* RMS value: $S_{RMS} = A$
+
+## Phasors and complex numbers
+
+### Phasor
+
+$$s(t) = \sqrt{2} A \cdot \sin{\omega t + \varphi} \to \mathbf{S} = A \angle \varphi $$
+
+In physics and engineering, a phase vector, or phasor, is a representation of a sinusoidal function whose amplitude, frequency, and phase are time-invariant
+
+Euler's formula indicates that sinusoids can be represented mathematically by the sum of two complex-valued functions:
+
+$$A\cdot \cos{\omega t + \theta} = A \cdot \frac{e^{i(\omega t + \theta)} + e^{-i(\omega t + \theta)}}{2}$$
+
+or by the real part of one of the functions:
+
+$$
+A\cdot \cos{\omega t + \theta} = \operatorname{Re} \left\{ A\cdot e^{i(\omega t + \theta)}\right\} \\
+= \operatorname{Re} \left\{ A e^{i\theta} \cdot e^{i\omega t}\right\}.
+$$
+
+The term phasor can refer to either $A e^{i\theta} e^{i\omega t}\,$ or just the complex constant, $A e^{i\theta}\,$. In the latter case, it is understood to be a shorthand notation, encoding the amplitude and phase of an underlying sinusoid.
+
+An even more compact shorthand is angle notation: $A \angle \theta.\,$
+
+### Generalized Ohm Law, complex impedance
+
+The **Generalized Ohm Law**:
+
+$$ \mathbf{V} = \mathbf{Z} \mathbf{I} $$
+
+where $\mathbf{Z}$ is
+
+* $\mathbf{Z} = R$ for resistors
+* $\mathbf{Z} = \frac{1}{j \omega C} = \frac{-j}{\omega C}$ for capacitors
+* $\mathbf{Z} = j \omega L$ for inductors
+
+## AC Power
+
+**Power in a two-terminal component**
+
+* Voltage wave with RMS value $V$: $v(t) = \sqrt{2} V \cdot \cos{\omega t}$ ($\varphi = 0$ because it's the reference)
+* Current wave with RMS value $I$: $v(t) = \sqrt{2} I \cdot \cos{\omega t + \varphi}$
+
+$$ p(t) = v(t) i(t) = 2 V \cdot \sin{\omega t} I \cdot \cos{\omega t + \varphi} $$
+$$ p(t) = VI \cos{\varphi} + VI \cos{2 \omega t - \varphi} $$
+
+**Active and reactive power**
+
+* Active power: $P = VI \cos{\varphi}$
+* Reactive power: $Q = VI \sin{\varphi}$
+
+**Complex and apparent power**
+
+* Complex power is the complex number $\mathbf{S} = \mathbf{V} \mathbf{I}^* = P + Qj$
+* Apparent power is the module of the complex power, $S = VI$
+
+**Power factor**
+
+$$PF = \frac{P}{S}$$
+
+$$PF = \cos{\varphi}$$
+
+**AC power in a resistor**
+
+$$P = VI$$
+$$Q = 0$$
+
+**Power in a inductor**
+
+**Power in a capacitor**

@@ -1,0 +1,37 @@
+\pgfdeclareshape{dFlipFlop2x2}{
+  \anchor{center}{\pgfpointorigin} % within the node, (0,0) is the center
+
+  \anchor{text} % this is used to center the text in the node
+  {\pgfpoint{-.5\wd\pgfnodeparttextbox}{-.5\ht\pgfnodeparttextbox}}
+
+  \savedanchor\icpina{\pgfpoint{-9mm}{+5mm}} % pin 1
+  \anchor{D}{\icpina}
+  \savedanchor\icpind{\pgfpoint{-9mm}{-5mm}} % pin 4
+  \anchor{C}{\icpind}
+  \savedanchor\icpinh{\pgfpoint{+9mm}{+5mm}} % pin 8
+  \anchor{Q}{\icpinh}
+
+  \foregroundpath{ % border and pin numbers are drawn here
+    \pgfsetlinewidth{0.03cm}
+    \pgfpathrectanglecorners{\pgfpoint{6mm}{10mm}}{\pgfpoint{-6mm}{-10mm}}
+    \pgfusepath{draw} %draw rectangle
+    % Pin labels
+    \pgftext[left,at={\pgfpoint{-4.5mm}{+5mm}}]{\scriptsize $D$}
+    \pgftext[left,at={\pgfpoint{-4.5mm}{-5mm}}]{\scriptsize $C$}
+    \pgftext[right,at={\pgfpoint{+4.5mm}{+5mm}}]{\scriptsize $Q$}
+    % Pin wires
+    \pgfsetlinewidth{0.01cm}
+    \draw
+      (-9mm, 5mm) -- (-6mm, +5mm)
+      (-9mm, -0.5cm) -- (-6mm, -5mm)
+      (+6mm, +5mm) -- (+9mm, 5mm)
+    ;
+    \pgfsetlinewidth{0.02cm}
+    \draw
+      (-6mm, -4mm) -- (-4.5mm, -5mm)
+      (-4.5mm, -5mm) -- (-6mm, -6mm)
+    ;
+  }
+}
+
+

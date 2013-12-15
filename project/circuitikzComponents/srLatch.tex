@@ -1,0 +1,36 @@
+\pgfdeclareshape{srLatch}{
+  \anchor{center}{\pgfpointorigin} % within the node, (0,0) is the center
+
+  \anchor{text} % this is used to center the text in the node
+  {\pgfpoint{-.5\wd\pgfnodeparttextbox}{-.5\ht\pgfnodeparttextbox}}
+
+  \savedanchor\icpina{\pgfpoint{-9mm}{+5mm}} % pin 1
+  \anchor{S}{\icpina}
+  \savedanchor\icpind{\pgfpoint{-9mm}{-5mm}} % pin 4
+  \anchor{R}{\icpind}
+  \savedanchor\icpine{\pgfpoint{+9mm}{-5mm}} % pin 5
+  \anchor{Q}{\icpine}
+  \savedanchor\icpinh{\pgfpoint{+9mm}{+5mm}} % pin 8
+  \anchor{notQ}{\icpinh}
+
+  \foregroundpath{ % border and pin numbers are drawn here
+    \pgfsetlinewidth{0.03cm}
+    \pgfpathrectanglecorners{\pgfpoint{6mm}{10mm}}{\pgfpoint{-6mm}{-10mm}}
+    \pgfusepath{draw} %draw rectangle
+    % Pin labels
+    \pgftext[left,at={\pgfpoint{-5mm}{+5mm}}]{\scriptsize $S$}
+    \pgftext[left,at={\pgfpoint{-5mm}{-5mm}}]{\scriptsize $R$}
+    \pgftext[right,at={\pgfpoint{+5mm}{-5mm}}]{\scriptsize $\bar{Q}$}
+    \pgftext[right,at={\pgfpoint{+5mm}{+5mm}}]{\scriptsize $Q$}
+    % Pin wires
+    \draw
+      (-9mm, 5mm) -- (-6mm, +5mm)
+      (-9mm, -0.5cm) -- (-6mm, -5mm)
+      (+6mm, -5mm) -- (+9mm, -5mm)
+      (+6mm, +5mm) -- (+9mm, 5mm)
+    ;
+    %Low-active bubbles, delete if unnecessary
+    \fill[color=white] (+6.9mm, -5mm) circle (.7mm); %3 is low-active
+    \draw (+6.9mm, -5mm) circle (.8mm);
+  }
+}

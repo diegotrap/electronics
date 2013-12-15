@@ -1,0 +1,299 @@
+% Dynamic circuits and differential equations
+% Diego Trapero
+
+# Circuits and differential equations
+
+**Circuit solutions** The solution of the differential equations that represent a circuit can be classified in three categories:
+
+* **Steady state solutions**. Steady state solutions are solutions that don't depend of time and that are reached when $t -> \infty$. Steady state solutions are reached after a time after the system is initiated and they are not time dependent.
+	* Steady state solutions are the limit of the solutions of the differential equation when $t \to \infty$ that satisfy $\frac{df(t)}{dt} = 0$.
+
+* **Periodic steady state solutions**. Periodic steady state are the limit of the solutions of a ODE where $t -> \infty$ that are periodical functions of time. Steady state solutions are reached after a time after the system is initiated and they are periodical functions of time.
+	* Periodic steady state solutions are the limit of the solutions of the differential equation when $t \to \infty$ that are periodic functions.
+
+* **Transient solutions**. Transient solutions are solutions that depend on time.
+
+**Direct and alternating current**
+
+* **Direct Current (DC)** is the unidirectional flow of electric charge.
+	* **Constant current**. The most strict definition of Direct Current is the case where current and voltage are constant in time.
+	* **Constant polarity**. A more relaxed definition of Direct Current is the case where polarity of components doesn't change in time.
+	* **DC circuit**. A DC circuit is a circuit composed only of constant current sources, constant current sources and resistors.
+	* **DC powered circuits**. The term DC is also used to refer to circuits powered by DC (constant) sources, even when they may not be DC cricuits; e.g. a DC rectifier.
+
+	[WIKIPEDIA](http://en.wikipedia.org/wiki/Direct_current#Various_definitions)
+
+* **Alternating Current (AC)** is the flow of electric charge that periodically changes.
+
+## Capacitor equation
+
+$$
+\begin{circuitikz}
+	\draw
+	(0,0) to [C, l_=$C$, v^<=$v(t)$, i>_=$i(t)$](2,0)
+	;
+\end{circuitikz}
+$$
+
+The differential equation of the capacitor is
+
+$$\tag{CAPEQ} i(t) = C \frac{dv(t)}{dt} $$
+
+* **Continuity of the voltage $v(t)$ and existance of a solution for the equation** For the equation to have a solution in any time $t$, $\frac{dv(t)}{dt}$, must exist in al the real domain. If $v(t)$ has a discontinuity or is not differentiable in a point of its domain, then $\frac{dv(t)}{dt}$ is undetermined and so is $i(t)$. This doesn't means *per se* that $i(t)$ is infinite, it's just indetermined.
+
+* **Sudden changes in voltage** If $v(t)$ changes abruptly, then its derivative $\frac{dv(t)}{dt}$ is very big, and so is the current throught the capacitor, $i(t)$.
+
+* **Voltage throught the capacitor should be continuous** In a real circuit, the voltage function $v(t)$ of a capacitor may not be discontinuous, but vary from one value to another in a very short period of time. This situation is often modelled by a discontinuity in the $v(t)$ function, althought in reality is a very step, almost vertical, part of the function (it is not vertical because voltage cannot take two different values in the same time, and in the real world, it can neither go from one value to another without passing through all the values inbetween [how this last thing be probed, if it can be proved?]). In this case, $\frac{dv(t)}{dt}$ is very big, what leads to a very large $i(t)$ current. A real capacitor can't withstand the very large current that such a sudden change drives through it, and the theoretical model has no solution if there is a discontinuity. This is the reason why, in this model, the voltage throught the capacitor is required to be continuous in time.
+
+* **Capacitor in DC steady state is an open circuit** In DC steady state, $\frac{dv(t)}{dt} = 0$, so, using the capacitor equation, $i(t) = \frac{dv(t)}{dt} = 0$. In DC steady state, the no current flows through the capacitor, it acts as an open circuit.
+
+###Capacitor voltage equation
+
+Solving the capacitor differential equation using separation of variables, we obtain the capacitor voltage equation:
+
+$$ i(t) = C \frac{dv(t)}{dt} $$
+$$ \frac{1}{C} i(t) = d v(t) $$
+$$ \int^{v(t)}_{v(t = - \infty)}{d v(t)} = \frac{1}{C} \int^{t}_{t = - \infty}{i(t) dt} $$
+$$ v(t) =  \frac{1}{C} \int^{t}_{t = t_0}{i(t) dt} + v(t = t_0) $$
+
+###Charging a capacitor with a constant voltage source
+
+$$
+\begin{circuitikz}[scale=1.2]
+	\draw
+	(0,0)to[V, i^>=$i(t)$](0,2) -- 
+	(0,2)to[R, l=$R$](2,2) -- 
+	(2,2)to[C, l^=$C$, v_<=$v_C$](2,0) --
+	(2,0)to[short](0,0)
+	;
+\end{circuitikz}
+$$
+
+* $v_s(t)$ is a step function
+* $v_c(t=0) = 0$, the capacitor starts discharged
+
+$$i(t) = \frac{v_c(t) - v_s(t)}{R}$$
+
+$$\frac{v_c(t) - v_s(t)}{R} = C \frac{dv(t)}{dt}$$
+
+Solution is exponential
+
+###Discharging a capacitor through a resistor
+
+$$
+\begin{circuitikz}[scale=1.2]
+	\draw
+	(0,0)to[C, i^>=$i(t)$](0,2)
+	(0,2)to[short](2,2) -- 
+	(2,2)to[R](2,0) --
+	(2,0)to[short](0,0)
+	;
+\end{circuitikz}
+$$
+
+###Charging a capacitor with a constant current source
+
+$$
+\begin{circuitikz}[scale=1.2]
+	\draw
+	(0,0)to[I, i^>=$i(t)$](0,2) -- 
+	(0,2)to[short](2,2) -- 
+	(2,2)to[C, l^=$C$, v_<=$v_C$](2,0) --
+	(2,0)to[short](0,0)
+	;
+\end{circuitikz}
+$$
+
+**Charging a capacitor with a switched current source problem enuntiation** Given the circuit represented above, with a switched current source connected in series to a capacitor of capacitance $C$...
+
+* The current throught the capacitor $i(t)$ is a step function:
+$$ i(t) = blah$$
+* Initial condition: $v_C (t = 0) = v_0$
+
+Calculate the voltage across the capacitor $v_C$
+
+1. for $t>0$, $i(t)= I$, constant, and the capacitor equation becomes
+
+$$I = \frac{dv(t)}{dt}$$
+
+Solve the separated variables equation:
+
+$$I dt = dv(t)$$
+
+$$ \int_{t = 0}^{t}{I dt} = \int_{v(t = 0)}^{v(t)}{dv(t)} $$
+
+$$ It - I \cdot 0 = v(t) - v(t = 0) $$
+
+$$ v(t) = It + v_0 $$
+
+In this condition, a real capacitor would eventually break by "dielectric rupture"
+
+2. for $t<0$, using the continuity of the voltage in a capacitor principle, the voltage is $v(t) = v(t = 0) = v_0$
+
+3. if the value of the current source becomes 0 at time $t_OFF$, the differential equation is
+
+$$0 = \frac{dv(t)}{dt}$$
+
+$$ v(t) = K, K in real numbers$$
+
+This means that the voltage remains constant. Due to the continuity capacitor voltage, the  voltage after $t_off$ is 
+
+$$ v(t > t_{OFF}) = v(t = t_{OFF}) $$
+
+## Inductor equation
+
+$$
+\begin{circuitikz}
+	\draw
+	(0,0) to [L, l_=$L$, v^<=$v(t)$, i>_=$i(t)$](2,0)
+	;
+\end{circuitikz}
+$$
+
+The differential equation of the inductor is
+
+$$\tag{INDEQ} v(t) = L \frac{di(t)}{dt} $$
+
+**Continuity of current in the inductor** In an inductor, $i(t)$ is a continuous function, $i(t_0^+) = i(t_0^-) for any t in R$
+
+* For inductors, the $i-v$ characteristics equation $v(t) = \frac{di(t)}{dt}$ implies that if there were a dis- continuity in the current waveform, an infinite amount of voltage should appear across the inductor. Therefore, the current waveform in an inductor should be continuous. This means that if a switch is thrown at time $t_0$, we should have $i(t_0^+) = i(t_0^-)$. Note the inductor voltage waveform can have a discontinuity. [#](http://aries.ucsd.edu/najmabadi/CLASS/MAE140/NOTES/dynamic-1.pdf)
+* Proof/Justification? if $v(t)$ is not continuous in $t=t_0$, then $dv(t)/dt$ doesn't exists, and neither $i(t)$ through the capacitor
+
+**Inductor in DC steady state** In steady state, $\frac{di(t)}{dt} = 0$, so, using the inductor equation, $v(t) = \frac{di(t)}{dt} = 0$. In DC steady state, there is no voltage drop across the inductor, it acts as a shortcircuit.
+
+###Charging an inductor with a constant voltage source (switched)
+
+$$
+\begin{circuitikz}[scale=1.2]
+	\draw
+	(0,0)to[V=$v(t)$](0,2) -- 
+	(0,2)to[short](2,2) -- 
+	(2,2)to[L, l=$L$](2,0) --
+	(2,0)to[short](0,0)
+	;
+\end{circuitikz}
+$$
+
+## General transient solution of first order circuits (RC, RL)
+
+$$x(t) = x_\infty(t_0) + [x(t_0) - x_\infty(t_0)] \cdot e^{- \frac{t}{\tau}}$$
+
+* $x(t_0)$, initial value of $x$
+* $x_\infty(t_0)$, steady state value of $x$
+* $\tau$, time constant
+	* RC: $\tau = RC$
+	* RL: $\tau = \frac{L}{R }$
+
+[See](https://www.evernote.com/shard/s20/sh/82810b00-c729-442a-bebd-6fb854bc4194/29a9344da50fac3a60a81643899a5da9)
+
+# Solving an RL circuit
+
+# Solving an RC circuit
+
+# Solving an RLC circuit
+
+**RLC Circuit**. An RLC circuit is is an electrical circuit consisting of a resistor, an inductor, and a capacitor, connected in different configurations.
+
+The most common RLC circuits are the RLC series circuit and the RLC parallel circuit:
+
+$$
+\begin{circuitikz}[scale=1.2]
+	\draw
+	(0,0)to[V=$v(t)$, i^>=$i(t)$](0,2) -- 
+	(0,2)to[R=$R$](2,2) -- 
+	(2,2)to[L=$L$](2,0) --
+	(2,0)to[C=$C$](0,0)
+	;
+\end{circuitikz}
+$$
+
+## Differential equation of a RLC series circuit
+
+1. Differential equations of the components
+
+	1.1 Resistor: $v(t) = i(t) \cdot R$
+
+	1.2 Inductance: $v(t) = L \frac{d i(t)}{dt}$
+
+	1.3 Capacitor: $i(t) = C \frac{d v(t)}{dt}$
+
+	Capacitor voltage equation
+	$$ i(t) = C \frac{d v(t)}{dt} $$
+	$$ \frac{1}{C} i(t) = d v(t) $$
+	$$ \int^{v(t)}_{v(t = - \infty)}{d v(t)} = \frac{1}{C} \int^{t}_{t = - \infty}{i(t) dt} $$
+	$$ v(t) =  \frac{1}{C} \int^{t}_{t = - \infty}{i(t) dt} + v(t = - \infty) $$
+
+2. Kirchhoff Voltage Law
+$$v_S(t) = v_R(t) + v_L(t) + v_C(t)$$
+
+3. Substitute the component equations in the KVL equation
+
+$$v_S(t) = i(t) \cdot R + L \frac{d i(t)}{dt} + \frac{1}{C} \int^{t}_{t = - \infty}{i(t) dt} + v(t = - \infty) $$
+
+4. If we differentiate both sides of the equation once, we obtain a linear differential equation
+
+$$\frac {dv_S(t)}{dt} = R \frac{i(t)}{dt} + L \frac{d^2 i(t)}{dt^2} + \frac{1}{C} i(t)$$
+
+**Differential equation of an RLC circuit (DERLCC)**. The differential equation of an RLC circuit is
+$$v_S'(t) = R \frac{i(t)}{dt} + L \frac{d^2 i(t)}{dt^2} + \frac{1}{C} i(t)$$
+
+which is a linear second-order equation with constant coefficients. It can be solved by different methods: Constant Coefficient Method, Laplace...
+$$ L i'' + R i' + \frac{1}{C} i = v_S' $$
+
+## Solving the homogeneous differential equation of a RLC series circuit
+
+The homogeneous differential equation of a RLC series circuit is the second order linear constant coefficient differential equation 
+
+$$ L i'' + R i' + \frac{1}{C} i = 0 $$
+
+This case arises when the voltage source is constant, $v_S' = 0$
+
+The characteristical polynomial of the equation is
+$$ L r^2 + R r + \frac{1}{C} = 0 $$
+
+Being a second order linear equation, solutions depend on the roots of the characteristical polynomial, they can be
+
+a)
+b)
+c)
+
+Solving for a steady state, all therms other than constant or periodic functions can be discarded.
+
+## Solving the differential equation with a Sinusoidal Voltage Source
+
+The most common signal in Electronics is the sinusoidal wave, and 
+
+$$
+\begin{tikzpicture}[>=stealth]
+    \begin{axis}[
+        xmin=-4,xmax=4,
+        ymin=-2,ymax=2,
+        axis x line=middle,
+        axis y line=middle,
+        axis line style=<->,
+        xlabel={$x$},
+        ylabel={$y$},
+        ]
+        \addplot[no marks,blue,<->] expression[domain=-pi:pi,samples=100]{sin(deg(2*x))+1/2} 
+                    node[pos=0.65,anchor=south west]{$y=\sin{2x}+\frac{1}{2}$}; 
+    \end{axis}
+\end{tikzpicture}
+$$
+
+### Constant Coefficients Differential Equation
+
+
+
+### Laplace
+
+
+## Solving the differential equation with $v_S' = 0$.
+
+If we make $v_S' = 0$, the DERCLC becomes an homogeneus equation,
+$$ L i'' + R i' + 1/C i = 0 $$
+
+The characteristical polynomial of the equation is
+$$ L r^2 + R r + \frac{1}{C} = 0 $$
+
+
+### Phasors

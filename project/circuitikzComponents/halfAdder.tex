@@ -1,0 +1,34 @@
+\pgfdeclareshape{halfAdder}{
+  \anchor{center}{\pgfpointorigin} % within the node, (0,0) is the center
+
+  \anchor{text} % this is used to center the text in the node
+  {\pgfpoint{-.5\wd\pgfnodeparttextbox}{-.5\ht\pgfnodeparttextbox}}
+
+  \savedanchor\icpina{\pgfpoint{-9mm}{+5mm}} % pin 1
+  \anchor{A}{\icpina}
+  \savedanchor\icpind{\pgfpoint{-9mm}{-5mm}} % pin 4
+  \anchor{B}{\icpind}
+  \savedanchor\icpine{\pgfpoint{+9mm}{-5mm}} % pin 5
+  \anchor{C}{\icpine}
+  \savedanchor\icpinh{\pgfpoint{+9mm}{+5mm}} % pin 8
+  \anchor{S}{\icpinh}
+
+  \foregroundpath{ % border and pin numbers are drawn here
+    \pgfsetlinewidth{0.03cm}
+    \pgfpathrectanglecorners{\pgfpoint{6mm}{10mm}}{\pgfpoint{-6mm}{-10mm}}
+    \pgfusepath{draw} %draw rectangle
+    % Pin labels
+    \pgftext[left,at={\pgfpoint{-5mm}{+5mm}}]{\scriptsize $A$}
+    \pgftext[left,at={\pgfpoint{-5mm}{-5mm}}]{\scriptsize $B$}
+    \pgftext[right,at={\pgfpoint{+5mm}{-5mm}}]{\scriptsize $C$}
+    \pgftext[right,at={\pgfpoint{+5mm}{+5mm}}]{\scriptsize $S$}
+    % Pin wires
+    \pgfsetlinewidth{0.01cm}
+    \draw
+      (-9mm, 5mm) -- (-6mm, +5mm)
+      (-9mm, -0.5cm) -- (-6mm, -5mm)
+      (+6mm, -5mm) -- (+9mm, -5mm)
+      (+6mm, +5mm) -- (+9mm, 5mm)
+    ;
+  }
+}
