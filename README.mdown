@@ -1,0 +1,16 @@
+Electronics Notes
+==================
+
+**Markdown/Latex Electronics Notes**
+
+**What is this?** These are just some Electrical Engineering and Electronics notes from the college courses I am taking. Here you can find the Markdown+Latex source files and the PDF renderings. I hope you find it useful.
+
+**How are these notes generated.** The notes have been written mostly in Markdown, with formulas, tables and diagrams in Latex syntax. All the necessary source files are included in this repository. You can download, modify and then render the files yourself using Pandoc (http://johnmacfarlane.net/pandoc/). Email me if you need help with it.
+
+**Languages and Errors.** Please note that I am not an English native speaker, so the notes will contain many grammatical and orthographical errors. Also, factual errors may appear. Please, let me know the errors you find in the text so they can be corrected.
+
+**Copied material.** I have made these notes for my personal use, therefore, they may contain contain short fragments from other texts. If you find your content in the notes and you want it to be removed or properly citated, please contact with me with your request.
+
+**Use of these material.** Feel free to use this material however you want to. Study the code, the circuits, formulas, copy them, use it in your notes, classes, etc. You can use it for personal or commercial purposes, modify it and distribute it without restrictions. You can include an author acknowledgement or not, it's up to you. However, I will be very happy if you find an use for these notes, so you can send me your experience to the email below.
+
+**Contact.** You can contact me with any suggestion, fix or error notification in my email, me@diegotrap.com.

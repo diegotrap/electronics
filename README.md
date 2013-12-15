@@ -1,4 +1,0 @@
-electronics
-===========
-
-Electronics Notes
