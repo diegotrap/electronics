@@ -7,7 +7,7 @@ Electronics Notes
 
 **How are these notes generated.** The notes have been written mostly in Markdown, with formulas, tables and diagrams in Latex syntax. All the necessary source files are included in this repository. You can download, modify and then render the files yourself using Pandoc (http://johnmacfarlane.net/pandoc/). Email me if you need help with it.
 
-**Languages and Errors.** Please note that I am not an English native speaker, so the notes will contain many grammatical and orthographical errors. Also, factual errors may appear. Please, let me know the errors you find in the text so they can be corrected.
+**Language and Errors.** Please note that I am not an English native speaker, so the notes will contain many grammatical and orthographical errors. Also, factual errors may appear. Please, let me know the errors you find in the text so they can be corrected.
 
 **Copied material.** I have made these notes for my personal use, therefore, they may contain contain short fragments from other texts. If you find your content in the notes and you want it to be removed or properly citated, please contact with me with your request.
 
