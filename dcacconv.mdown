@@ -1,3 +1,6 @@
+% DC to AC converters
+% Diego Trapero
+
 $$ % AC to DC Full Wave rectifier, by Diego Trapero
 \begin{circuitikz}[scale = 1]
 	\draw
@@ -8,17 +11,17 @@ $$ % AC to DC Full Wave rectifier, by Diego Trapero
 	(0,4) to[short](4,4)
 	(4,4) node[circ] {}
 	%Rectifier branch left
-	(2,0) to[diode, i^>=$i_D$, v_<=$v_D$](2,2)
+	(2,0) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](2,2)
 	(2,2) to[short](2,4)
-	(2,4) to[diode, i^>=$i_D$, v_<=$v_D$](2,6)
+	(2,4) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](2,6)
 	%Rectifier branch right
-	(4,0) to[diode, i^>=$i_D$, v_<=$v_D$](4,2)
+	(4,0) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](4,2)
 	(4,2) to[short](4,4)
-	(4,4) to[diode, i^>=$i_D$, v_<=$v_D$](4,6)
+	(4,4) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](4,6)
 	%Load and connections
 	(2,6) to[short](8,6) %upper node
 	(2,0) to[short](8,0) %lower node
-	(8,6) to[Tnjfet](8,0) %load
+	(8,6) to[R](8,0) %load
 	;
 \end{circuitikz}
 $$
