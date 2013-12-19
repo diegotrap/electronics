@@ -7,6 +7,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/Users/diegotrap/Dropbox/markdocs/electronics/dcacconv.pdf",
+			"settings":
+			{
+				"buffer_size": 132174,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -19,12 +27,12 @@
 				"Build: Pandown: LaTeX - PDF"
 			],
 			[
-				"pand doc",
-				"Build: Pandown: Word Document"
-			],
-			[
 				"pand tex",
 				"Build: Pandown: LaTeX"
+			],
+			[
+				"pand doc",
+				"Build: Pandown: Word Document"
 			],
 			[
 				"pand pd",
@@ -163,6 +171,10 @@
 	},
 	"file_history":
 	[
+		"/Users/diegotrap/Dropbox/markdocs/electronics/dcacconv.mdown",
+		"/Users/diegotrap/Library/Application Support/Sublime Text 3/Packages/User/Pandown.sublime-settings",
+		"/Users/diegotrap/Library/Application Support/Sublime Text 3/Packages/Pandown/Pandown.sublime-settings",
+		"/Users/diegotrap/Dropbox/markdocs/electronics/dcacconv.tex",
 		"/Users/diegotrap/Dropbox/markdocs/electronics/project/electronics.sublime-project",
 		"/Users/diegotrap/Dropbox/markdocs/electronics/pandoc-config.json",
 		"/Users/diegotrap/Dropbox/markdocs/electronics/files/electronics.sublime-project",
@@ -170,9 +182,7 @@
 		"/Users/diegotrap/Dropbox/markdocs/electronics/opamp.mdown",
 		"/Users/diegotrap/Dropbox/markdocs/electronics/vhdl.mdown",
 		"/Users/diegotrap/Dropbox/markdocs/electronics/mtemplate.latex",
-		"/Users/diegotrap/Library/Application Support/Sublime Text 3/Packages/User/Pandown.sublime-settings",
 		"/Users/diegotrap/Library/Application Support/Sublime Text 3/Packages/User/pandoc-config.json",
-		"/Users/diegotrap/Library/Application Support/Sublime Text 3/Packages/Pandown/Pandown.sublime-settings",
 		"/Users/diegotrap/Dropbox/markdocs/odes copia.mdown",
 		"/Users/diegotrap/Dropbox/markdocs/odes.mdown",
 		"/Users/diegotrap/Dropbox/markdocs/memoria.mdown",
@@ -293,6 +303,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"|",
+			",",
+			"́",
+			"open",
 			"templa",
 			"temple",
 			"circuitikzComponents",
@@ -397,8 +411,38 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/Users/diegotrap/Dropbox/markdocs/electronics/dcacconv.pdf",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 132174,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8,
+								8
+							]
+						],
+						"settings":
+						{
+							"WordCountShouldRun": true,
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -436,6 +480,10 @@
 	"output.exec":
 	{
 		"height": 139.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
 	},
 	"project": "electronics.sublime-project",
 	"replace":
