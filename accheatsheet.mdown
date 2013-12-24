@@ -63,8 +63,20 @@ where $\mathbf{Z}$ is
 
 **Power in a two-terminal component**
 
-* Voltage wave with RMS value $V$: $v(t) = \sqrt{2} V \cdot \cos{\omega t}$ ($\varphi = 0$ because it's the reference)
-* Current wave with RMS value $I$: $v(t) = \sqrt{2} I \cdot \cos{\omega t - \varphi}$
+* Voltage: $v(t) = \sqrt{2} V \cdot \cos{\omega t}$ ($\varphi = 0$ because it's the reference)
+* Current: $i(t) = \sqrt{2} I \cdot \cos{\omega t - \varphi}$
+
+$$
+\begin{circuitikz}
+	\draw
+	(1,1) to[generic, i>_=$i(t)$, v^<=$v(t)$](1,-1)
+	(0,1) -- (1,1)
+	(0,-1) -- (1,-1)
+	(0,1) node[ocirc]{}
+	(0,-1) node[ocirc]{}
+	;
+\end{circuitikz}
+$$
 
 **Instantaneous power**
 
