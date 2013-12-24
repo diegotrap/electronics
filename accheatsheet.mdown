@@ -7,7 +7,7 @@
 
 A sinusoidal signal in AC takes the form
 
-$$s(t) = \sqrt{2} A \cdot \sin{\omega t + \varphi}$$
+$$s(t) = \sqrt{2} A \cdot \cos{\omega t + \varphi}$$
 
 where
 
@@ -28,7 +28,7 @@ where
 
 ### Phasor
 
-$$s(t) = \sqrt{2} A \cdot \sin{\omega t + \varphi} \to \mathbf{S} = A \angle \varphi $$
+$$s(t) = \sqrt{2} A \cdot \cos{\omega t + \varphi} \to \mathbf{S} = A \angle \varphi $$
 
 In physics and engineering, a phase vector, or phasor, is a representation of a sinusoidal function whose amplitude, frequency, and phase are time-invariant
 
@@ -64,10 +64,40 @@ where $\mathbf{Z}$ is
 **Power in a two-terminal component**
 
 * Voltage wave with RMS value $V$: $v(t) = \sqrt{2} V \cdot \cos{\omega t}$ ($\varphi = 0$ because it's the reference)
-* Current wave with RMS value $I$: $v(t) = \sqrt{2} I \cdot \cos{\omega t + \varphi}$
+* Current wave with RMS value $I$: $v(t) = \sqrt{2} I \cdot \cos{\omega t - \varphi}$
 
-$$ p(t) = v(t) i(t) = 2 V \cdot \sin{\omega t} I \cdot \cos{\omega t + \varphi} $$
+**Instantaneous power**
+
+1. Instantaneous power definition
+
+\begin{align*}
+p(t) &= v(t) i(t) \\
+	 &= \sqrt{2} V \cos{\omega t} \cdot \sqrt{2} I \cos{\omega t - \varphi} \\
+	 &= 2 VI \cos{\omega t} \cos{\omega t + \varphi} \\
+\end{align*}
+
+2. Transform into sum of cosines using the identity $\cos{a \cdot b} = \frac{1}{2} [ \cos{a+b} + \cos{a-b} ]$
+
+\begin{align*}
+p(t) &= \cancel{2} VI \cdot \cancel{\frac{1}{2}} [ \cos{\cancel{\omega t} - \cancel{\omega t} + \varphi} + \cos{\omega t + \omega t - \varphi} ] \\
+	 &= VI [ \cos{\varphi} + \cos{2 \omega t - \varphi} ] \\
+	 &= VI \cos{\varphi} + VI \cos{2 \omega t - \varphi} ] \\
+\end{align*}
+
+The instantaneous power in an AC component is:
+
 $$ p(t) = VI \cos{\varphi} + VI \cos{2 \omega t - \varphi} $$
+
+We observe
+
+* Power in the component has a constant term $VI \cos{\varphi}$ and a fluctuating term that varies with time $VI \cos{2 \omega t - \varphi}$.
+
+**Average power**
+
+The instantaneous power is $p(t) = VI \cos{\varphi} + VI \cos{2 \omega t - \varphi}$, so we can calculate the average power using the definition:
+
+$\bar{p(t)} = integral VI \cos{\varphi} + VI \cos{2 \omega t - \varphi}$
+
 
 **Active and reactive power**
 
