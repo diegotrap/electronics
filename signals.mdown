@@ -9,7 +9,9 @@
 
 ##Periodic signals
 
-**Periodic signal** A periodic signal is a signal $s(t)$ that fulfills $s(t) = s(t + T)$ for all $t$
+**Periodic signal** A periodic signal is a signal $s(t)$ that satisfies $s(t) = s(t + T)$ for all $t$
+
+* *Note* Constant signals are periodic signals because they fulfill the condition.
 
 **Periodic signal parameters**
 
@@ -32,7 +34,7 @@ $$S_{avg} = \bar{s(t)} = \frac{1}{T} \int_{t}^{t+T} s(t) dt$$
 
 **Average power** Average power in a component is a case of the average value of a periodic signal. The average power $P$ or $\bar{p(t)}$ dissipated in a component is
 
-$$ P = \bar{p(t)} = \frac{1}{T} \int_{t}^{t+T} p(t) dt = \frac{1}{T} \int_{t}^{t+T} v(t)i(t) dt$$
+$$ P = \bar{p(t)} = \frac{1}{T} \int_{t_0}^{t_0+T} p(t) dt = \frac{1}{T} \int_{t_0}^{t_0+T} v(t)i(t) dt$$
 
 
 
@@ -42,25 +44,37 @@ The Root Mean Square $S_{RMS}$ of a periodic signal $s(t)$ is
 
 $$ S_{RMS} = \sqrt { {1 \over T} \int_{t_0}^{t_0 + T} {s(t)^2 dt} }$$
 
-**Motivation for RMSV of current** RMS Current has the property ... equivalent power AC-DC
+**Motivation for RMS value** RMS value of a voltage or current signal (constant or non-constant) has the property that is the value of an equivalent DC voltage or current signal that would dissipate the same power through a resistance.
 
-The power dissipated in a resistor is $P = v(t) i(t)$. If we write it in terms of $i$ and $R$, $P= i(t) R i(t) = R i(t)^2$.
+Average power has the expression $P = \bar{p(t)} = \frac{1}{T} \int_{t_0}^{t_0+T} v(t)i(t) dt$ and using the RMS value of the signals we want to express it in a similar way to DC, where power is the product of two constants: $P = VI$. 
 
-* Power dissipated in a resistor in a DC circuit is $P = R I^2$
-* We want the same formula ($P = R I^2$) to be valid for average power in AC, using the root mean value of the current: $P = R I_{RMS}^2$
+a) **RMS value of current**
 
-Since the average power is
+	a.1) Using Ohm Law derivate the power expression in DC: $P = VI = RI^2$.
 
-$$ P = {1 \over T} \int_{t_0}^{t_0 + T} {p(t) dt} = R \left( {1 \over T} \int_{t_0}^{t_0 + T} {i(t)^2 dt} \right)$$
+	a.2) Calculate the expression for $I_{RMS}$, that satisfies $P = RI_{RMS}^2$.
 
-The equation is
+	$$ P = RI_{RMS}^2 = \frac{1}{T} \int_{t_0}^{t_0+T} v(t)i(t) \,dt $$
+	$$ RI_{RMS}^2 = \frac{1}{T} \int_{t_0}^{t_0+T} Ri^2(t) \,dt $$
+	$$ \cancel{R} I_{RMS}^2 = \cancel{R} \frac{1}{T} \int_{t_0}^{t_0+T} i^2(t) \,dt $$
+	$$ I_{RMS} = \sqrt{ \frac{1}{T} \int_{t_0}^{t_0+T} i^2(t) \,dt } $$
 
-$$ P = \cancel{R} \left( {1 \over T} \int_{t_0}^{t_0 + T} {i(t)^2 dt} \right) = \cancel{R} I^2 $$
+b) **RMS value of voltage**
 
-And the definition of RMS current comes from
+	b.1) Using Ohm Law derivate the power expression in DC: $P = VI = \frac{V^2}{R}$.
 
-$$ I^2 = {1 \over T} \int_{t_0}^{t_0 + T} {i(t)^2 dt} $$
+	b.2) Calculate the expression for $I_{RMS}$, that satisfies $P = VI = \frac{V_{RMS}^2}{R}$.
 
+	$$ P = \frac{V_{RMS}^2}{R} = \frac{1}{T} \int_{t_0}^{t_0+T} v(t)i(t) \,dt $$
+	$$ \frac{V_{RMS}^2}{R} = \frac{1}{T} \int_{t_0}^{t_0+T} \frac{1}{R} v^2(t) \,dt $$
+	$$ \cancel{ \frac{1}{R} } V_{RMS}^2 = \cancel{ \frac{1}{R} } \frac{1}{T} \int_{t_0}^{t_0+T} v^2(t) \,dt $$
+	$$ V_{RMS} = \sqrt{ \frac{1}{T} \int_{t_0}^{t_0+T} v^2(t) \,dt } $$
+
+c) Check results with the $P = VI$ formula. *I don't know how to prove it yet, or even if it is true*
+
+	$$P = VI = \sqrt{ \frac{1}{T} \int_{t_0}^{t_0+T} v^2(t) \,dt } \sqrt{ \frac{1}{T} \int_{t_0}^{t_0+T} i^2(t) \,dt } $$
+
+	$$P = \frac{1}{T} \sqrt{ \int_{t_0}^{t_0+T} v^2(t) \,dt \cdot \int_{t_0}^{t_0+T} i^2(t) \,dt } $$
 
 
 ###Signal Examples
