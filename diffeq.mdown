@@ -152,7 +152,7 @@ $$
 
 The differential equation of the inductor is
 
-$$\tag{INDEQ} v(t) = L \frac{di(t)}{dt} $$
+$$v(t) = L \frac{di(t)}{dt} $$
 
 **Continuity of current in the inductor** In an inductor, $i(t)$ is a continuous function, $i(t_0^+) = i(t_0^-) for any t in R$
 
@@ -164,7 +164,7 @@ $$\tag{INDEQ} v(t) = L \frac{di(t)}{dt} $$
 ###Charging an inductor with a constant voltage source (switched)
 
 $$
-\begin{circuitikz}[scale=1.2]
+\begin{circuitikz}
 	\draw
 	(0,0)to[V=$v(t)$](0,2) -- 
 	(0,2)to[short](2,2) -- 
@@ -173,6 +173,72 @@ $$
 	;
 \end{circuitikz}
 $$
+
+## Capacitor vs Inductor table
+
+\tabulinesep=1mm
+\begin{longtabu} to\linewidth{|X[1,m,c]|X[2,m,c]|X[2,m,c]|}
+
+	\hline
+	What & Capacitor & Inductor \\
+	\hline
+
+	Symbol
+	&
+	\begin{circuitikz}
+		\draw (0,0) to[C, l_=$C$, v^<=$v(t)$, i>_=$i(t)$](2,0);
+	\end{circuitikz}
+	&
+	\begin{circuitikz}
+		\draw
+		(0,0) to[L, l_=$L$, v^<=$v(t)$, i>_=$i(t)$](2,0)
+		;
+	\end{circuitikz}
+	\\
+	\hline
+
+	Differential equation
+	&
+	$$i(t) = C \frac{dv(t)}{dt} $$
+	&
+	$$v(t) = L \frac{di(t)}{dt} $$
+	\\
+	\hline
+	
+	Hydraulic analogy
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+
+
+\end{longtabu}
+
 
 ## General transient solution of first order circuits (RC, RL)
 
