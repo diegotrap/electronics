@@ -93,7 +93,7 @@ p(t) &= v(t) i(t) \\
 \begin{align*}
 p(t) &= \cancel{2} VI \cdot \cancel{\frac{1}{2}} [ \cos{\cancel{\omega t} - \cancel{\omega t} + \varphi} + \cos{\omega t + \omega t - \varphi} ] \\
 	 &= VI [ \cos{\varphi} + \cos{2 \omega t - \varphi} ] \\
-	 &= VI \cos{\varphi} + VI \cos{2 \omega t - \varphi} ] \\
+	 &= VI \cos{\varphi} + VI \cos{2 \omega t - \varphi} \\
 \end{align*}
 
 The instantaneous power in an AC component is:
