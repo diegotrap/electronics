@@ -7,7 +7,7 @@
 \usepackage{fixltx2e} % provides \textsubscript
 
 % Geometry, margin settings, column spacing
-\usepackage[a4paper, top=15mm, bottom=15mm, left=20mm, right=15mm]{geometry}
+\usepackage[a4paper, top=15mm, bottom=15mm, left=20mm, right=60mm]{geometry}
 \setlength{\columnsep}{8mm}
 
 % My packages
