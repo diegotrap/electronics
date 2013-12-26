@@ -176,7 +176,7 @@ $$
 
 ## Capacitor vs Inductor table
 
-\tabulinesep=1mm
+\tabulinesep=2mm
 \begin{longtabu} to\linewidth{|X[1,m,c]|X[2,m,c]|X[2,m,c]|}
 
 	\hline
@@ -213,6 +213,30 @@ $$
 	\\
 	\hline
 
+	Voltage
+	&
+	$$ v(t) =  \frac{1}{C} \int^{t}_{t = t_0}{i(t) dt} + v(t = t_0) $$
+	&
+	$$v(t) = L \frac{di(t)}{dt} $$
+	\\
+	\hline
+
+	Current
+	&
+	$$i(t) = C \frac{dv(t)}{dt} $$
+	&
+	$$ i(t) =  \frac{1}{L} \int^{t}_{t = t_0}{v(t) dt} + i(t = t_0) $$
+	\\
+	\hline
+
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
 	\vspace{30mm}
 	&
 	\vspace{30mm}
@@ -237,7 +261,7 @@ $$
 	\\
 
 
-\end{longtabu}
+\end{longtabu}be
 
 
 ## General transient solution of first order circuits (RC, RL)

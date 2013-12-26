@@ -3,9 +3,13 @@
 
 
 
+
 # Power Electronics
 
 Power electronics is ...
+
+
+
 
 # Signals
 
@@ -25,10 +29,18 @@ Power electronics is ...
 	* Peak amplitude, commonly referred as just amplitude
 
 
+
+
+## Average value
+
 **Average value of a periodic signal** The average value $S_{avg}$ or $\bar{s(t)}$ of a periodic signal $S(t)$ is
 
 $$S_{avg} = \bar{s(t)} = \frac{1}{T} \int_{t}^{t+T} s(t) dt$$
 
+
+
+
+## Root Mean Square Value
 
 **Root Mean Square of a periodic signal** The Root Mean Square $S_{RMS}$ of a periodic signal $s(t)$ is
 
@@ -38,7 +50,9 @@ $$ S_{RMS} = \sqrt { {1 \over T} \int_{t_0}^{t_0 + T} {s(t)^2 dt} }$$
 **Motivation for RMS value** RMS value of a voltage or current signal (constant or non-constant) has the property that is the value of an equivalent DC voltage or current signal that would dissipate the same power through a resistance.
 
 
-###Periodic signal decomposition in Fourier Series
+
+
+## Periodic signal decomposition in Fourier Series
 
 **Motivation** The phasor method can be used to solve circuits with sinusoidal signals (AC circuits), avoiding the necessity of solving the time-domain differential equations. A circuit with other type of waveforms cannot be analysed with this method, unless it is decomposed into its sinusoidal components. The Fourier series allows us to decompose any waveform to a series of sine and cosine functions. Then, we can solve each circuit (an AC circuit for each sinusoidal component of the wave) separatedly and, apllying superposition, add up all the solutions to get the solution of the original circuit.
 
@@ -49,6 +63,8 @@ $$s(x) = S_{avg} + \sum_{n=1}^\infty A_n \cos{n \omega t} + \sum_{n=1}^\infty B_
 
 **Superposition theorem** The superposition theorem for electrical circuits states that for a linear system the response (voltage or current) in any branch of a bilateral linear circuit having more than one independent source equals the algebraic sum of the responses caused by each independent source acting alone, while all other independent sources are cancelled.
 
+
+## Parseval Formula
 
 **Parseval formula** The Parseval formula expresses the RMS value of a signal in terms of the RMS values of the harmonic components of the signal
 $$ S_{RMS}^2 = S_{avg}^2 + S_{1 RMS}^2 + S_{2 RMS}^2 + S_{3 RMS}^2 + ... $$
@@ -67,6 +83,50 @@ S_{RMS ripple}   &= \sqrt{ S_{RMS}^2 - S_{avg}^2 }
 \end{align*}
 
 
+
+
+# Electric power
+
+**Electric power** Electric power, $p(t)$ is
+
+$$ p(t) = v(t)i(t) $$
+
+**Average power** Average power or active power, $P$, is the average of the $p(t)$ signal in a component
+
+$$ P = \bar{p(t)} = \frac{1}{T} \int_{t_0}^{t_0+T} p(t) dt = \frac{1}{T} \int_{t_0}^{t_0+T} v(t)i(t) dt$$
+
+**Aparent power** Apparent power, S, in a component is the product
+
+$$ S = V_{RMS} I_{RMS} $$
+
+**Power factor** Power factor is the quotient
+
+$$PF = \frac{P}{S}$$
+
+## Power in AC
+
+Power in AC refers to the analysis of power in circuits in which all signals are sinusoidal waves. Although power electronics circuits are not usually pure AC circuits, this theory is useful when solving circuits with superposition of the Fourier components.
+
+**Active and reactive power**
+
+* Active power: $P = VI \cos{\varphi}$
+* Reactive power: $Q = VI \sin{\varphi}$
+
+**Complex and apparent power**
+
+* Complex power is the complex number $\mathbf{S} = \mathbf{V} \mathbf{I}^* = P + Qj$
+* Apparent power is the module of the complex power, $S = VI$
+
+**Power factor**
+
+$$PF = \frac{P}{S}$$
+
+$$PF = \cos{\varphi}$$
+
+## Power with superposition
+
+### Power from harmonics
+
 **Average power from harmonics**
 
 $$P = V_{avg} I_{avg} + V_{1 RMS} I_{1 RMS} \cos{\varphi_1} + V_{2 RMS} I_{2 RMS} \cos{\varphi_2} + ... $$
@@ -74,9 +134,13 @@ $$P = V_{avg} I_{avg} + V_{1 RMS} I_{1 RMS} \cos{\varphi_1} + V_{2 RMS} I_{2 RMS
 * Only same frecuency harmonics produce power.
 
 
-# Components
 
-## Resistor, capacitor and inductor
+
+# Circuit components
+
+## Resistor
+
+## Capacitor
 
 ### Capacitor equation
 
@@ -193,6 +257,8 @@ This means that the voltage remains constant. Due to the continuity capacitor vo
 
 $$ v(t > t_{OFF}) = v(t = t_{OFF}) $$
 
+## Inductor
+
 ### Inductor equation
 
 $$
@@ -227,9 +293,9 @@ $$
 \end{circuitikz}
 $$
 
-### Inductor vs Capacitor table
+## Inductor vs Capacitor table
 
-\tabulinesep=1mm
+\tabulinesep=2mm
 \begin{longtabu} to\linewidth{|X[1,m,c]|X[2,m,c]|X[2,m,c]|}
 
 	\hline
@@ -259,6 +325,30 @@ $$
 	\hline
 	
 	Hydraulic analogy
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	Voltage
+	&
+	$$ v(t) =  \frac{1}{C} \int^{t}_{t = t_0}{i(t) dt} + v(t = t_0) $$
+	&
+	$$v(t) = L \frac{di(t)}{dt} $$
+	\\
+	\hline
+
+	Current
+	&
+	$$i(t) = C \frac{dv(t)}{dt} $$
+	&
+	$$ i(t) =  \frac{1}{L} \int^{t}_{t = t_0}{v(t) dt} + i(t = t_0) $$
+	\\
+	\hline
+
+	\vspace{30mm}
 	&
 	\vspace{30mm}
 	&
