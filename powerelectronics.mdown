@@ -50,6 +50,72 @@ $$ S_{RMS} = \sqrt { {1 \over T} \int_{t_0}^{t_0 + T} {s(t)^2 dt} }$$
 **Motivation for RMS value** RMS value of a voltage or current signal (constant or non-constant) has the property that is the value of an equivalent DC voltage or current signal that would dissipate the same power through a resistance.
 
 
+## Average and RMS values table
+
+\tabulinesep=2mm
+\begin{longtabu} to\linewidth{|X[1,m,c]|X[1,m,c]|X[1,m,c]|}
+
+	\hline
+	Signal & Average value & Root Mean Square Value \\
+	\hline
+
+	Constant
+	&
+	$$A$$
+	&
+	$$A$$
+	\\
+	\hline
+
+	Square Wave
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+	
+	Sinusoidal Wave
+	&
+	0
+	&
+	$$\frac{A}{ \sqrt{2} }$$
+	\\
+	\hline
+
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+
+
+\end{longtabu}
 
 
 ## Periodic signal decomposition in Fourier Series

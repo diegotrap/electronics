@@ -101,6 +101,73 @@ S_{RMS} &= \sqrt { {1 \over T} \int_{t_0}^{t_0 + T} { [A \cos{t}]^2 dt} } \\
         &= \sqrt { {A^2 \over 2T} T } = \sqrt { {A^2 \over 2} } = \frac{A}{\sqrt{2}}
 \end{align*}
 
+### Average and RMS values table
+
+\tabulinesep=2mm
+\begin{longtabu} to\linewidth{|X[1,m,c]|X[1,m,c]|X[1,m,c]|}
+
+	\hline
+	Signal & Average value & Root Mean Square Value \\
+	\hline
+
+	Constant
+	&
+	$$A$$
+	&
+	$$A$$
+	\\
+	\hline
+
+	Square Wave
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+	
+	Sinusoidal Wave
+	&
+	0
+	&
+	$$\frac{A}{ \sqrt{2} }$$
+	\\
+	\hline
+
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+	\hline
+
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	&
+	\vspace{30mm}
+	\\
+
+
+\end{longtabu}
+
 ###Periodic signal decomposition in Fourier Series
 
 **Motivation** The phasor method can be used to solve circuits with sinusoidal signals (AC circuits), avoiding the necessity of solving the time-domain differential equations. A circuit with other type of waveforms cannot be analysed with this method, unless it is decomposed into its sinusoidal components. The Fourier series allows us to decompose any waveform to a series of sine and cosine functions. Then, we can solve each circuit (an AC circuit for each sinusoidal component of the wave) separatedly and, apllying superposition, add up all the solutions to get the solution of the original circuit.
