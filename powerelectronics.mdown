@@ -130,7 +130,7 @@ $$s(x) = S_{avg} + \sum_{n=1}^\infty A_n \cos{n \omega t} + \sum_{n=1}^\infty B_
 **Superposition theorem** The superposition theorem for electrical circuits states that for a linear system the response (voltage or current) in any branch of a bilateral linear circuit having more than one independent source equals the algebraic sum of the responses caused by each independent source acting alone, while all other independent sources are cancelled.
 
 
-## Parseval Formula
+### Parseval Formula
 
 **Parseval formula** The Parseval formula expresses the RMS value of a signal in terms of the RMS values of the harmonic components of the signal
 $$ S_{RMS}^2 = S_{avg}^2 + S_{1 RMS}^2 + S_{2 RMS}^2 + S_{3 RMS}^2 + ... $$
@@ -149,7 +149,15 @@ S_{RMS ripple}   &= \sqrt{ S_{RMS}^2 - S_{avg}^2 }
 \end{align*}
 
 
+## Quality factors
 
+### Ripple Factor
+
+$$RF = \frac{ V_{RMS, ripple} }{V_{AVG}} = \frac{ \sqrt{\sum_{n=1}^{\infty} V_i^2} }{V_{AVG} } = \frac{ \sqrt{V_{RMS}^2 -  V_{AVG}^2 } }{V_{AVG} } $$
+
+### Total Harmonic Distortion
+
+$$THD = \frac{ V_{RMS, distortion} }{V_{1,RMS}} = \frac{ \sqrt{\sum_{n=2}^{\infty} V_i^2} }{V_{1,RMS} } = \frac{ \sqrt{V_{RMS}^2 -  V_{1,RMS}^2 } }{V_{1,RMS} } $$
 
 # Electric power
 
