@@ -56,7 +56,7 @@ $$ \frac{1}{C} i(t) = d v(t) $$
 $$ \int^{v(t)}_{v(t = - \infty)}{d v(t)} = \frac{1}{C} \int^{t}_{t = - \infty}{i(t) dt} $$
 $$ v(t) =  \frac{1}{C} \int^{t}_{t = t_0}{i(t) dt} + v(t = t_0) $$
 
-###Charging a capacitor with a constant voltage source
+###Charging a capacitor with a constant voltage source and resistor
 
 $$
 \begin{circuitikz}[scale=1.2]
@@ -76,7 +76,46 @@ $$i(t) = \frac{v_c(t) - v_s(t)}{R}$$
 
 $$\frac{v_c(t) - v_s(t)}{R} = C \frac{dv(t)}{dt}$$
 
-Solution is exponential
+$$v_c(t)' + \frac{1}{RC} v_c(t) = \frac{V_s}{RC}$$
+
+1. Homogeneus solution 
+
+$$v_c(t)' + \frac{1}{RC} v_c(t) = 0$$
+
+CP: $1 + \frac{1}{RC} = 0$
+
+Root: $r = -\frac{1}{RC}$
+
+$$v_c(t)_h = c_1 e^{-\frac{1}{RC}t}$$
+
+2. Particular solution
+
+$$v_c(t)' + \frac{1}{RC} v_c(t) = \frac{V_s}{RC}$$
+
+We assume solutions of the form $v(t)_p = A$ (constant)
+
+$$\frac{d}{dt}(A) + \frac{1}{RC}A = \frac{V_s}{RC}$$
+
+$$A = V_s$$
+
+$$v_p(t) = V_s$$
+
+3. General solution
+
+$$v(t) = c_1 e^{-\frac{1}{RC}t} + V_s$$
+
+4. Initial conditions
+
+$$v (t = 0) = 0$$
+
+$$c_1 = -V_s$$
+
+$$v(t) = V_s - V_s e^{-\frac{1}{RC}t}$$
+
+$$v(t) = V_s ( 1 - e^{-\frac{1}{RC}t} )$$
+
+
+
 
 ###Discharging a capacitor through a resistor
 
@@ -207,29 +246,97 @@ $$
 	
 	Hydraulic analogy
 	&
+	Hydraulic accumulator
 	\vspace{30mm}
 	&
+	Paddle wheel
 	\vspace{30mm}
 	\\
 	\hline
 
 	Voltage
 	&
+	$$
+	\begin{circuitikz}
+		\draw
+		(0,0) to[I, i^>=$i(t)$](0,2) -- 
+		(0,2) to[short](2,2) -- 
+		(2,2) to[C, l^=$C$, v_<=$v(t)$](2,0) --
+		(2,0) to[short](0,0)
+		;
+	\end{circuitikz}
+	$$
 	$$ v(t) =  \frac{1}{C} \int^{t}_{t = t_0}{i(t) dt} + v(t = t_0) $$
 	&
+	$$
+	\begin{circuitikz}
+		\draw
+		(0,0) to[I, i^>=$i(t)$](0,2) -- 
+		(0,2) to[short](2,2) -- 
+		(2,2) to[L, l^=$L$, v_<=$v(t)$](2,0) --
+		(2,0) to[short](0,0)
+		;
+	\end{circuitikz}
+	$$
 	$$v(t) = L \frac{di(t)}{dt} $$
 	\\
 	\hline
 
 	Current
 	&
+	$$
+	\begin{circuitikz}
+		\draw
+		(0,0) to[V=$v(t)$, i^>=$i(t)$](0,2)
+		(0,2) to[short](2,2) 
+		(2,2) to[C, l^=$C$, v_<=$v(t)$](2,0)
+		(2,0) to[short](0,0)
+		;
+	\end{circuitikz}
+	$$
 	$$i(t) = C \frac{dv(t)}{dt} $$
 	&
+	$$
+	\begin{circuitikz}
+		\draw
+		(0,0) to[V=$v(t)$, i^>=$i(t)$] (0,2)
+		(0,2) to[short](2,2) 
+		(2,2) to[L, l^=$L$, v_<=$v(t)$](2,0)
+		(2,0) to[short](0,0)
+		;
+	\end{circuitikz}
+	$$
 	$$ i(t) =  \frac{1}{L} \int^{t}_{t = t_0}{v(t) dt} + i(t = t_0) $$
 	\\
 	\hline
 
-	\vspace{30mm}
+	DC equivalent
+	&
+	open circuit
+	$$\frac{dv(t)}{dt} = 0 \rightarrow i(t) = 0  $$
+	&
+	short circuit
+	$$\frac{di(t)}{dt} = 0 \rightarrow v(t) = 0  $$
+	\\
+	\hline
+
+	Discontinuities
+	&
+	\begin{itemize}
+		\item $\frac{dv(t)}{dt}$ must exist for a solution (indeterminate in discontinuities)
+		\item Big changes in voltage ($\frac{dv(t)}{dt}$) led to high currents
+	\end{itemize}
+	Often, in the model no discontinuities in voltage signal are allowed because they represent very rapid changes in voltage in a real circuit, that could led to breaking the component due to a high current.
+	&
+	\begin{itemize}
+		\item $\frac{di(t)}{dt}$ must exist for a solution (indeterminate in discontinuities)
+		\item Big changes in current ($\frac{dv(t)}{dt}$) led to high voltages
+	\end{itemize}
+	Often, in the model no discontinuities in current signal are allowed because they represent very rapid changes in current in a real circuit, that could led to breaking the component due to a high voltage.
+	\\
+	\hline
+
+	Constant rate charge
 	&
 	\vspace{30mm}
 	&
@@ -237,22 +344,79 @@ $$
 	\\
 	\hline
 
+	Discharge resistor
+	&
+	\begin{circuitikz}[scale=1.2]
+		\draw
+		(0,0) to[C, i^>=$i(t)$] (0,2)
+		(0,2) to[short] (2,2) -- 
+		(2,2) to[R] (2,0) --
+		(2,0) to[short] (0,0)
+		;
+	\end{circuitikz}
 	\vspace{30mm}
 	&
-	\vspace{30mm}
-	&
+	\begin{circuitikz}[scale=1.2]
+		\draw
+		(0,0) to[L, i^>=$i(t)$] (0,2)
+		(0,2) to[short] (2,2) -- 
+		(2,2) to[R] (2,0) --
+		(2,0) to[short] (0,0)
+		;
+	\end{circuitikz}
 	\vspace{30mm}
 	\\
 	\hline
 
-	\vspace{30mm}
+	???
 	&
-	\vspace{30mm}
+	\begin{circuitikz}
+		\draw
+		(0,0) to[V, i^>=$i(t)$](0,2) -- 
+		(0,2) to[R](2,2) -- 
+		(2,2) to[C, l^=$C$, v_<=$v(t)$](2,0) --
+		(2,0) to[short](0,0)
+		;
+	\end{circuitikz}
+	$$v(t) = V_s ( 1 - e^{-\frac{1}{RC}t} )$$
 	&
+	\begin{circuitikz}
+		\draw
+		(0,0) to[I=$i(t)$, i^>=$i(t)$] (0,2)
+		(0,2) to[R](2,2) 
+		(2,2) to[L, l^=$L$, v_<=$v(t)$](2,0)
+		(2,0) to[short](0,0)
+		;
+	\end{circuitikz}
 	\vspace{30mm}
 	\\
 	\hline
 
+	???
+	&
+	\begin{circuitikz}
+		\draw
+		(0,0) to[I, i^>=$I$](0,2) -- 
+		(0,2) to[R](2,2) -- 
+		(2,2) to[C, l^=$C$, v_<=$v(t)$](2,0) --
+		(2,0) to[short](0,0)
+		;
+	\end{circuitikz}
+	\vspace{30mm}
+	&
+	\begin{circuitikz}
+		\draw
+		(0,0) to[V=$v(t)$, i^>=$i(t)$] (0,2)
+		(0,2) to[R](2,2) 
+		(2,2) to[L, l^=$L$, v_<=$v(t)$](2,0)
+		(2,0) to[short](0,0)
+		;
+	\end{circuitikz}
+	\vspace{30mm}
+	\\
+	\hline
+
+
 	\vspace{30mm}
 	&
 	\vspace{30mm}
@@ -261,7 +425,7 @@ $$
 	\\
 
 
-\end{longtabu}be
+\end{longtabu}
 
 
 ## General transient solution of first order circuits (RC, RL)
@@ -289,10 +453,10 @@ The most common RLC circuits are the RLC series circuit and the RLC parallel cir
 $$
 \begin{circuitikz}[scale=1.2]
 	\draw
-	(0,0)to[V=$v(t)$, i^>=$i(t)$](0,2) -- 
-	(0,2)to[R=$R$](2,2) -- 
-	(2,2)to[L=$L$](2,0) --
-	(2,0)to[C=$C$](0,0)
+	(0,0) to[V=$v(t)$, i^>=$i(t)$](0,2) -- 
+	(0,2) to[R=$R$](2,2) -- 
+	(2,2) to[L=$L$](2,0) --
+	(2,0) to[C=$C$](0,0)
 	;
 \end{circuitikz}
 $$

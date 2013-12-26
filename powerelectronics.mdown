@@ -161,7 +161,7 @@ $$ p(t) = v(t)i(t) $$
 
 $$ P = \bar{p(t)} = \frac{1}{T} \int_{t_0}^{t_0+T} p(t) dt = \frac{1}{T} \int_{t_0}^{t_0+T} v(t)i(t) dt$$
 
-**Aparent power** Apparent power, S, in a component is the product
+**Aparent power** Apparent power, $S$, in a component is the product
 
 $$ S = V_{RMS} I_{RMS} $$
 
@@ -392,29 +392,97 @@ $$
 	
 	Hydraulic analogy
 	&
+	Hydraulic accumulator
 	\vspace{30mm}
 	&
+	Paddle wheel
 	\vspace{30mm}
 	\\
 	\hline
 
 	Voltage
 	&
+	$$
+	\begin{circuitikz}
+		\draw
+		(0,0) to[I, i^>=$i(t)$](0,2) -- 
+		(0,2) to[short](2,2) -- 
+		(2,2) to[C, l^=$C$, v_<=$v(t)$](2,0) --
+		(2,0) to[short](0,0)
+		;
+	\end{circuitikz}
+	$$
 	$$ v(t) =  \frac{1}{C} \int^{t}_{t = t_0}{i(t) dt} + v(t = t_0) $$
 	&
+	$$
+	\begin{circuitikz}
+		\draw
+		(0,0) to[I, i^>=$i(t)$](0,2) -- 
+		(0,2) to[short](2,2) -- 
+		(2,2) to[L, l^=$L$, v_<=$v(t)$](2,0) --
+		(2,0) to[short](0,0)
+		;
+	\end{circuitikz}
+	$$
 	$$v(t) = L \frac{di(t)}{dt} $$
 	\\
 	\hline
 
 	Current
 	&
+	$$
+	\begin{circuitikz}
+		\draw
+		(0,0) to[V=$v(t)$, i^>=$i(t)$](0,2)
+		(0,2) to[short](2,2) 
+		(2,2) to[C, l^=$C$, v_<=$v(t)$](2,0)
+		(2,0) to[short](0,0)
+		;
+	\end{circuitikz}
+	$$
 	$$i(t) = C \frac{dv(t)}{dt} $$
 	&
+	$$
+	\begin{circuitikz}
+		\draw
+		(0,0) to[V=$v(t)$, i^>=$i(t)$] (0,2)
+		(0,2) to[short](2,2) 
+		(2,2) to[L, l^=$L$, v_<=$v(t)$](2,0)
+		(2,0) to[short](0,0)
+		;
+	\end{circuitikz}
+	$$
 	$$ i(t) =  \frac{1}{L} \int^{t}_{t = t_0}{v(t) dt} + i(t = t_0) $$
 	\\
 	\hline
 
-	\vspace{30mm}
+	DC equivalent
+	&
+	open circuit
+	$$\frac{dv(t)}{dt} = 0 \rightarrow i(t) = 0  $$
+	&
+	short circuit
+	$$\frac{di(t)}{dt} = 0 \rightarrow v(t) = 0  $$
+	\\
+	\hline
+
+	Discontinuities
+	&
+	\begin{itemize}
+		\item $\frac{dv(t)}{dt}$ must exist for a solution (indeterminate in discontinuities)
+		\item Big changes in voltage ($\frac{dv(t)}{dt}$) led to high currents
+	\end{itemize}
+	Often, in the model no discontinuities in voltage signal are allowed because they represent very rapid changes in voltage in a real circuit, that could led to breaking the component due to a high current.
+	&
+	\begin{itemize}
+		\item $\frac{di(t)}{dt}$ must exist for a solution (indeterminate in discontinuities)
+		\item Big changes in current ($\frac{dv(t)}{dt}$) led to high voltages
+	\end{itemize}
+	Often, in the model no discontinuities in current signal are allowed because they represent very rapid changes in current in a real circuit, that could led to breaking the component due to a high voltage.
+	\\
+	\hline
+
+	Constant rate charge
 	&
 	\vspace{30mm}
 	&
@@ -422,21 +490,78 @@ $$
 	\\
 	\hline
 
+	Discharge resistor
+	&
+	\begin{circuitikz}[scale=1.2]
+		\draw
+		(0,0) to[C, i^>=$i(t)$] (0,2)
+		(0,2) to[short] (2,2) -- 
+		(2,2) to[R] (2,0) --
+		(2,0) to[short] (0,0)
+		;
+	\end{circuitikz}
 	\vspace{30mm}
 	&
-	\vspace{30mm}
-	&
+	\begin{circuitikz}[scale=1.2]
+		\draw
+		(0,0) to[L, i^>=$i(t)$] (0,2)
+		(0,2) to[short] (2,2) -- 
+		(2,2) to[R] (2,0) --
+		(2,0) to[short] (0,0)
+		;
+	\end{circuitikz}
 	\vspace{30mm}
 	\\
 	\hline
 
-	\vspace{30mm}
+	???
 	&
-	\vspace{30mm}
+	\begin{circuitikz}
+		\draw
+		(0,0) to[V, i^>=$i(t)$](0,2) -- 
+		(0,2) to[R](2,2) -- 
+		(2,2) to[C, l^=$C$, v_<=$v(t)$](2,0) --
+		(2,0) to[short](0,0)
+		;
+	\end{circuitikz}
+	$$v(t) = V_s ( 1 - e^{-\frac{1}{RC}t} )$$
 	&
+	\begin{circuitikz}
+		\draw
+		(0,0) to[I=$i(t)$, i^>=$i(t)$] (0,2)
+		(0,2) to[R](2,2) 
+		(2,2) to[L, l^=$L$, v_<=$v(t)$](2,0)
+		(2,0) to[short](0,0)
+		;
+	\end{circuitikz}
 	\vspace{30mm}
 	\\
 	\hline
+
+	???
+	&
+	\begin{circuitikz}
+		\draw
+		(0,0) to[I, i^>=$I$](0,2) -- 
+		(0,2) to[R](2,2) -- 
+		(2,2) to[C, l^=$C$, v_<=$v(t)$](2,0) --
+		(2,0) to[short](0,0)
+		;
+	\end{circuitikz}
+	\vspace{30mm}
+	&
+	\begin{circuitikz}
+		\draw
+		(0,0) to[V=$v(t)$, i^>=$i(t)$] (0,2)
+		(0,2) to[R](2,2) 
+		(2,2) to[L, l^=$L$, v_<=$v(t)$](2,0)
+		(2,0) to[short](0,0)
+		;
+	\end{circuitikz}
+	\vspace{30mm}
+	\\
+	\hline
+
 
 	\vspace{30mm}
 	&
@@ -450,9 +575,44 @@ $$
 
 
 
-## Transformers
+## Transformer
+
+$$ % by Gonzalo Medina: http://tex.stackexchange.com/a/118761
+\begin{circuitikz} 
+	\draw
+	(0,0) node[transformer](T) {}
+	node[ocirc](A) at ([xshift=-1cm]T.A1) {}
+	node[ocirc](B) at ([xshift=-1cm]T.A2) {}
+	node[ocirc](C) at ([xshift=1cm]T.B1) {}
+	node[ocirc](D) at ([xshift=1cm]T.B2) {}
+	node[circ](E) at ([xshift=0.4cm,yshift=-5pt]T.A1) {}
+	node[circ](F) at ([xshift=-0.4cm,yshift=-5pt]T.B1) {}
+	(T.A1) to[-o](A)
+	(T.A2) to [-o](B) 
+	(T.B1) to[-o](C)
+	(T.B2) to [-o](D)
+	(T.west) node{$L_1$}
+	(T.east) node{$L_2$}
+	;
+	\begin{scope}[shorten >= 10pt,shorten <= 10pt,]
+	\draw[->](A) -- node[left] {$u_1(t)$} (B);
+	\draw[->](C) -- node[right] {$u_2(t)$} (D);
+	\draw[<->]([xshift=7pt]T.north west) to[bend left] node[above] {$M,k$} ([xshift=-7pt]T.north east);
+	\end{scope}
+	\draw[->]([xshift=-0.9cm,yshift=10pt]T.A1) -- node[above] {$i_1(t)$} +(20pt,0);
+	\draw[->]([xshift=0.9cm,yshift=10pt]T.B1) -- node[above] {$i_2(t)$} +(-20pt,0);
+\end{circuitikz}
+$$
+
+\vspace{50mm}
+
+
+
 
 ## Semiconductor devices
+
+
+
 
 # Analysis hypothesis
 
@@ -478,7 +638,142 @@ the waveforms can be easily determined by ignoring the ripple:
 v_o(t) approx V
 (same as 3.)
 
-# Reference
 
+
+
+# More
+
+Code from http://www.texample.net/tikz/examples/power-electronics-converter-inverter/
+
+\begin{circuitikz}
+    \draw
+    (0,0)
+        to[V, l=$V_s$] ++(0,2.5)
+        to[short] ++(1,0) coordinate (A)
+        to[short] ++(0.5,0)
+        to[L, l^=$L_1$, v=$v_{L_1}$] ++(1.5,0)
+        to[short] ++(1,0) coordinate (B)
+        to[short] ++(1,0) node[above](C) {1}
+        to[open, o-o] ++(0.65,0) coordinate (D)
+        to[short] ++(0.5,0)
+        to[L, l^=$L_2$, v=$v_{L_2}$] ++(1.5,0)
+        to[short] ++(0.5,0) coordinate (E)
+        to[short] ++(1.5,0)
+        to[generic, v^=$~~V_o$] ++(0,-2.5)
+        --(0,0)
+    (A)                                         % Left of L1, top of switch A
+        to[short] ++(0,-1.5) node[left] {2}
+        to[open, o-o] ++(0,-0.5) node[left] {1}
+        |- (0,0)
+    (B)                                         % C1 connection starting from top
+        to[C, l=$C_1$] ++(0,-1.75) coordinate (Aaux)
+        -- ($(A |- Aaux) + (0.5,0)$)
+        to[short, o-] ++(-0.5,-0.15)
+    ($(C)!0.5!(D)$)                             % Switch B low connector
+        ++(0,-0.5) node[left] {2}
+        to[short, o-] ++(0,-0.1)
+        |- (0,0)
+    (D)                                         % Switch B blade
+        to[short] ++(-0.65, -0.1)
+    (E)                                         % C2 connection
+        to[C, l=$C_2$] ++(0,-2.5)
+    (B)                                         % Vc1
+        to[open, v=$V_{C_1}~~$] (Aaux)
+    ;
+\end{circuitikz}
+
+
+\begin{circuitikz}
+    \draw
+    (0,0)
+        to[V, l=$V_s$] ++(0,2)
+        to[short] ++(0.5,0)
+        to[L, l^=$L_x$] ++(1.5,0)
+        to[short] ++(0.5,0) coordinate (Qpos)
+        to[C, l^=$C_1$] ++(2.5,0) coordinate (LMpos)
+        to[L, l_=$L_m$] ++(0,-2)
+    (LMpos)
+        to[short] ++(0.7,0) coordinate(N1)
+        to[L] ++(0,-2)
+        to[short] (0,0)
+    (Qpos)++(0,-2)
+        to[Tnigbt] ++(0,2)
+    % ------------------------ Secondary side
+    (N1)++(0.7,0) coordinate (N2)
+        to[D*] ++(2.5,0) coordinate (C2pos)
+        to[C, l_=$C_2$] ++(0,-2)
+    (C2pos)
+        to[short] ++(1.5,0)
+        to[R, l_=$R$] ++(0,-2)
+        to[short] ($(N2)+(0,-2)$)
+        to[L] (N2)
+    (C2pos)++(2,0)
+        to[open, v^<=$v_o(t)$] ++(0,-2)
+    % ------------------------ Transformer lines
+    ($(N1)!0.5!(N2)$)++(-0.05,-0.5)
+        -- ++(0,-1) ++(0.1,0) -- ++(0,1)
+    ($(N1)!0.5!(N2)$)++(0,0.3) node {$N_1:N_2$}
+    ($(N1)+(-0.15,-0.5)$) node[circ] {}
+    ($(N2)+(+0.15,-0.5)$) node[circ] {}
+    ;
+\end{circuitikz}
+
+\begin{tikzpicture}
+    \draw
+    % DC sources
+    (0,0)
+        to[battery, l=$60V$] ++(0,4) coordinate (Vcc)
+    ++(2,0) coordinate (NE)
+
+    % Switches and diodes for leg a
+    ++(0,-1) node [nigbt,scale=0.8,name=igbt1] {}
+    ++(0,-2) node [nigbt,scale=0.8,name=igbt4] {}
+    (igbt1.E)++(0,0.1) -- ++(0.3,0) to[D*] ($(igbt1.C)+(0.3,-0.1)$)
+      -- ++(-0.3,0)
+    (igbt4.E)++(0,0.1) -- ++(0.3,0) to[D*] ($(igbt4.C)+(0.3,-0.1)$)
+      -- ++(-0.3,0)
+    % --Switch connections for leg a
+    (Vcc) -| (igbt1.C)
+    (igbt1.E) -- (igbt4.C)
+    (igbt4.E) |- (0,0)
+
+    % Switches and diodes for leg b
+    (NE)++(3,0)
+    ++(0,-1) node [nigbt,scale=0.8,name=igbt3] {}
+    ++(0,-2) node [nigbt,scale=0.8,name=igbt2] {}
+    (igbt3.E)++(0,0.1) -- ++(0.3,0) to[D*] ($(igbt3.C)+(0.3,-0.1)$)
+      -- ++(-0.3,0)
+    (igbt2.E)++(0,0.1) -- ++(0.3,0) to[D*] ($(igbt2.C)+(0.3,-0.1)$)
+      -- ++(-0.3,0)
+    % --Switch connections for leg b
+    (Vcc) -| (igbt3.C)
+    (igbt3.E) -- (igbt2.C)
+    (igbt2.E) |- (0,0)
+
+    % Inductor, grid, and the return path
+    (2,2.2)
+        to[short, *-, i=$i_o(t)$, current/distance=0.9] ++(6,0)
+        to[L, l=$100mH$] ++(1.2,0)
+        to[R] ++(1.2,0) coordinate (Lright)
+        to[short] ++(1,0)
+        ++(0,-2)
+        to[V, l=$\sqrt{2}\cdot 230 \cos(314t)$, mirror] ++(0,2)
+        ++(0,-2)
+        to[short] ++(-5,0)
+        |- (5,1.8) node[circ] {}
+
+    % P and arrow
+    (Lright)++(0.2,0) to[open, o-o] ++(0,-2)
+    (Lright)++(0.2,-1) node [text width=2pt] {$\Rightarrow P$}
+
+    % v_o(t)
+    (6.5,2.2) to[open, v^=$v_o(t)$] ++(0,-2)
+    ;
+\end{tikzpicture}
+
+
+
+
+# Reference
 
 
