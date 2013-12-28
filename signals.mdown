@@ -101,7 +101,13 @@ S_{RMS} &= \sqrt { {1 \over T} \int_{t_0}^{t_0 + T} { [A \cos{t}]^2 dt} } \\
         &= \sqrt { {A^2 \over 2T} T } = \sqrt { {A^2 \over 2} } = \frac{A}{\sqrt{2}}
 \end{align*}
 
-### Average and RMS values table
+### Normalized Average and RMS values table
+
+* Amplitudes are normalized with the peak value of the signal
+$$s_N = \frac{s_R}{S_{MAX}}$$
+* Frecuency of sinusoidal waves is normalized for the first period to be in the interval $[0, 2\pi]$
+$$\theta = \omega t$$
+$$t = \frac{\theta}{\omega}$$
 
 \tabulinesep=2mm
 \begin{longtabu} to\linewidth{|X[1,m,c]|X[1,m,c]|X[1,m,c]|}
@@ -111,14 +117,16 @@ S_{RMS} &= \sqrt { {1 \over T} \int_{t_0}^{t_0 + T} { [A \cos{t}]^2 dt} } \\
 	\hline
 
 	Constant
+	\vspace{30mm}
 	&
-	$$A$$
+	1
 	&
-	$$A$$
+	1
 	\\
 	\hline
 
 	Square Wave
+	\vspace{30mm}
 	&
 	\vspace{30mm}
 	&
@@ -127,26 +135,29 @@ S_{RMS} &= \sqrt { {1 \over T} \int_{t_0}^{t_0 + T} { [A \cos{t}]^2 dt} } \\
 	\hline
 	
 	Sinusoidal Wave
+	\vspace{30mm}
 	&
 	0
 	&
-	$$\frac{A}{ \sqrt{2} }$$
+	$$\frac{1}{ \sqrt{2} }$$
 	\\
 	\hline
 
+	Fully Rectified Sinusoidal Wave
 	\vspace{30mm}
 	&
-	\vspace{30mm}
+	$$\frac{2}{\pi}$$
 	&
-	\vspace{30mm}
+	$$\frac{1}{ \sqrt{2} }$$
 	\\
 	\hline
 
+	Half Rectified Sinusoidal Wave
 	\vspace{30mm}
 	&
-	\vspace{30mm}
+	$$\frac{1}{\pi}$$
 	&
-	\vspace{30mm}
+	$$\frac{1}{2}$$
 	\\
 	\hline
 

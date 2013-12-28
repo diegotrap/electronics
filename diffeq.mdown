@@ -266,7 +266,7 @@ $$
 		;
 	\end{circuitikz}
 	$$
-	$$ v(t) =  \frac{1}{C} \int^{t}_{t = t_0}{i(t) dt} + v(t = t_0) $$
+	$$ v(t) =  \frac{1}{C} \int^{t}_{t_0}{i(t) dt} + v(t_0) $$
 	&
 	$$
 	\begin{circuitikz}
@@ -287,9 +287,9 @@ $$
 	$$
 	\begin{circuitikz}
 		\draw
-		(0,0) to[V=$v(t)$, i^>=$i(t)$](0,2)
+		(0,0) to[V=$v(t)$](0,2)
 		(0,2) to[short](2,2) 
-		(2,2) to[C, l^=$C$, v_<=$v(t)$](2,0)
+		(2,2) to[C, l^=$C$, i>_=$i(t)$](2,0)
 		(2,0) to[short](0,0)
 		;
 	\end{circuitikz}
@@ -299,14 +299,14 @@ $$
 	$$
 	\begin{circuitikz}
 		\draw
-		(0,0) to[V=$v(t)$, i^>=$i(t)$] (0,2)
+		(0,0) to[V=$v(t)$] (0,2)
 		(0,2) to[short](2,2) 
-		(2,2) to[L, l^=$L$, v_<=$v(t)$](2,0)
+		(2,2) to[L, l^=$L$, i>_=$i(t)$](2,0)
 		(2,0) to[short](0,0)
 		;
 	\end{circuitikz}
 	$$
-	$$ i(t) =  \frac{1}{L} \int^{t}_{t = t_0}{v(t) dt} + i(t = t_0) $$
+	$$ i(t) =  \frac{1}{L} \int^{t}_{t_0}{v(t) dt} + i(t_0) $$
 	\\
 	\hline
 

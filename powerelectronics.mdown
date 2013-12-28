@@ -50,7 +50,13 @@ $$ S_{RMS} = \sqrt { {1 \over T} \int_{t_0}^{t_0 + T} {s(t)^2 dt} }$$
 **Motivation for RMS value** RMS value of a voltage or current signal (constant or non-constant) has the property that is the value of an equivalent DC voltage or current signal that would dissipate the same power through a resistance.
 
 
-## Average and RMS values table
+### Normalized Average and RMS values table
+
+* Amplitudes are normalized with the peak value of the signal
+$$s_N = \frac{s_R}{S_{MAX}}$$
+* Frecuency of sinusoidal waves is normalized for the first period to be in the interval $[0, 2\pi]$
+$$\theta = \omega t$$
+$$t = \frac{\theta}{\omega}$$
 
 \tabulinesep=2mm
 \begin{longtabu} to\linewidth{|X[1,m,c]|X[1,m,c]|X[1,m,c]|}
@@ -60,14 +66,16 @@ $$ S_{RMS} = \sqrt { {1 \over T} \int_{t_0}^{t_0 + T} {s(t)^2 dt} }$$
 	\hline
 
 	Constant
+	\vspace{30mm}
 	&
-	$$A$$
+	1
 	&
-	$$A$$
+	1
 	\\
 	\hline
 
 	Square Wave
+	\vspace{30mm}
 	&
 	\vspace{30mm}
 	&
@@ -76,26 +84,29 @@ $$ S_{RMS} = \sqrt { {1 \over T} \int_{t_0}^{t_0 + T} {s(t)^2 dt} }$$
 	\hline
 	
 	Sinusoidal Wave
+	\vspace{30mm}
 	&
 	0
 	&
-	$$\frac{A}{ \sqrt{2} }$$
+	$$\frac{1}{ \sqrt{2} }$$
 	\\
 	\hline
 
+	Fully Rectified Sinusoidal Wave
 	\vspace{30mm}
 	&
-	\vspace{30mm}
+	$$\frac{2}{\pi}$$
 	&
-	\vspace{30mm}
+	$$\frac{1}{ \sqrt{2} }$$
 	\\
 	\hline
 
+	Half Rectified Sinusoidal Wave
 	\vspace{30mm}
 	&
-	\vspace{30mm}
+	$$\frac{1}{\pi}$$
 	&
-	\vspace{30mm}
+	$$\frac{1}{2}$$
 	\\
 	\hline
 
@@ -367,7 +378,7 @@ $$
 \end{circuitikz}
 $$
 
-## Inductor vs Capacitor table
+## Capacitor vs Inductor table
 
 \tabulinesep=2mm
 \begin{longtabu} to\linewidth{|X[1,m,c]|X[2,m,c]|X[2,m,c]|}
@@ -420,7 +431,7 @@ $$
 		;
 	\end{circuitikz}
 	$$
-	$$ v(t) =  \frac{1}{C} \int^{t}_{t = t_0}{i(t) dt} + v(t = t_0) $$
+	$$ v(t) =  \frac{1}{C} \int^{t}_{t_0}{i(t) dt} + v(t_0) $$
 	&
 	$$
 	\begin{circuitikz}
@@ -441,9 +452,9 @@ $$
 	$$
 	\begin{circuitikz}
 		\draw
-		(0,0) to[V=$v(t)$, i^>=$i(t)$](0,2)
+		(0,0) to[V=$v(t)$](0,2)
 		(0,2) to[short](2,2) 
-		(2,2) to[C, l^=$C$, v_<=$v(t)$](2,0)
+		(2,2) to[C, l^=$C$, i>_=$i(t)$](2,0)
 		(2,0) to[short](0,0)
 		;
 	\end{circuitikz}
@@ -453,14 +464,14 @@ $$
 	$$
 	\begin{circuitikz}
 		\draw
-		(0,0) to[V=$v(t)$, i^>=$i(t)$] (0,2)
+		(0,0) to[V=$v(t)$] (0,2)
 		(0,2) to[short](2,2) 
-		(2,2) to[L, l^=$L$, v_<=$v(t)$](2,0)
+		(2,2) to[L, l^=$L$, i>_=$i(t)$](2,0)
 		(2,0) to[short](0,0)
 		;
 	\end{circuitikz}
 	$$
-	$$ i(t) =  \frac{1}{L} \int^{t}_{t = t_0}{v(t) dt} + i(t = t_0) $$
+	$$ i(t) =  \frac{1}{L} \int^{t}_{t_0}{v(t) dt} + i(t_0) $$
 	\\
 	\hline
 
@@ -628,9 +639,9 @@ The analysis hypothesis that are often used in a first analysis of a power elect
 
 1. Periodic Steady State condition. The converter is in a periodic steady state regime, so all the waveforms are periodic.	If the circuit is in PSS, the following is also true:
 
-	i. At the inductors, the average voltage is zero, $v_L = 0$.
+	i. At the inductors, the average voltage is zero, $\bar{v_L} = 0$.
 
-	ii. At the capacitors, the average current is zero, $i_L = 0$
+	ii. At the capacitors, the average current is zero, $\bar{i_C} = 0$
 
 2. No power loss, unitary efficiency: $\eta = \frac{P_o}{P_i} = 1$
 
@@ -638,17 +649,25 @@ The analysis hypothesis that are often used in a first analysis of a power elect
 
 4. Ideal components: diodes, switches, capacitors...
 
-Proof of 1.ii:
+**Proof of 1.i:**
 
-\vspace{50mm}
+1. $i(t)$ is periodic: $i(t) = i(t+T)$
+2. $i(t)$ equation in the inductor is $i(t) =  \frac{1}{L} \int^{t}_{t_0}{v(t) dt} + i(t_0)$
+3. Substitute 2. in 1.
+	3.1 Substitute and simplify
+	$$ \cancel{\frac{1}{L}} \int^{t}_{t_0}{v(t) dt} + \cancel{i(t_0)} = \cancel{\frac{1}{L}} \int^{t+T}_{t_0}{v(t) dt} + \cancel{i(t_0)}$$
+	3.2 Linearity of the integral
+	$$\int^{t}_{t_0}{v(t) dt} = \int^{t}_{t_0}{v(t) dt} + \int^{t+T}_{t}{v(t) dt}$$
+	3.3 Substract $\int^{t}_{t_0}{v(t) dt}$ from both sides and we get
+	$$\int^{t+T}_{t}{v(t) dt} = 0$$
+4. The average value of the voltage across a inductor is, by definition
+$$\bar{v(t)} = \frac{1}{T} \int_{t}^{t+T} v(t) dt = \frac{1}{T} \cdot 0 = 0$$
 
 
 Small ripple approximation: In a well-designed converter, the output voltage ripple is small. Hence,
 the waveforms can be easily determined by ignoring the ripple:
 v_o(t) approx V
 (same as 3.)
-
-
 
 
 # More
