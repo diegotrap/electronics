@@ -19,7 +19,6 @@
 
 Proof of 1.ii:
 
-\vspace{20mm}
 
 Small ripple approximation: In a well-designed converter, the output voltage ripple is small. Hence,
 the waveforms can be easily determined by ignoring the ripple:
