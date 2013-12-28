@@ -26,6 +26,15 @@ v_o(t) approx V
 
 **Converter types:**
 
+\begin{center}
+  \fbox{
+       \begin{minipage}{160mm}
+            Converter diagram
+            \hfill\vspace{40mm}
+       \end{minipage}
+  }
+\end{center} 
+
 * **Step-down**: A converter where output voltage is lower than the input voltage (like a Buck converter).
 * **Step-up**: A converter that outputs a voltage higher than the input voltage (like a Boost converter).
 
@@ -50,6 +59,11 @@ Some of the parameters of the control signal are:
 $$ D = \frac{t_{ON}}{T} $$
 
 **Switching component** 
+
+
+
+# Non-isolated converters
+
 
 
 ## Step-down Converter (Buck)
@@ -116,6 +130,10 @@ $$ % Buck Converter OFF with diode, by Diego Trapero
 \end{circuitikz}
 $$
 
+**Diode table**
+
+\vspace{40mm}
+
 **ON equivalent circuit**
 
 $$ % Buck Converter ON, by Diego Trapero
@@ -177,6 +195,31 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 
 1. In periodic steady state, the average voltage of an inductor is zero, $\bar{v_L} = 0$
 
+\vspace{50mm}
+
+
+
+**Inductor current**
+\vspace{50mm}
+
+**Switch tension**
+\vspace{50mm}
+
+**Switch current**
+\vspace{50mm}
+
+**Diode tension**
+\vspace{50mm}
+
+**Diode current**
+\vspace{50mm}
+
+**Capacitor current**
+\vspace{50mm}
+
+**Output current**
+\vspace{50mm}
+
 
 ## Step-up Converter (Boost)
 
@@ -196,6 +239,52 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 	;
 \end{circuitikz}
 
+**State of the diode**
+
+* **ON Circuit**:
+
+\vspace{50mm}
+
+* **OFF circuit**
+
+\vspace{50mm}
+
+**Diode table**
+
+\vspace{40mm}
+
+**ON equivalent circuit**
+
+\vspace{50mm}
+
+**OFF equivalent circuit**
+
+\vspace{50mm}
+
+**Inductor voltage**
+\vspace{50mm}
+
+**Inductor current**
+\vspace{50mm}
+
+**Switch tension**
+\vspace{50mm}
+
+**Switch current**
+\vspace{50mm}
+
+**Diode tension**
+\vspace{50mm}
+
+**Diode current**
+\vspace{50mm}
+
+**Capacitor current**
+\vspace{50mm}
+
+**Output current**
+\vspace{50mm}
+
 ## Buck-Boost Converter 
 
 \begin{circuitikz}[scale = 1]
@@ -212,3 +301,49 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 	(6,2) to[R, l=$R$, v_>=$v_o$](6,0)
 	;
 \end{circuitikz}
+
+**State of the diode**
+
+* **ON Circuit**:
+
+\vspace{50mm}
+
+* **OFF circuit**
+
+\vspace{50mm}
+
+**Diode table**
+
+\vspace{40mm}
+
+**ON equivalent circuit**
+
+\vspace{50mm}
+
+**OFF equivalent circuit**
+
+\vspace{50mm}
+
+**Inductor voltage**
+\vspace{50mm}
+
+**Inductor current**
+\vspace{50mm}
+
+**Switch tension**
+\vspace{50mm}
+
+**Switch current**
+\vspace{50mm}
+
+**Diode tension**
+\vspace{50mm}
+
+**Diode current**
+\vspace{50mm}
+
+**Capacitor current**
+\vspace{50mm}
+
+**Output current**
+\vspace{50mm}
