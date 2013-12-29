@@ -33,9 +33,9 @@ Power electronics is ...
 
 ## Average value
 
-**Average value of a periodic signal** The average value $S_{avg}$ or $\bar{s(t)}$ of a periodic signal $S(t)$ is
+**Average value of a periodic signal** The average value $S_{\text{avg}}$ or $\bar{s(t)}$ of a periodic signal $S(t)$ is
 
-$$S_{avg} = \bar{s(t)} = \frac{1}{T} \int_{t}^{t+T} s(t) dt$$
+$$S_{\text{avg}} = \bar{s(t)} = \frac{1}{T} \int_{t}^{t+T} s(t) dt$$
 
 
 
@@ -135,7 +135,7 @@ $$t = \frac{\theta}{\omega}$$
 
 
 **Fourier decomposition** Any periodic signal can be decomposed in a sum of a constant value plus a (possibly infinite) series of sine and cosine functions.
-$$s(x) = S_{avg} + \sum_{n=1}^\infty A_n \cos{n \omega t} + \sum_{n=1}^\infty B_n \sin{n \omega t}$$
+$$s(x) = S_{\text{avg}} + \sum_{n=1}^\infty A_n \cos{n \omega t} + \sum_{n=1}^\infty B_n \sin{n \omega t}$$
 
 
 **Superposition theorem** The superposition theorem for electrical circuits states that for a linear system the response (voltage or current) in any branch of a bilateral linear circuit having more than one independent source equals the algebraic sum of the responses caused by each independent source acting alone, while all other independent sources are cancelled.
@@ -144,31 +144,45 @@ $$s(x) = S_{avg} + \sum_{n=1}^\infty A_n \cos{n \omega t} + \sum_{n=1}^\infty B_
 ### Parseval Formula
 
 **Parseval formula** The Parseval formula expresses the RMS value of a signal in terms of the RMS values of the harmonic components of the signal
-$$ S_{RMS}^2 = S_{avg}^2 + S_{1 RMS}^2 + S_{2 RMS}^2 + S_{3 RMS}^2 + ... $$
+$$ S_{RMS}^2 = S_{\text{avg}}^2 + S_{1 RMS}^2 + S_{2 RMS}^2 + S_{3 RMS}^2 + ... $$
 
 * *The squared RMS value of a signal is the sum of all the squared RMS values its sinusoidal components*
 * *The RMS value of a signal is the geometric mean of the RMS values of its sinusoidal components*
-
-**Ripple RMS value** In constant signals, ripple are the harmonics other than the signal average value. According to Parseval formula, the RMS value of the ripple is the geometric mean of the RMS values of its sinusoidal components:
-$$ S_{RMS ripple}^2 = S_{1 RMS}^2 + S_{2 RMS}^2 + S_{3 RMS}^2 + ... $$
-
-We can derive the ripple RMS value from the DC signal's Parseval formula:
-$$ S_{RMS}^2 = S_{avg}^2 + S_{1 RMS}^2 + S_{2 RMS}^2 + S_{3 RMS}^2 + ... = S_{avg}^2 + S_{RMSripple}^2 $$
-\begin{align*}
-S_{RMS ripple}^2 &= S_{RMS}^2 - S_{avg}^2 \\
-S_{RMS ripple}   &= \sqrt{ S_{RMS}^2 - S_{avg}^2 }
-\end{align*}
 
 
 ## Quality factors
 
 ### Ripple Factor
 
-$$RF = \frac{ V_{RMS, ripple} }{V_{AVG}} = \frac{ \sqrt{\sum_{n=1}^{\infty} V_i^2} }{V_{AVG} } = \frac{ \sqrt{V_{RMS}^2 -  V_{AVG}^2 } }{V_{AVG} } $$
+Ripple factor, RF, is the ratio of the RMS value of the ripple of a signal against its average value. It is a quality factor often used in DC signals. An ideal DC signal has $RF = 0$
+
+$$\text{RF} = \frac{ S_{ \text{RMS ripple} } }{S_{ \text{\text{avg}} }}$$
+
+**Ripple RMS value** In constant signals, ripple are the harmonics other than the signal average value. According to Parseval formula, the RMS value of the ripple is the geometric mean of the RMS values of its sinusoidal components:
+$$ S_{RMS ripple}^2 = S_{1 RMS}^2 + S_{2 RMS}^2 + S_{3 RMS}^2 + ... $$
+
+We can derive the ripple RMS value from the Parseval formula:
+
+$$ S_{RMS}^2 = S_{\text{avg}}^2 + S_{1 RMS}^2 + S_{2 RMS}^2 + S_{3 RMS}^2 + ... = S_{\text{avg}}^2 + S_{RMSripple}^2 $$
+$$S_{RMS ripple}^2 = S_{RMS}^2 - S_{\text{avg}}^2$$
+$$S_{RMS ripple}   = \sqrt{ S_{RMS}^2 - S_{\text{avg}}^2}$$
+
+Using these formulas, there are two ways of calculating the ripple factor of a signal:
+
+$$\text{RF} = \frac{ \sqrt{\sum_{n=1}^{\infty} S_{i, RMS}^2} }{S_{\text{avg}} }$$
+$$\text{RF} = \frac{ \sqrt{S_{RMS}^2 -  S_{\text{avg}}^2 } }{S_{\text{avg}} }$$
 
 ### Total Harmonic Distortion
 
-$$THD = \frac{ V_{RMS, distortion} }{V_{1,RMS}} = \frac{ \sqrt{\sum_{n=2}^{\infty} V_i^2} }{V_{1,RMS} } = \frac{ \sqrt{V_{RMS}^2 -  V_{1,RMS}^2 } }{V_{1,RMS} } $$
+Total Harmonic Distortion, THD,  is the ratio of the RMS value of the distortion of a signal against the RMS of its first harmonic. It is a quality factor often used in AC signals. An ideal AC signal has $THS = 0$
+
+$$\text{THD} = \frac{ S_{\text{RMS distortion}} }{S_{1,RMS}}$$
+
+Using these formulas (!!!!), there are two ways of calculating the total harmonic distortion of a signal:
+
+$$\text{THD} = \frac{ \sqrt{\sum_{n=2}^{\infty} S_{i, RMS}^2} }{S_{1,RMS} }$$
+
+$$\text{THD} = \frac{ \sqrt{S_{RMS}^2 -  S_{1,RMS}^2 } }{S_{1,RMS} } $$
 
 # Electric power
 
@@ -214,7 +228,7 @@ $$PF = \cos{\varphi}$$
 
 **Average power from harmonics**
 
-$$P = V_{avg} I_{avg} + V_{1 RMS} I_{1 RMS} \cos{\varphi_1} + V_{2 RMS} I_{2 RMS} \cos{\varphi_2} + ... $$
+$$P = V_{\text{avg}} I_{\text{avg}} + V_{1 RMS} I_{1 RMS} \cos{\varphi_1} + V_{2 RMS} I_{2 RMS} \cos{\varphi_2} + ... $$
 
 * Only same frecuency harmonics produce power.
 
