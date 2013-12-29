@@ -82,9 +82,9 @@ $$t = \frac{\theta}{\omega}$$
 	Square Wave
 	\vspace{30mm}
 	&
-	\vspace{30mm}
+	$$d$$
 	&
-	\vspace{30mm}
+	$$\sqrt{d}$$
 	\\
 	\hline
 	
@@ -683,10 +683,9 @@ The analysis hypothesis that are often used in a first analysis of a power elect
 $$\bar{v(t)} = \frac{1}{T} \int_{t}^{t+T} v(t) dt = \frac{1}{T} \cdot 0 = 0$$
 
 
-Small ripple approximation: In a well-designed converter, the output voltage ripple is small. Hence,
-the waveforms can be easily determined by ignoring the ripple:
-v_o(t) approx V
-(same as 3.)
+**Small ripple approximation (hypothesis 3):** Ripple can be ignored if it is negligible compared with the average value of the signal, $\Delta v \ll \bar{v(t)} \rightarrow \Delta v \approx  0$, $v(t) \approx \text{constant}$ . This approximation can be used in capacitors that are in parallel with a resistor, and is is very useful for simplifying the computing of integrals that are involved in converter analysis.
+
+A rigurous approach would check, after completing the analysis, that the ripple was in fact small compared with the average of the voltage.
 
 
 # More

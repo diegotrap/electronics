@@ -133,9 +133,9 @@ $$t = \frac{\theta}{\omega}$$
 	Square Wave
 	\vspace{30mm}
 	&
-	\vspace{30mm}
+	$$d$$
 	&
-	\vspace{30mm}
+	$$\sqrt{d}$$
 	\\
 	\hline
 	
