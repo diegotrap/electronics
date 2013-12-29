@@ -77,6 +77,11 @@ c) Check results with the $P = VI$ formula. *I don't know how to prove it yet, o
 	$$P = \frac{1}{T} \sqrt{ \int_{t_0}^{t_0+T} v^2(t) \,dt \cdot \int_{t_0}^{t_0+T} i^2(t) \,dt } $$
 
 
+**Properties of RMS value**
+
+* The RMS value of a function is the same as the RMS value of the absolute value of the function
+$$RMS[ f(t) ] = RMS[ |f(t)| ]$$
+
 ###Signal Examples
 
 

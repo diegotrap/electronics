@@ -49,6 +49,11 @@ $$ S_{RMS} = \sqrt { {1 \over T} \int_{t_0}^{t_0 + T} {s(t)^2 dt} }$$
 
 **Motivation for RMS value** RMS value of a voltage or current signal (constant or non-constant) has the property that is the value of an equivalent DC voltage or current signal that would dissipate the same power through a resistance.
 
+**Properties of RMS value**
+
+* The RMS value of a function is the same as the RMS value of the absolute value of the function
+$$RMS[ f(t) ] = RMS[ |f(t)| ]$$
+
 
 ### Normalized Average and RMS values table
 
