@@ -12,7 +12,7 @@ $$s(t) = \sqrt{2} A \cdot \cos{\omega t + \varphi}$$
 where
 
 * $A \equiv A_{RMS}$ is the RMS value of the signal
-* $\omega$ is the angular frecuency, $\omega = 2 \pi f$ $[rad]$
+* $\omega$ is the angular frecuency, $\omega = 2 \pi f$ $[rad/s]$
 * Frecuency,  $f = \omega / 2\pi$
 * Period, $T = 1/f$
 * Amplitude of the signal is $A/\sqrt{2}$

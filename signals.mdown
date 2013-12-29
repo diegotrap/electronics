@@ -3,7 +3,7 @@
 
 #Circuit Signals
 
-**Circuit signal** A circuit signal, $s(t)$, is a function of time that represents the variation of an electrical magnitude in a circuit.
+**Circuit signal** A circuit signal, $s(t)$, is a function of time that represents the values that an electrical magnitude in a circuit takes over time.
 
 
 
