@@ -71,20 +71,22 @@
 \redefinesymbolwitharg{log}
 
 
-% Headings
+\setcounter{secnumdepth}{3}
+
+% % Headings
 \usepackage{titlesec}
-\titleformat{\chapter}[display]
-  {\normalfont\sffamily\huge\bfseries\color{blue}}
-  {\chaptertitlename\ \thechapter}{20pt}{\Huge}
+ \titleformat{\chapter}[display]
+   {\normalfont\sffamily\huge\bfseries\color{blue}}
+   {\chaptertitlename\ \thechapter}{20pt}{\Huge}
 \titleformat{\section}
-  {\normalfont\sffamily\Large\bfseries\color{cyan}}
-  {\thesection}{1em}{}
-\titleformat{\subsection}
-  {\normalfont\sffamily\large\bfseries\color{cyan}}
-  {\thesection}{1em}{}
-\titleformat{\subsubsection}
-  {\normalfont\sffamily\normalsize\bfseries\color{cyan}}
-  {\thesection}{1em}{}
+   {\normalfont\sffamily\Large\bfseries\color{cyan}}
+   {\thesection}{1em}{}
+ \titleformat{\subsection}
+   {\normalfont\sffamily\large\bfseries\color{cyan}}
+   {\thesubsection}{1em}{}
+ \titleformat{\subsubsection}
+   {\normalfont\sffamily\normalsize\bfseries\color{cyan}}
+   {\thesubsubsection}{1em}{}
 
 % Set custom table of contents title
 \renewcommand{\contentsname}{Table of contents}
