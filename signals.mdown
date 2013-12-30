@@ -13,6 +13,7 @@
 
 * *Note* Constant signals are periodic signals because they fulfill the condition.
 
+
 **Periodic signal parameters**
 
 * The period is the smallest value of T satisfying $u(t + T) = u(t)$ for all t
@@ -32,6 +33,7 @@ $$S_{avg} = \bar{s(t)} = \frac{1}{T} \int_{t}^{t+T} s(t) dt$$
 
 * $S_{avg}$ can be negative, positive or zero
 
+
 **Average power** Average power in a component is a case of the average value of a periodic signal. The average power $P$ or $\bar{p(t)}$ dissipated in a component is
 
 $$ P = \bar{p(t)} = \frac{1}{T} \int_{t_0}^{t_0+T} p(t) dt = \frac{1}{T} \int_{t_0}^{t_0+T} v(t)i(t) dt$$
@@ -43,6 +45,7 @@ $$ P = \bar{p(t)} = \frac{1}{T} \int_{t_0}^{t_0+T} p(t) dt = \frac{1}{T} \int_{t
 The Root Mean Square $S_{RMS}$ of a periodic signal $s(t)$ is
 
 $$ S_{RMS} = \sqrt { {1 \over T} \int_{t_0}^{t_0 + T} {s(t)^2 dt} }$$
+
 
 **Motivation for RMS value** RMS value of a voltage or current signal (constant or non-constant) has the property that is the value of an equivalent DC voltage or current signal that would dissipate the same power through a resistance.
 
@@ -82,6 +85,9 @@ c) Check results with the $P = VI$ formula. *I don't know how to prove it yet, o
 * The RMS value of a function is the same as the RMS value of the absolute value of the function
 $$RMS[ f(t) ] = RMS[ |f(t)| ]$$
 
+
+
+
 ###Signal Examples
 
 
@@ -90,11 +96,15 @@ $$RMS[ f(t) ] = RMS[ |f(t)| ]$$
 
 $$s(t) = A \cdot \sin{\omega t + \varphi}$$
 
+
+
+
 **Average value of the sinusoidal signal**
 
 $$ S_{AVG} = \frac{1}{T} \int_{t}^{t+T} A \cos{t} dt$$
 
 $$ S_{AVG} = \frac{A}{T} \left[ \sin{t} \right]_{t}^{t+T} dt = 0 $$
+
 
 **RMS value of the sinusoidal signal**
 
@@ -105,6 +115,9 @@ S_{RMS} &= \sqrt { {1 \over T} \int_{t_0}^{t_0 + T} { [A \cos{t}]^2 dt} } \\
         &= \sqrt { {A^2 \over T} [1/2(t + 1/2 \sin{2t} ) ]_{t}^{t+T} } \\
         &= \sqrt { {A^2 \over 2T} T } = \sqrt { {A^2 \over 2} } = \frac{A}{\sqrt{2}}
 \end{align*}
+
+
+
 
 ### Normalized Average and RMS values table
 
@@ -283,8 +296,10 @@ $$t = \frac{\theta}{\omega}$$
 	\vspace{30mm}
 	\\
 
-
 \end{longtabu}
+
+
+
 
 ###Periodic signal decomposition in Fourier Series
 
@@ -292,6 +307,109 @@ $$t = \frac{\theta}{\omega}$$
 
 **Fourier decomposition** Any periodic signal can be decomposed in a sum of a constant value plus a (possibly infinite) series of sine and cosine functions.
 $$s(x) = S_{avg} + \sum_{n=1}^\infty A_n \cos{n \omega t} + \sum_{n=1}^\infty B_n \sin{n \omega t}$$
+
+
+**Fourier series table**
+
+\tabulinesep=1mm
+
+\begin{longtabu} to\linewidth{|X[1,m,c]|X[3,m,c]|}
+
+
+	\hline
+	Function & Fourier Series \\
+	\hline
+
+
+	\begin{tikzpicture}[>=stealth, scale = 0.4, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=4,
+			ymin=-2,ymax=2,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,1,2,3,4},
+			xticklabels={$0$, $1$, $2$, $3$, $4$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,red,-] expression[domain=0:1,samples=100]{1};
+			\addplot[no marks,red,-] expression[domain=1:2,samples=100]{-1};
+			\addplot[no marks,red,-] expression[domain=2:3,samples=100]{1};
+			\addplot[no marks,red,-] expression[domain=3:4,samples=100]{-1};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	$$ \frac{4}{\pi} \left( \frac{\sin{t}}{1} + \frac{\sin{3t}}{3} + \frac{\sin{5t}}{5} + ... \right) $$
+	\\
+	\hline
+
+	\begin{tikzpicture}[>=stealth, scale = 0.4, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=4,
+			ymin=-2,ymax=2,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,1,2,3,4},
+			xticklabels={$0$, $1$, $2$, $3$, $4$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,red,-] expression[domain=0.00:0.33,samples=100]{0};
+			\addplot[no marks,red,-] expression[domain=0.33:0.66,samples=100]{1};
+			\addplot[no marks,red,-] expression[domain=0.66:1.33,samples=100]{0};
+			\addplot[no marks,red,-] expression[domain=1.33:1.66,samples=100]{-1};
+			\addplot[no marks,red,-] expression[domain=1.66:2.33,samples=100]{0};
+			\addplot[no marks,red,-] expression[domain=2.33:2.66,samples=100]{1};
+			\addplot[no marks,red,-] expression[domain=2.66:3.33,samples=100]{0};
+			\addplot[no marks,red,-] expression[domain=3.33:3.66,samples=100]{-1};
+			\addplot[no marks,red,-] expression[domain=3.66:4.00,samples=100]{-1};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	$$\frac{4}{\pi} \left( \frac{\sin{t}\cos{\beta}}{1} + \frac{\sin{3t}\cos{3\beta}}{3} + \frac{\sin{5t}\cos{5\beta}}{5} + ... \right)$$
+	\\
+	\hline
+
+
+	\begin{tikzpicture}[>=stealth, scale = 0.4, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=0:pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=pi:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=2*pi:3*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=3*pi:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	$$ \frac{2}{\pi} - \frac{4}{\pi} \left( \frac{\sin{t}}{1 \cdot 3} + \frac{\sin{2t}}{3 \cdot 5} + \frac{\sin{3t}}{5 \cdot 7} + ... \right) $$
+	\\
+	\hline
+
+\end{longtabu}
 
 **Superposition theorem** The superposition theorem for electrical circuits states that for a linear system the response (voltage or current) in any branch of a bilateral linear circuit having more than one independent source equals the algebraic sum of the responses caused by each independent source acting alone, while all other independent sources are cancelled.
 

@@ -248,6 +248,106 @@ $$t = \frac{\theta}{\omega}$$
 **Fourier decomposition** Any periodic signal can be decomposed in a sum of a constant value plus a (possibly infinite) series of sine and cosine functions.
 $$s(x) = S_{\text{avg}} + \sum_{n=1}^\infty A_n \cos{n \omega t} + \sum_{n=1}^\infty B_n \sin{n \omega t}$$
 
+\tabulinesep=1mm
+
+\begin{longtabu} to\linewidth{|X[1,m,c]|X[3,m,c]|}
+
+
+	\hline
+	Function & Fourier Series \\
+	\hline
+
+
+	\begin{tikzpicture}[>=stealth, scale = 0.4, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=4,
+			ymin=-2,ymax=2,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,1,2,3,4},
+			xticklabels={$0$, $1$, $2$, $3$, $4$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,red,-] expression[domain=0:1,samples=100]{1};
+			\addplot[no marks,red,-] expression[domain=1:2,samples=100]{-1};
+			\addplot[no marks,red,-] expression[domain=2:3,samples=100]{1};
+			\addplot[no marks,red,-] expression[domain=3:4,samples=100]{-1};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	$$ \frac{4}{\pi} \left( \frac{\sin{t}}{1} + \frac{\sin{3t}}{3} + \frac{\sin{5t}}{5} + ... \right) $$
+	\\
+	\hline
+
+	\begin{tikzpicture}[>=stealth, scale = 0.4, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=4,
+			ymin=-2,ymax=2,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,1,2,3,4},
+			xticklabels={$0$, $1$, $2$, $3$, $4$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,red,-] expression[domain=0.00:0.33,samples=100]{0};
+			\addplot[no marks,red,-] expression[domain=0.33:0.66,samples=100]{1};
+			\addplot[no marks,red,-] expression[domain=0.66:1.33,samples=100]{0};
+			\addplot[no marks,red,-] expression[domain=1.33:1.66,samples=100]{-1};
+			\addplot[no marks,red,-] expression[domain=1.66:2.33,samples=100]{0};
+			\addplot[no marks,red,-] expression[domain=2.33:2.66,samples=100]{1};
+			\addplot[no marks,red,-] expression[domain=2.66:3.33,samples=100]{0};
+			\addplot[no marks,red,-] expression[domain=3.33:3.66,samples=100]{-1};
+			\addplot[no marks,red,-] expression[domain=3.66:4.00,samples=100]{-1};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	$$\frac{4}{\pi} \left( \frac{\sin{t}\cos{\beta}}{1} + \frac{\sin{3t}\cos{3\beta}}{3} + \frac{\sin{5t}\cos{5\beta}}{5} + ... \right)$$
+	\\
+	\hline
+
+
+	\begin{tikzpicture}[>=stealth, scale = 0.4, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=0:pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=pi:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=2*pi:3*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=3*pi:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	$$ \frac{2}{\pi} - \frac{4}{\pi} \left( \frac{\sin{t}}{1 \cdot 3} + \frac{\sin{2t}}{3 \cdot 5} + \frac{\sin{3t}}{5 \cdot 7} + ... \right) $$
+	\\
+	\hline
+
+\end{longtabu}
+
 
 **Superposition theorem** The superposition theorem for electrical circuits states that for a linear system the response (voltage or current) in any branch of a bilateral linear circuit having more than one independent source equals the algebraic sum of the responses caused by each independent source acting alone, while all other independent sources are cancelled.
 
