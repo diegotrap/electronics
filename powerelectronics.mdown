@@ -238,6 +238,8 @@ $$t = \frac{\theta}{\omega}$$
 \end{longtabu}
 
 
+
+
 ## Periodic signal decomposition in Fourier Series
 
 **Motivation** The phasor method can be used to solve circuits with sinusoidal signals (AC circuits), avoiding the necessity of solving the time-domain differential equations. A circuit with other type of waveforms cannot be analysed with this method, unless it is decomposed into its sinusoidal components. The Fourier series allows us to decompose any waveform to a series of sine and cosine functions. Then, we can solve each circuit (an AC circuit for each sinusoidal component of the wave) separatedly and, apllying superposition, add up all the solutions to get the solution of the original circuit.
@@ -248,6 +250,8 @@ $$s(x) = S_{\text{avg}} + \sum_{n=1}^\infty A_n \cos{n \omega t} + \sum_{n=1}^\i
 
 
 **Superposition theorem** The superposition theorem for electrical circuits states that for a linear system the response (voltage or current) in any branch of a bilateral linear circuit having more than one independent source equals the algebraic sum of the responses caused by each independent source acting alone, while all other independent sources are cancelled.
+
+
 
 
 ### Parseval Formula
@@ -302,6 +306,19 @@ $$\text{THD} = \frac{ \sqrt{\sum_{n=2}^{\infty} S_{i, RMS}^2} }{S_{1,RMS} }$$
 $$\text{THD} = \frac{ \sqrt{S_{RMS}^2 -  S_{1,RMS}^2 } }{S_{1,RMS} } $$
 
 
+**Power Factor from THD** If one of the signals is a sinusoidal wave and the THD of the other one is known, the power factor seen in the component/subcircuit can be calculated with the formula (both signals should have the same first harmonic frequency):
+
+$$\text{PF} = \frac{1}{\sqrt{1 + \text{THD}^2}} \cos{\varphi_1}$$
+
+where
+
+* $\text{PF}$ is the power factor in the component/subcircuit
+* $THD$ of the non-sinusoidal wave
+* $\cos{\varphi_1}$ is the phase difference between the sinusoidal signal and the first harmonic of the non-sinusoidal wave.
+
+
+
+
 # Alternating current
 
 Alternating current refers to the analysis of circuits in which all signals are sinusoidal waves. Although power electronics circuits are not usually pure AC circuits, this theory is useful when solving circuits with superposition of the Fourier components.
@@ -320,10 +337,12 @@ where
 
 *Note*: In AC the sinusoidal function amplitude is taken as $A/\sqrt{2}$, so $A$ is the RMS value of the signal. This way, we can directly use the RMS values of the signals to make calculations with power.
 
+
 **Average and RMS values**
 
 * Average value: $S_{AVG} = 0$
 * RMS value: $S_{RMS} = A$
+
 
 The **Generalized Ohm Law**:
 
@@ -335,15 +354,18 @@ where $\mathbf{Z}$ is
 * $\mathbf{Z} = \frac{1}{j \omega C} = \frac{-j}{\omega C}$ for capacitors
 * $\mathbf{Z} = j \omega L$ for inductors
 
+
 **Active and reactive power**
 
 * Active power: $P = VI \cos{\varphi}$
 * Reactive power: $Q = VI \sin{\varphi}$
 
+
 **Complex and apparent power**
 
 * Complex power is the complex number $\mathbf{S} = \mathbf{V} \mathbf{I}^* = P + Qj$
 * Apparent power is the module of the complex power, $S = VI$
+
 
 **Power factor**
 
@@ -351,23 +373,30 @@ $$PF = \frac{P}{S}$$
 
 $$PF = \cos{\varphi}$$
 
+
+
+
 # Electric power
 
 **Electric power** Electric power, $p(t)$ is
 
 $$ p(t) = v(t)i(t) $$
 
+
 **Average power** Average power or active power, $P$, is the average of the $p(t)$ signal in a component
 
 $$ P = \bar{p(t)} = \frac{1}{T} \int_{t_0}^{t_0+T} p(t) dt = \frac{1}{T} \int_{t_0}^{t_0+T} v(t)i(t) dt$$
+
 
 **Aparent power** Apparent power, $S$, in a component is the product
 
 $$ S = V_{RMS} I_{RMS} $$
 
+
 **Power factor** Power factor is the quotient
 
 $$PF = \frac{P}{S}$$
+
 
 
 
@@ -384,7 +413,13 @@ $$P = V_{\text{avg}} I_{\text{avg}} + V_{1 RMS} I_{1 RMS} \cos{\varphi_1} + V_{2
 
 # Circuit components
 
+
+
+
 ## Resistor, capacitor, inductor
+
+
+
 
 ## Capacitor vs Inductor table
 
@@ -596,7 +631,6 @@ $$P = V_{\text{avg}} I_{\text{avg}} + V_{1 RMS} I_{1 RMS} \cos{\varphi_1} + V_{2
 	&
 	\vspace{30mm}
 	\\
-
 
 \end{longtabu}
 
