@@ -1,28 +1,10 @@
 % DC to DC Converters
 % Diego Trapero
+% 30/12/2013 draft
+
+
 
 #DC to DC Converters
-
-**Analysis hypothesis for the DC-DC converter**
-
-1. Periodic Steady state condition. The converter is in a periodic steady state regime, so all the waveforms are periodic.	If the circuit is in PSS, the following is also true:
-
-	i. At the inductors, the average voltage is zero, $v_L = 0$.
-
-	ii. At the capacitors, the average current is zero, $i_L = 0$
-
-2. No power loss, unitary efficiency: $\eta = \frac{P_i}{P_o} = 1$
-
-3. The voltage in the capacitors is considered to be approximately constant, $v_c \approx \text{constant}$
-
-4. Ideal components: diodes, switches, capacitors...
-
-Proof of 1.ii:
-
-
-Small ripple approximation: In a well-designed converter, the output voltage ripple is small. Hence,
-the waveforms can be easily determined by ignoring the ripple:
-v_o(t) approx V
 
 **Converter types:**
 
@@ -230,7 +212,6 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 	(0,0) to[short](2,0)
 	(2,0) to[opening switch](2,2)
 	(2,2) to[diode, i^>=$i_D$, v_<=$v_D$](4,2)
-	
 	(2,0) to[short](4,0)
 	(4,2) to[C, i^>=$i_C$](4,0)
 	(4,2) to[short, i^>=$i_o$](6,2)
@@ -243,11 +224,50 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 
 * **ON Circuit**:
 
-\vspace{50mm}
+\vspace{30mm}
+
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1, v^>=$v_s$, i^>=$i_i$](0,2)
+	(0,2) to[L, v^<=$v_L$, i_>=$i_L$](2,2)
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %%Switch
+	(2,1.33) to[short](2,2)
+	(2,0.66) to[short](2,1.33)%shorted switch
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End %Switch
+	(2,2) to[diode, i^>=$i_D$, v_<=$v_D$](4,2)
+	(2,0) to[short](4,0)
+	(4,2) to[C, i^>=$i_C$](4,0)
+	(4,2) to[short, i^>=$i_o$](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R, l=$R$, v_<=$v_o$](6,0)
+	;
+\end{circuitikz}
+
+
 
 * **OFF circuit**
 
-\vspace{50mm}
+\vspace{30mm}
+
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1, v^>=$v_s$, i^>=$i_i$](0,2)
+	(0,2) to[L, v^<=$v_L$, i_>=$i_L$](2,2)
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %Switch
+	(2,1.33) to[short](2,2)
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End %Switch
+	(2,2) to[diode, i^>=$i_D$, v_<=$v_D$](4,2)
+	(2,0) to[short](4,0)
+	(4,2) to[C, i^>=$i_C$](4,0)
+	(4,2) to[short, i^>=$i_o$](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R, l=$R$, v_<=$v_o$](6,0)
+	;
+\end{circuitikz}
 
 **Diode table**
 
@@ -347,3 +367,17 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 
 **Output current**
 \vspace{50mm}
+
+
+
+# Isolated Converters
+
+
+
+
+## Forward Converter
+
+
+
+
+## Flyback Converter
