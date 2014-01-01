@@ -1,6 +1,6 @@
 % DC to DC Converters
 % Diego Trapero
-% 30/12/2013 draft
+% 02/01/2014 draft
 
 
 
@@ -8,17 +8,18 @@
 
 **Converter types:**
 
-\begin{center}
-  \fbox{
-       \begin{minipage}{160mm}
-            Converter diagram
-            \hfill\vspace{40mm}
-       \end{minipage}
-  }
-\end{center} 
+$$
+\Tree
+	[.{DC/DC Conv.} [.Gain Step-down Step-up Up-down ] [.Isolation Isolated Non-isolated ] ]
+$$
 
 * **Step-down**: A converter where output voltage is lower than the input voltage (like a Buck converter).
 * **Step-up**: A converter that outputs a voltage higher than the input voltage (like a Boost converter).
+
+$$
+\Tree
+	[.{Models} [.Non-Isolated Buck Boost Buck-Boost ] [.Isolated Forward Flyback ] ]
+$$
 
 **Converter operation regimes, conduction modes:**
 
@@ -53,7 +54,7 @@ $$ D = \frac{t_{ON}}{T} $$
 $$ % DC to DC Buck Converter, by Diego Trapero
 \begin{circuitikz}[scale = 1]
 	\draw
-	(0,0) to[battery1, v^>=$v_i$, i^>=$i_i$](0,2)
+	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
 	(0,2) to[closing switch](2,2)
 	(0,0) to[short](2,0)
 	(2,0) to[diode, i^>=$i_D$, v_<=$v_D$](2,2)
@@ -70,6 +71,7 @@ $$
 **State of the diode**
 
 * **ON Circuit**: During the ON state of the circuit, the diode is backwards polarized by the DC source (OFF, not conducting).
+$$v_D = -V_i$$
 
 $$ % Buck Converter ON with diode, by Diego Trapero
 \begin{circuitikz}[scale = 1]
@@ -207,7 +209,7 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 
 \begin{circuitikz}[scale = 1]
 	\draw
-	(0,0) to[battery1, v^>=$v_s$, i^>=$i_i$](0,2)
+	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
 	(0,2) to[L, v^<=$v_L$, i_>=$i_L$](2,2)
 	(0,0) to[short](2,0)
 	(2,0) to[opening switch](2,2)
@@ -228,7 +230,7 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 
 \begin{circuitikz}[scale = 1]
 	\draw
-	(0,0) to[battery1, v^>=$v_s$, i^>=$i_i$](0,2)
+	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
 	(0,2) to[L, v^<=$v_L$, i_>=$i_L$](2,2)
 	(0,0) to[short](2,0)
 	(2,0) to[short](2,0.66) %%Switch
@@ -253,7 +255,7 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 
 \begin{circuitikz}[scale = 1]
 	\draw
-	(0,0) to[battery1, v^>=$v_s$, i^>=$i_i$](0,2)
+	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
 	(0,2) to[L, v^<=$v_L$, i_>=$i_L$](2,2)
 	(0,0) to[short](2,0)
 	(2,0) to[short](2,0.66) %Switch
@@ -309,7 +311,7 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 
 \begin{circuitikz}[scale = 1]
 	\draw
-	(0,0) to[battery1, v^>=$v_s$, i^>=$i_i$](0,2)
+	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
 	(0,2) to[opening switch](2,2)
 	(2,2) to[L, v^<=$v_L$, i_>=$i_L$](2,0)
 	(0,0) to[short](2,0)
@@ -318,7 +320,7 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 	(4,2) to[C, i^>=$i_C$](4,0)
 	(4,2) to[short, i^>=$i_o$](6,2)
 	(4,0) to[short](6,0)
-	(6,2) to[R, l=$R$, v_>=$v_o$](6,0)
+	(6,2) to[R, l_=$R$, v^>=$v_o$](6,0)
 	;
 \end{circuitikz}
 
