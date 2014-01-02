@@ -736,6 +736,7 @@ $$P = V_{\text{avg}} I_{\text{avg}} + V_{1 RMS} I_{1 RMS} \cos{\varphi_1} + V_{2
 
 
 
+
 ## Transformer
 
 $$ % Modified from the code by Gonzalo Medina: http://tex.stackexchange.com/a/118761
@@ -820,6 +821,8 @@ $$ i_1 N_1 + i_2 N_2 = 0 $$
 	\\
 
 \end{longtabu}
+
+
 
 
 # Analysis hypothesis
