@@ -1,4 +1,4 @@
- % Power Electronics
+% Power Electronics
 % Diego Trapero
 % 30/12/2013 draft
 
@@ -90,7 +90,7 @@ $$t = \frac{\theta}{\omega}$$
 			ytick={},
 			yticklabels={}
 			]
-			\addplot[no marks,red,-] expression[domain=0:4,samples=100]{1};
+			\addplot[no marks,red,-] expression[domain=0:4,samples=10]{1};
 		\end{axis}
 	\end{tikzpicture}
 	&
@@ -117,10 +117,10 @@ $$t = \frac{\theta}{\omega}$$
 			ytick={},
 			yticklabels={}
 			]
-			\addplot[no marks,red,-] expression[domain=0:1,samples=100]{1};
-			\addplot[no marks,red,-] expression[domain=1:2,samples=100]{0};
-			\addplot[no marks,red,-] expression[domain=2:3,samples=100]{1};
-			\addplot[no marks,red,-] expression[domain=3:4,samples=100]{0};
+			\addplot[no marks,red,-] expression[domain=0:1,samples=10]{1};
+			\addplot[no marks,red,-] expression[domain=1:2,samples=10]{0};
+			\addplot[no marks,red,-] expression[domain=2:3,samples=10]{1};
+			\addplot[no marks,red,-] expression[domain=3:4,samples=10]{0};
 		\end{axis}
 	\end{tikzpicture}
 	&
@@ -208,9 +208,9 @@ $$t = \frac{\theta}{\omega}$$
 			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
 			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
 			\addplot[no marks,red,-] expression[domain=0:pi,samples=100]{sin(deg(x))};
-			\addplot[no marks,red,-] expression[domain=pi:2*pi,samples=100]{0};
+			\addplot[no marks,red,-] expression[domain=pi:2*pi,samples=10]{0};
 			\addplot[no marks,red,-] expression[domain=2*pi:3*pi,samples=100]{sin(deg(x))};
-			\addplot[no marks,red,-] expression[domain=3*pi:4*pi,samples=100]{0};
+			\addplot[no marks,red,-] expression[domain=3*pi:4*pi,samples=10]{0};
 		\end{axis}
 	\end{tikzpicture}
 	&
@@ -773,7 +773,53 @@ $$ i_1 N_1 + i_2 N_2 = 0 $$
 
 ## Semiconductor devices
 
+\tabulinesep=2mm
+\begin{longtabu} to\linewidth{|X[1,m,c]|X[4,m,c]|}
 
+	\hline
+	Device & Description \\
+	\hline
+
+	Diode
+	\vspace{4mm}
+	\begin{circuitikz}
+		\draw (0,0) to[diode, l_=$D$, v^<=$v(t)$, i>_=$i(t)$](2,0);
+	\end{circuitikz}
+	&
+	\vspace{50mm}
+	\\
+	\hline
+
+	Thyristor
+	\vspace{4mm}
+	\begin{circuitikz}
+		\draw (0,0) to[thyristor, l_=$D$, v^<=$v(t)$, i>_=$i(t)$](2,0);
+	\end{circuitikz}
+	&
+	\vspace{50mm}
+	\\
+	\hline
+
+	MOSFET
+	\vspace{4mm}
+	\begin{circuitikz}
+		\draw (0,0) to[Tnigfete](2,0);
+	\end{circuitikz}
+	&
+	\vspace{50mm}
+	\\
+	\hline
+
+	IGBT
+	\vspace{4mm}
+	\begin{circuitikz}
+		\draw (0,0) to[Tnigbt](2,0);
+	\end{circuitikz}
+	&
+	\vspace{50mm}
+	\\
+
+\end{longtabu}
 
 
 # Analysis hypothesis
