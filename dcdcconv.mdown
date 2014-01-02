@@ -296,7 +296,7 @@ $$
 
 \vspace{30mm}
 
-$$
+$$ 
 \begin{circuitikz}[scale = 1]
 	\draw
 	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
@@ -322,7 +322,7 @@ $$
 
 \vspace{30mm}
 
-$$
+$$ 
 \begin{circuitikz}[scale = 1]
 	\draw
 	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
@@ -351,14 +351,110 @@ $$
 
 **ON equivalent circuit**
 
-\vspace{50mm}
+$$ % Boost Converter ON, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
+	(0,2) to[L, v^<=$v_L$, i_>=$i_L$](2,2)
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %Switch
+	(2,1.33) to[short](2,2)
+	(2,0.66) to[short](2,1.33)%shorted switch
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End Switch
+	(2,2) to[short, -*](2.66,2) % Diode
+	(3.33,2) to[short, *-](4,2) % End diode
+	(2,0) to[short](4,0)
+	(4,2) to[C, i^>=$i_C$](4,0)
+	(4,2) to[short, i^>=$i_o$](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R, l=$R$, v_<=$v_o$](6,0)
+	;
+\end{circuitikz}
+$$
 
 **OFF equivalent circuit**
 
+$$ % Boost Converter OFF, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
+	(0,2) to[L, v^<=$v_L$, i_>=$i_L$](2,2)
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %Switch
+	(2,1.33) to[short](2,2)
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End %Switch
+	(2,2) to[short, -*](2.66,2) % Diode
+	(2.66,2) to[short](3.33,2) %shorted diode
+	(3.33,2) to[short, *-](4,2) % End diode
+	(2,0) to[short](4,0)
+	(4,2) to[C, i^>=$i_C$](4,0)
+	(4,2) to[short, i^>=$i_o$](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R, l=$R$, v_<=$v_o$](6,0)
+	;
+\end{circuitikz}
+$$
+
+
+**Inductor voltage, output voltage**
+
+1. ON Circuit: $v_L = v_i$
+
+$$ % Boost Converter ON, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
+	(0,2) to[L, v^<=$v_L$, i_>=$i_L$](2,2)
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %Switch
+	(2,1.33) to[short](2,2)
+	(2,0.66) to[short](2,1.33)%shorted switch
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End Switch
+	(2,2) to[short, -*](2.66,2) % Diode
+	(3.33,2) to[short, *-](4,2) % End diode
+	(2,0) to[short](4,0)
+	(4,2) to[C, i^>=$i_C$](4,0)
+	(4,2) to[short, i^>=$i_o$](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R, l=$R$, v_<=$v_o$](6,0)
+	;
+\end{circuitikz}
+$$
+
+2. OFF circuit: $v_L = v_i - v_o$
+
+$$ % Boost Converter OFF, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
+	(0,2) to[L, v^<=$v_L$, i_>=$i_L$](2,2)
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %Switch
+	(2,1.33) to[short](2,2)
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End %Switch
+	(2,2) to[short, -*](2.66,2) % Diode
+	(2.66,2) to[short](3.33,2) %shorted diode
+	(3.33,2) to[short, *-](4,2) % End diode
+	(2,0) to[short](4,0)
+	(4,2) to[C, i^>=$i_C$](4,0)
+	(4,2) to[short, i^>=$i_o$](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R, l=$R$, v_<=$v_o$](6,0)
+	;
+\end{circuitikz}
+$$
+
 \vspace{50mm}
 
-**Inductor voltage**
-\vspace{50mm}
+$$V_o = V_i \frac{1}{1-D}$$
+
+**Duty Cycle**
+
+$$D = 1 - \frac{V_i}{V_o}$$
 
 **Inductor current**
 \vspace{50mm}
