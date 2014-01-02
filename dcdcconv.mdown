@@ -48,6 +48,7 @@ $$ D = \frac{t_{ON}}{T} $$
 # Non-isolated converters
 
 
+\newpage
 
 ## Step-down Converter (Buck)
 
@@ -116,7 +117,10 @@ $$
 
 **Diode table**
 
-\vspace{40mm}
+| Switch |  D  |
+| ------ | --- |
+| ON     | OFF |
+| OFF    | ON  |
 
 **ON equivalent circuit**
 
@@ -170,17 +174,75 @@ $$ % Buck Converter OFF, by Diego Trapero
 \end{circuitikz}
 $$
 
-**Inductor voltage**
+**Inductor voltage, output voltage**
 
 1. ON Circuit, KVL: $v_i = v_L + v_o \rightarrow v_L = v_i - v_o$
+
+$$ % Buck Converter ON, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1](0,2)
+	(0,2) to[short](0.66, 2) % Switch
+	(1.33,2) to[short](2,2) 
+	(1.33,2) node[circ] {}
+	(0.66, 2) node[circ] {} % End switch
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %Diode
+	(2,1.33) to[short](2,2)
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End Diode
+	(0,2) to[short](2,2) %Close switch
+	(2,0) to[short](4,0)
+	(2,2) to[L](4,2)
+	(4,2) to[C](4,0)
+	(4,2) to[short](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R](6,0)
+	;
+\end{circuitikz}
+$$
+
 2. OFF circuit, KVL: $0 = v_L + v_o \rightarrow v_L = - v_o$
+
+$$ % Buck Converter OFF, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1](0,2)
+	(0,2) to[short](0.66, 2) % Switch
+	(1.33,2) to[short](2,2) 
+	(1.33,2) node[circ] {}
+	(0.66, 2) node[circ] {} % End switch
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %Diode
+	(2,1.33) to[short](2,2)
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End Diode
+	(2,0) to[short](2,2) %Close diode
+	(2,0) to[short](4,0)
+	(2,2) to[L](4,2)
+	(4,2) to[C](4,0)
+	(4,2) to[short](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R](6,0)
+	;
+\end{circuitikz}
+$$
 
 To know the sign of the voltage in the inductor, we need to obtain the sign of $v_i$ and $v_o$ first. Knowing that this is a step-down and non-inverting converter, we can suppose both $v_i$ and $v_o$ positive and $v_i > v_o$. To demostrate this is the case, we have to apply the periodic steady state of the inductor condition.
 
 1. In periodic steady state, the average voltage of an inductor is zero, $\bar{v_L} = 0$
 
-\vspace{50mm}
+\vspace{20mm}
 
+2. Small-ripple approximation: $v_o(t)$ can be considered constant: $v_o(t) \approx V_o$.
+$$(V_i - V_o)D\cancel{T} + (-V_o)(1-D)\cancel{T} = 0$$
+$$(V_iD - \cancel{V_oD} - V_o + \cancel{V_oD} = 0$$
+$$V_o = V_i D$$
+
+
+**Duty Cycle**
+
+$$D = \frac{V_o}{V_i}$$
 
 
 **Inductor current**
@@ -205,8 +267,13 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 \vspace{50mm}
 
 
+
+
+\newpage
+
 ## Step-up Converter (Boost)
 
+$$
 \begin{circuitikz}[scale = 1]
 	\draw
 	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
@@ -221,6 +288,7 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 	(6,2) to[R, l=$R$, v_<=$v_o$](6,0)
 	;
 \end{circuitikz}
+$$
 
 **State of the diode**
 
@@ -228,6 +296,7 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 
 \vspace{30mm}
 
+$$
 \begin{circuitikz}[scale = 1]
 	\draw
 	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
@@ -246,13 +315,14 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 	(6,2) to[R, l=$R$, v_<=$v_o$](6,0)
 	;
 \end{circuitikz}
-
+$$
 
 
 * **OFF circuit**
 
 \vspace{30mm}
 
+$$
 \begin{circuitikz}[scale = 1]
 	\draw
 	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
@@ -270,10 +340,14 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 	(6,2) to[R, l=$R$, v_<=$v_o$](6,0)
 	;
 \end{circuitikz}
+$$
 
 **Diode table**
 
-\vspace{40mm}
+| Switch |  D  |
+| ------ | --- |
+| ON     | OFF |
+| OFF    | ON  |
 
 **ON equivalent circuit**
 
@@ -307,8 +381,14 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 **Output current**
 \vspace{50mm}
 
+
+
+
+\newpage
+
 ## Buck-Boost Converter 
 
+$$
 \begin{circuitikz}[scale = 1]
 	\draw
 	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
@@ -323,6 +403,7 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 	(6,2) to[R, l_=$R$, v^>=$v_o$](6,0)
 	;
 \end{circuitikz}
+$$
 
 **State of the diode**
 
@@ -336,7 +417,10 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 
 **Diode table**
 
-\vspace{40mm}
+| Switch |  D  |
+| ------ | --- |
+| ON     | OFF |
+| OFF    | ON  |
 
 **ON equivalent circuit**
 
@@ -377,9 +461,218 @@ To know the sign of the voltage in the inductor, we need to obtain the sign of $
 
 
 
+\newpage
+
 ## Forward Converter
 
+$$
+\begin{circuitikz}
+	\draw
+	% --- left side of the transformer ---
+	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
+	(0,0) node[ground](){}
+	(0,4) to[short](4,4) %left side upper node
+	(4,4) to[L](4,2) %First transformer winding
+	(4,2) to[opening switch](4,0) %switching MOSFET
+	(0,0) to[short](4,0) %lower node, ground
+	(2,4) to[L](2,2) %transformer magnetizing inductance
+	(2,2) to[short](4,2)
+	% --- third winding ---
+	(0,4) to[short](0,5)
+	(0,5) to[short](5,5)
+	(5,5) to[short](5,4)
+	(5,4) to[L](5,2)
+	(5,0) to[diode](5,2)
+	(5,0) node[ground](){}
+	% --- right side of the transformer ---
+	(6,2) to[L](6,4)
+	(6,4) to[diode](8,4)
+	(6,2) to[short](8,2)
+	(8,2) to[diode, i^>=$i_D$, v_<=$v_D$](8,4)
+	(8,2) to[short](10,2)
+	(8,4) to[L, v^<=$v_L$, i_>=$i_L$](10,4)
+	(10,4) to[C, i^>=$i_C$](10,2)
+	(10,4) to[short, i^>=$i_o$](12,4)
+	(10,2) to[short](12,2)
+	(12,4) to[R, l=$R$, v_<=$v_o$](12,2)
+	;
+\end{circuitikz}
+$$
 
 
+**ON circuit**
+
+$$ %Forward shorted circuit (to complete by hand)
+\begin{circuitikz}
+	\draw
+	% --- left side of the transformer ---
+	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
+	(0,0) node[ground](){}
+	(0,4) to[short](4,4) %left side upper node
+	(4,4) to[L](4,2) %First transformer winding
+	(4,2) to[short](4,0) %switching MOSFET
+	(0,0) to[short](4,0) %lower node, ground
+	(2,4) to[L](2,2) %transformer magnetizing inductance
+	(2,2) to[short](4,2)
+	% --- third winding ---
+	(0,4) to[short](0,5)
+	(0,5) to[short](5,5)
+	(5,5) to[short](5,4)
+	(5,4) to[L](5,2)
+	(5,0) to[short](5,2)
+	(5,0) node[ground](){}
+	% --- right side of the transformer ---
+	(6,2) to[L](6,4)
+	(6,4) to[short](8,4)
+	(6,2) to[short](8,2)
+	(8,2) to[short](8,4)
+	(8,2) to[short](10,2)
+	(8,4) to[L, v^<=$v_L$, i_>=$i_L$](10,4)
+	(10,4) to[C, i^>=$i_C$](10,2)
+	(10,4) to[short](12,4)
+	(10,2) to[short](12,2)
+	(12,4) to[R, l=$R$, v_<=$v_o$](12,2)
+	;
+\end{circuitikz}
+$$
+
+
+**OFF circuit**
+
+$$ %Forward shorted circuit (to complete by hand)
+\begin{circuitikz}
+	\draw
+	% --- left side of the transformer ---
+	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
+	(0,0) node[ground](){}
+	(0,4) to[short](4,4) %left side upper node
+	(4,4) to[L](4,2) %First transformer winding
+	(4,2) to[short](4,0) %switching MOSFET
+	(0,0) to[short](4,0) %lower node, ground
+	(2,4) to[L](2,2) %transformer magnetizing inductance
+	(2,2) to[short](4,2)
+	% --- third winding ---
+	(0,4) to[short](0,5)
+	(0,5) to[short](5,5)
+	(5,5) to[short](5,4)
+	(5,4) to[L](5,2)
+	(5,0) to[short](5,2)
+	(5,0) node[ground](){}
+	% --- right side of the transformer ---
+	(6,2) to[L](6,4)
+	(6,4) to[short](8,4)
+	(6,2) to[short](8,2)
+	(8,2) to[short,](8,4)
+	(8,2) to[short](10,2)
+	(8,4) to[L, v^<=$v_L$, i_>=$i_L$](10,4)
+	(10,4) to[C, i^>=$i_C$](10,2)
+	(10,4) to[short](12,4)
+	(10,2) to[short](12,2)
+	(12,4) to[R, l=$R$, v_<=$v_o$](12,2)
+	;
+\end{circuitikz}
+$$
+
+
+
+
+\newpage
 
 ## Flyback Converter
+
+$$
+\begin{circuitikz}
+	\draw
+	% --- left side of the transformer ---
+	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
+	(0,0) node[ground](){}
+	(0,4) to[short](4,4) %left side upper node
+	(4,4) to[L](4,2) %First transformer winding
+	(4,2) to[opening switch](4,0) %switching MOSFET
+	(0,0) to[short](4,0) %lower node, ground
+	(2,4) to[L](2,2) %transformer magnetizing inductance
+	(2,2) to[short](4,2)
+	% --- third winding ---
+	(0,4) to[short](0,5)
+	(0,5) to[short](5,5)
+	(5,5) to[short](5,4)
+	(5,4) to[L](5,2)
+	(5,0) to[diode](5,2)
+	(5,0) node[ground](){}
+	% --- right side of the transformer ---
+	(6,2) to[L](6,4)
+	(6,4) to[diode](8,4)
+	(6,2) to[short](8,2)
+	(8,4) to[C](8,2)
+	(8,2) to[short](10,2)
+	(8,4) to[short](10,4)
+	(10,4) to[R](10,2)
+	;
+\end{circuitikz}
+$$
+
+**ON circuit**
+
+$$ %Flyback shorted circuit (to complete by hand)
+\begin{circuitikz}
+	\draw
+	% --- left side of the transformer ---
+	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
+	(0,0) node[ground](){}
+	(0,4) to[short](4,4) %left side upper node
+	(4,4) to[L](4,2) %First transformer winding
+	(4,2) to[short](4,0) %switching MOSFET
+	(0,0) to[short](4,0) %lower node, ground
+	(2,4) to[L](2,2) %transformer magnetizing inductance
+	(2,2) to[short](4,2)
+	% --- third winding ---
+	(0,4) to[short](0,5)
+	(0,5) to[short](5,5)
+	(5,5) to[short](5,4)
+	(5,4) to[L](5,2)
+	(5,0) to[short](5,2)
+	(5,0) node[ground](){}
+	% --- right side of the transformer ---
+	(6,2) to[L](6,4)
+	(6,4) to[short](8,4)
+	(6,2) to[short](8,2)
+	(8,4) to[C](8,2)
+	(8,2) to[short](10,2)
+	(8,4) to[short](10,4)
+	(10,4) to[R](10,2)
+	;
+\end{circuitikz}
+$$
+
+**OFF circuit**
+
+$$ %Flyback shorted circuit (to complete by hand)
+\begin{circuitikz}
+	\draw
+	% --- left side of the transformer ---
+	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
+	(0,0) node[ground](){}
+	(0,4) to[short](4,4) %left side upper node
+	(4,4) to[L](4,2) %First transformer winding
+	(4,2) to[short](4,0) %switching MOSFET
+	(0,0) to[short](4,0) %lower node, ground
+	(2,4) to[L](2,2) %transformer magnetizing inductance
+	(2,2) to[short](4,2)
+	% --- third winding ---
+	(0,4) to[short](0,5)
+	(0,5) to[short](5,5)
+	(5,5) to[short](5,4)
+	(5,4) to[L](5,2)
+	(5,0) to[short](5,2)
+	(5,0) node[ground](){}
+	% --- right side of the transformer ---
+	(6,2) to[L](6,4)
+	(6,4) to[short](8,4)
+	(6,2) to[short](8,2)
+	(8,4) to[C](8,2)
+	(8,2) to[short](10,2)
+	(8,4) to[short](10,4)
+	(10,4) to[R](10,2)
+	;
+\end{circuitikz}
+$$
