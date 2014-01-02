@@ -1,9 +1,10 @@
 % Operational Amplifiers
 % Diego Trapero
 
-#Operational Amplifiers
 
-##The Operational Amplifier
+
+
+# The Operational Amplifier
 
 $$
 \begin{circuitikz}[scale = 1]
@@ -44,7 +45,7 @@ $$ % Operational amplifier model, by Diego Trapero
 \end{circuitikz}
 $$
 
-### Ideal Operational Amplifier
+## Ideal Operational Amplifier
 
 $$
 \begin{circuitikz}[scale =1]
@@ -78,9 +79,9 @@ $$v_o \in [v_{S-}, v_{S+}]$$
 
 [The Art of Electronics, page 177]
 
-##Op-amp configurations
+# Op-amp configurations
 
-###Comparator
+## Comparator
 
 $$
 \begin{circuitikz}[scale = 1.2]
@@ -102,7 +103,7 @@ v_o =
   \end{cases}
 $$
 
-###Voltage follower
+## Voltage follower
 
 $$
 % Voltage follower, by Diego Trapero
@@ -132,7 +133,7 @@ a) With the op-amp formula
 
 b) With the golden rules: Since it is a feedback configuration, we can apply the first rule. We obtain that $v_+ = v_-$, or $v_i = v_o$, which is the transfer function of the voltage follower. 
 
-###Inverting amplifier
+## Inverting amplifier
 
 $$ % Inverting amplifier, by Diego Trapero
 \ctikzset{bipoles/length=0.8cm}
@@ -170,7 +171,7 @@ a) With the golden rules
 	a.4) Obtain $v_o$
 	$$ v_o = - \frac{R_f}{R_i} v_i $$
 
-###Noninverting amplifier
+## Noninverting amplifier
 
 $$ % Noninverting amplifier, by Diego Trapero
 \ctikzset{bipoles/length=0.8cm}
@@ -215,7 +216,7 @@ a) With the op-amp formula
 
 **Noninverting amplifier circuit analysis with the golden rules**
 
-###Differential amplifier
+## Differential amplifier
 
 $$ % Differential amplifier, by Diego Trapero
 \ctikzset{bipoles/length=0.8cm}
@@ -236,7 +237,7 @@ $$
 
 $$v_o = \frac{R_4}{R_3 + R_4}(1 + \frac{R_2}{R_1}) v_2  - \frac{R_2}{R_1} v_1 $$
 
-###Integrator
+## Integrator
 
 $$ % Integrator, by Diego Trapero
 \ctikzset{bipoles/length=0.8cm}
@@ -254,7 +255,7 @@ $$ % Integrator, by Diego Trapero
 \end{circuitikz}
 $$
 
-###Differentiator
+## Differentiator
 
 $$
 % Differentiator, by Diego Trapero
@@ -273,7 +274,7 @@ $$
 \end{circuitikz}
 $$
 
-###Inverting amplifier with offset adjustment
+## Inverting amplifier with offset adjustment
 
 $$ % Inverting amplifier with offset adjustment, by Diego Trapero
 \ctikzset{bipoles/length=0.8cm}
@@ -311,7 +312,7 @@ a) Using the differential amplifier formula
 
 b) Using superposition
 
-###Summing amplifier
+## Summing amplifier
 
 $$ % Summing amplifier, by Diego Trapero
 \ctikzset{bipoles/length=0.8cm}
@@ -347,7 +348,7 @@ $$v_o = - R_f \sum{ \frac{v_i}{R_i} } $$
 
 \newpage
 
-## Op Amp table
+# Op Amp table
 
 \tabulinesep=2mm
 
