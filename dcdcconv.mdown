@@ -21,10 +21,14 @@ $$
 	[.{Models} [.Non-Isolated Buck Boost Buck-Boost ] [.Isolated Forward Flyback ] ]
 $$
 
+
 **Converter operation regimes, conduction modes:**
 
-* **Continuous Current Mode**: Current and thus the magnetic field in the inductive energy storage never reach zero.
-* **Discontinuous Current Mode**: Current and thus the magnetic field in the inductive energy storage may reach or cross zero.
+* **Continuous Current Mode**: Current and thus the magnetic field in the inductive energy storage never reach zero. In CCM
+$$\frac{1}{2}\Delta i_l < \bar{i_L} $$
+* **Discontinuous Current Mode**: Current and thus the magnetic field in the inductive energy storage may reach or cross zero. In DCM
+$$\frac{1}{2}\Delta i_l > \bar{i_L} $$
+
 
 **Control signal** The control signal of a DC converter is a square signal, which applied to the MOSFET or IGBT gate is responsible of switching of the current.
 
@@ -68,6 +72,8 @@ $$ % DC to DC Buck Converter, by Diego Trapero
 	;
 \end{circuitikz}
 $$
+
+Known variables: $V_i$, $D$, $L$, $C$, $R$.
 
 **State of the diode**
 
@@ -290,11 +296,12 @@ $$
 \end{circuitikz}
 $$
 
+Known variables: $V_i$, $D$, $L$, $C$, $R$.
+
+
 **State of the diode**
 
-* **ON Circuit**:
-
-\vspace{30mm}
+* **ON Circuit**: Since $v_D = 0-v_o = -v_o$, the diode is reverse polarized (OFF), if $v_o > 0$. We can make that asumprion and check later.
 
 $$ 
 \begin{circuitikz}[scale = 1]
@@ -318,9 +325,7 @@ $$
 $$
 
 
-* **OFF circuit**
-
-\vspace{30mm}
+* **OFF circuit**: $v_D = V_i - v_L - V_o$. We assume the diode is ON for the current in the inductor to be continuous.
 
 $$ 
 \begin{circuitikz}[scale = 1]
@@ -448,13 +453,26 @@ $$ % Boost Converter OFF, by Diego Trapero
 \end{circuitikz}
 $$
 
-\vspace{50mm}
+1. In periodic steady state, the average voltage of an inductor is zero, $\bar{v_L} = 0$
+
+\vspace{20mm}
+
+2. Small-ripple approximation: $v_o(t)$ can be considered constant: $v_o(t) \approx V_o$.
+$$ V_iD \cancel{T} + (V_i-V_o)(1-D)\cancel{T} = 0$$
+$$\cancel{V_iD} + V_i - \cancel{V_iD} - V_o + V_oD = 0 $$
+$$V_i = V_o (1-D)$$
 
 $$V_o = V_i \frac{1}{1-D}$$
+
 
 **Duty Cycle**
 
 $$D = 1 - \frac{V_i}{V_o}$$
+
+
+**Output power**
+
+$$P_o = \frac{V_o^2}{R}$$
 
 **Inductor current**
 \vspace{50mm}
@@ -500,6 +518,9 @@ $$
 	;
 \end{circuitikz}
 $$
+
+Known variables: $V_i$, $D$, $L$, $C$, $R$.
+
 
 **State of the diode**
 
