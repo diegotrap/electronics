@@ -1,5 +1,10 @@
 % Discrete-time variable
 % Diego Trapero
+% 03/12/2013 draft
+
+
+
+
 
 #Sampling
 
@@ -109,7 +114,7 @@ $$ y(n) = b_0(n) + b_1 x(n-1) + ... + b_z (n-z) - a_1 y(n-1) - a_2  y(n-2) - ...
 # Reference
 
 * "Digital Signal Processing and the Microcontroller", Dale Grover, John Deller
-* "Instrumentación Electrónica",Miguel A. Pérez, Juan C. Álvarez, Juan C. Campo, Fco. Javier Ferrero, Gustavo J. Grillo. Editorial Thomson
+* "Instrumentación Electrónica", Miguel A. Pérez, Juan C. Álvarez, Juan C. Campo, Fco. Javier Ferrero, Gustavo J. Grillo. Editorial Thomson
 * Wikipedia
 * [Sampling (signal processing), Wikipedia](http://en.wikipedia.org/wiki/Sampling_(signal_processing))
 * [Butterworth filter, Wikipedia](http://en.wikipedia.org/wiki/Butterworth_filter)
