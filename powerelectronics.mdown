@@ -859,6 +859,8 @@ $$\bar{v(t)} = \frac{1}{T} \int_{t}^{t+T} v(t) dt = \frac{1}{T} \cdot 0 = 0$$
 
 **Small ripple approximation (hypothesis 3):** Ripple can be ignored if it is negligible compared with the average value of the signal, $\Delta v \ll \bar{v(t)} \rightarrow \Delta v \approx  0$, $v(t) \approx \text{constant}$ . This approximation can be used in capacitors that are in parallel with a resistor, and is is very useful for simplifying the computing of integrals that are involved in converter analysis.
 
+$v_o(t)$ ripple is negligible, so $v_o(t) \approx \bar{v_o(t)} = V_o$
+
 A rigurous approach would check, after completing the analysis, that the ripple was in fact small compared with the average of the voltage.
 
 
