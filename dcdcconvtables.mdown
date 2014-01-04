@@ -1,0 +1,534 @@
+% DC to DC Converter Tables
+% Diego Trapero
+
+
+
+
+# Non-Isolated DC to DC Converters
+
+
+\tabulinesep=2mm
+\begin{longtabu} to\linewidth{|X[1,m,c]|X[2,m,c]|X[2,m,c]|X[2,m,c]|}
+
+	\hline
+	What & Buck & Boost & Buck-Boost \\
+	\hline
+
+	Circuit Diagram
+	&
+	\begin{circuitikz}[scale = 0.6, transform shape]
+		\draw
+		(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
+		(0,2) to[closing switch](2,2)
+		(0,0) to[short](2,0)
+		(2,0) to[diode, i^>=$i_D$, v_<=$v_D$](2,2)
+		(2,0) to[short](4,0)
+		(2,2) to[L, v^<=$v_L$, i_>=$i_L$](4,2)
+		(4,2) to[C, i^>=$i_C$](4,0)
+		(4,2) to[short, i^>=$i_o$](6,2)
+		(4,0) to[short](6,0)
+		(6,2) to[R, l=$R$, v_<=$v_o$](6,0)
+		;
+	\end{circuitikz}
+	&
+	\begin{circuitikz}[scale = 0.6, transform shape]
+		\draw
+		(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
+		(0,2) to[L, v^<=$v_L$, i_>=$i_L$](2,2)
+		(0,0) to[short](2,0)
+		(2,0) to[opening switch](2,2)
+		(2,2) to[diode, i^>=$i_D$, v_<=$v_D$](4,2)
+		(2,0) to[short](4,0)
+		(4,2) to[C, i^>=$i_C$](4,0)
+		(4,2) to[short, i^>=$i_o$](6,2)
+		(4,0) to[short](6,0)
+		(6,2) to[R, l=$R$, v_<=$v_o$](6,0)
+		;
+	\end{circuitikz}
+	&
+	\begin{circuitikz}[scale = 0.6, transform shape]
+		\draw
+		(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
+		(0,2) to[opening switch](2,2)
+		(2,2) to[L, v^<=$v_L$, i_>=$i_L$](2,0)
+		(0,0) to[short](2,0)
+		(4,2) to[diode, i>=$i_D$, v_<=$v_D$](2,2)
+		(2,0) to[short](4,0)
+		(4,2) to[C, i^>=$i_C$](4,0)
+		(4,2) to[short, i^>=$i_o$](6,2)
+		(4,0) to[short](6,0)
+		(6,2) to[R, l_=$R$, v^>=$v_o$](6,0)
+		;
+	\end{circuitikz}
+	\\
+	\hline
+
+
+	ON Circuit
+	&
+	\begin{circuitikz}[scale = 0.6, transform shape]
+		\draw
+		(0,0) to[battery1](0,2)
+		(0,2) to[short](0.66, 2) % Switch
+		(1.33,2) to[short](2,2) 
+		(1.33,2) node[circ] {}
+		(0.66, 2) node[circ] {} % End switch
+		(0,0) to[short](2,0)
+		(2,0) to[short](2,0.66) %Diode
+		(2,1.33) to[short](2,2)
+		(2,0.66) node[circ] {}
+		(2,1.33) node[circ] {} % End Diode
+		(0,2) to[short](2,2) %Close switch
+		(2,0) to[short](4,0)
+		(2,2) to[L](4,2)
+		(4,2) to[C](4,0)
+		(4,2) to[short](6,2)
+		(4,0) to[short](6,0)
+		(6,2) to[R](6,0)
+		;
+	\end{circuitikz}
+	&
+	\begin{circuitikz}[scale = 0.6, transform shape]
+		\draw
+		(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
+		(0,2) to[L, v^<=$v_L$, i_>=$i_L$](2,2)
+		(0,0) to[short](2,0)
+		(2,0) to[short](2,0.66) %Switch
+		(2,1.33) to[short](2,2)
+		(2,0.66) to[short](2,1.33)%shorted switch
+		(2,0.66) node[circ] {}
+		(2,1.33) node[circ] {} % End Switch
+		(2,2) to[short, -*](2.66,2) % Diode
+		(3.33,2) to[short, *-](4,2) % End diode
+		(2,0) to[short](4,0)
+		(4,2) to[C, i^>=$i_C$](4,0)
+		(4,2) to[short, i^>=$i_o$](6,2)
+		(4,0) to[short](6,0)
+		(6,2) to[R, l=$R$, v_<=$v_o$](6,0)
+		;
+	\end{circuitikz}
+	&
+	\vspace{10mm}
+	\\
+	\hline
+
+	OFF Circuit
+	&
+	\begin{circuitikz}[scale = 0.6, transform shape]
+		\draw
+		(0,0) to[battery1](0,2)
+		(0,2) to[short](0.66, 2) % Switch
+		(1.33,2) to[short](2,2) 
+		(1.33,2) node[circ] {}
+		(0.66, 2) node[circ] {} % End switch
+		(0,0) to[short](2,0)
+		(2,0) to[short](2,0.66) %Diode
+		(2,1.33) to[short](2,2)
+		(2,0.66) node[circ] {}
+		(2,1.33) node[circ] {} % End Diode
+		(2,0) to[short](2,2) %Close diode
+		(2,0) to[short](4,0)
+		(2,2) to[L](4,2)
+		(4,2) to[C](4,0)
+		(4,2) to[short](6,2)
+		(4,0) to[short](6,0)
+		(6,2) to[R](6,0)
+		;
+	\end{circuitikz}
+	&
+	\begin{circuitikz}[scale = 0.6, transform shape]
+		\draw
+		(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
+		(0,2) to[L, v^<=$v_L$, i_>=$i_L$](2,2)
+		(0,0) to[short](2,0)
+		(2,0) to[short](2,0.66) %Switch
+		(2,1.33) to[short](2,2)
+		(2,0.66) node[circ] {}
+		(2,1.33) node[circ] {} % End %Switch
+		(2,2) to[short, -*](2.66,2) % Diode
+		(2.66,2) to[short](3.33,2) %shorted diode
+		(3.33,2) to[short, *-](4,2) % End diode
+		(2,0) to[short](4,0)
+		(4,2) to[C, i^>=$i_C$](4,0)
+		(4,2) to[short, i^>=$i_o$](6,2)
+		(4,0) to[short](6,0)
+		(6,2) to[R, l=$R$, v_<=$v_o$](6,0)
+		;
+	\end{circuitikz}
+	&
+	\vspace{10mm}
+	\\
+	\hline
+
+	$V_o$ CCM
+	&
+	$$V_o = D V_i$$
+	&
+	$$V_o = \frac{1}{1-D} V_i$$
+	&
+	$$V_o = \frac{D}{1-D} V_i$$
+	\\
+	\hline
+
+	$D$ CCM
+	&
+	$$D = \frac{V_o}{V_i}$$
+	&
+	$$D = 1 - \frac{V_i}{V_o}$$
+	&
+	\vspace{20mm}
+	\\
+	\hline
+
+	$V_o$ DCM
+	&
+	\vspace{20mm}
+	&
+	$$V_o = V_i \frac{1+\sqrt{1+\frac{4D^2}{k}}}{2}$$
+	&
+	$$V_o = \frac{D}{\sqrt{k}}V_i$$
+	\\
+	\hline
+
+	$D$ DCM
+	&
+	$$D = \frac{V_o}{V_i} \sqrt{ \frac{k}{1-\frac{V_o}{V_i}} } $$
+	&
+	\vspace{20mm}
+	&
+	\vspace{20mm}
+	\\
+	\hline
+
+	$v_L$
+	&
+	\vspace{50mm}
+	&
+	\vspace{50mm}
+	&
+	\vspace{50mm}
+	\\
+	\hline
+
+	$i_L$
+	&
+	\vspace{50mm}
+	&
+	\vspace{50mm}
+	&
+	\vspace{50mm}
+	\\
+	\hline
+
+	$i_o$
+	&
+	\vspace{40mm}
+	&
+	\vspace{40mm}
+	&
+	\vspace{40mm}
+	\\
+	\hline
+
+	$v_S$
+	&
+	\vspace{40mm}
+	&
+	\vspace{40mm}
+	&
+	\vspace{40mm}
+	\\
+	\hline
+
+	$i_S$
+	&
+	\vspace{40mm}
+	&
+	\vspace{40mm}
+	&
+	\vspace{40mm}
+	\\
+	\hline
+
+	$v_D$
+	&
+	\vspace{40mm}
+	&
+	\vspace{40mm}
+	&
+	\vspace{40mm}
+	\\
+	\hline
+
+	$i_D$
+	&
+	\vspace{40mm}
+	&
+	\vspace{40mm}
+	&
+	\vspace{40mm}
+	\\
+	\hline
+
+	$i_C$
+	&
+	\vspace{40mm}
+	&
+	\vspace{40mm}
+	&
+	\vspace{40mm}
+	\\
+	
+\end{longtabu}
+
+
+
+
+\newpage
+
+# Isolated DC to DC Converters
+
+\tabulinesep=2mm
+\begin{longtabu} to\linewidth{|X[0.6,m,c]|X[2,m,c]|X[2,m,c]|}
+
+	\hline
+	What & Forward & Flyback \\
+	\hline
+
+	Circuit Diagram
+	&
+	\begin{circuitikz}[scale = 0.5, transform shape]
+		\draw
+		% --- left side of the transformer ---
+		(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
+		(0,0) node[ground](){}
+		(0,4) to[short](4,4) %left side upper node
+		(4,4) to[L](4,2) %First transformer winding
+		(4,2) to[opening switch](4,0) %switching MOSFET
+		(0,0) to[short](4,0) %lower node, ground
+		(2,4) to[L](2,2) %transformer magnetizing inductance
+		(2,2) to[short](4,2)
+		% --- third winding ---
+		(0,4) to[short](0,5)
+		(0,5) to[short](5,5)
+		(5,5) to[short](5,4)
+		(5,4) to[L](5,2)
+		(5,0) to[diode](5,2)
+		(5,0) node[ground](){}
+		% --- right side of the transformer ---
+		(6,2) to[L](6,4)
+		(6,4) to[diode](8,4)
+		(6,2) to[short](8,2)
+		(8,2) to[diode, i^>=$i_D$, v_<=$v_D$](8,4)
+		(8,2) to[short](10,2)
+		(8,4) to[L, v^<=$v_L$, i_>=$i_L$](10,4)
+		(10,4) to[C, i^>=$i_C$](10,2)
+		(10,4) to[short, i^>=$i_o$](12,4)
+		(10,2) to[short](12,2)
+		(12,4) to[R, l=$R$, v_<=$v_o$](12,2)
+		;
+	\end{circuitikz}
+	&
+	\begin{circuitikz}[scale = 0.5, transform shape]
+		\draw
+		% --- left side of the transformer ---
+		(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
+		(0,0) node[ground](){}
+		(0,4) to[short](4,4) %left side upper node
+		(4,4) to[L](4,2) %First transformer winding
+		(4,2) to[opening switch](4,0) %switching MOSFET
+		(0,0) to[short](4,0) %lower node, ground
+		(2,4) to[L](2,2) %transformer magnetizing inductance
+		(2,2) to[short](4,2)
+		% --- third winding ---
+		(0,4) to[short](0,5)
+		(0,5) to[short](5,5)
+		(5,5) to[short](5,4)
+		(5,4) to[L](5,2)
+		(5,0) to[diode](5,2)
+		(5,0) node[ground](){}
+		% --- right side of the transformer ---
+		(6,2) to[L](6,4)
+		(6,4) to[diode](8,4)
+		(6,2) to[short](8,2)
+		(8,4) to[C](8,2)
+		(8,2) to[short](10,2)
+		(8,4) to[short](10,4)
+		(10,4) to[R](10,2)
+		;
+	\end{circuitikz}
+	\\
+	\hline
+
+	ON Circuit
+	&
+	\begin{circuitikz}[scale = 0.5, transform shape]
+		\draw
+		% --- left side of the transformer ---
+		(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
+		(0,0) node[ground](){}
+		(0,4) to[short](4,4) %left side upper node
+		(4,4) to[L](4,2) %First transformer winding
+		(4,2) to[short](4,0) %switching MOSFET
+		(0,0) to[short](4,0) %lower node, ground
+		(2,4) to[L](2,2) %transformer magnetizing inductance
+		(2,2) to[short](4,2)
+		% --- third winding ---
+		(0,4) to[short](0,5)
+		(0,5) to[short](5,5)
+		(5,5) to[short](5,4)
+		(5,4) to[L](5,2)
+		(5,0) to[short](5,2)
+		(5,0) node[ground](){}
+		% --- right side of the transformer ---
+		(6,2) to[L](6,4)
+		(6,4) to[short](8,4)
+		(6,2) to[short](8,2)
+		(8,2) to[short](8,4)
+		(8,2) to[short](10,2)
+		(8,4) to[L, v^<=$v_L$, i_>=$i_L$](10,4)
+		(10,4) to[C, i^>=$i_C$](10,2)
+		(10,4) to[short](12,4)
+		(10,2) to[short](12,2)
+		(12,4) to[R, l=$R$, v_<=$v_o$](12,2)
+		;
+	\end{circuitikz}
+	&
+	\begin{circuitikz}[scale = 0.5, transform shape]
+		\draw
+		% --- left side of the transformer ---
+		(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
+		(0,0) node[ground](){}
+		(0,4) to[short](4,4) %left side upper node
+		(4,4) to[L](4,2) %First transformer winding
+		(4,2) to[short](4,0) %switching MOSFET
+		(0,0) to[short](4,0) %lower node, ground
+		(2,4) to[L](2,2) %transformer magnetizing inductance
+		(2,2) to[short](4,2)
+		% --- third winding ---
+		(0,4) to[short](0,5)
+		(0,5) to[short](5,5)
+		(5,5) to[short](5,4)
+		(5,4) to[L](5,2)
+		(5,0) to[short](5,2)
+		(5,0) node[ground](){}
+		% --- right side of the transformer ---
+		(6,2) to[L](6,4)
+		(6,4) to[short](8,4)
+		(6,2) to[short](8,2)
+		(8,4) to[C](8,2)
+		(8,2) to[short](10,2)
+		(8,4) to[short](10,4)
+		(10,4) to[R](10,2)
+		;
+	\end{circuitikz}
+	\\
+	\hline
+
+	OFF Circuit
+	&
+	\begin{circuitikz}[scale = 0.5, transform shape]
+		\draw
+		% --- left side of the transformer ---
+		(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
+		(0,0) node[ground](){}
+		(0,4) to[short](4,4) %left side upper node
+		(4,4) to[L](4,2) %First transformer winding
+		(4,2) to[short](4,0) %switching MOSFET
+		(0,0) to[short](4,0) %lower node, ground
+		(2,4) to[L](2,2) %transformer magnetizing inductance
+		(2,2) to[short](4,2)
+		% --- third winding ---
+		(0,4) to[short](0,5)
+		(0,5) to[short](5,5)
+		(5,5) to[short](5,4)
+		(5,4) to[L](5,2)
+		(5,0) to[short](5,2)
+		(5,0) node[ground](){}
+		% --- right side of the transformer ---
+		(6,2) to[L](6,4)
+		(6,4) to[short](8,4)
+		(6,2) to[short](8,2)
+		(8,2) to[short](8,4)
+		(8,2) to[short](10,2)
+		(8,4) to[L, v^<=$v_L$, i_>=$i_L$](10,4)
+		(10,4) to[C, i^>=$i_C$](10,2)
+		(10,4) to[short](12,4)
+		(10,2) to[short](12,2)
+		(12,4) to[R, l=$R$, v_<=$v_o$](12,2)
+		;
+	\end{circuitikz}
+	&
+	\begin{circuitikz}[scale = 0.5, transform shape]
+		\draw
+		% --- left side of the transformer ---
+		(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
+		(0,0) node[ground](){}
+		(0,4) to[short](4,4) %left side upper node
+		(4,4) to[L](4,2) %First transformer winding
+		(4,2) to[short](4,0) %switching MOSFET
+		(0,0) to[short](4,0) %lower node, ground
+		(2,4) to[L](2,2) %transformer magnetizing inductance
+		(2,2) to[short](4,2)
+		% --- third winding ---
+		(0,4) to[short](0,5)
+		(0,5) to[short](5,5)
+		(5,5) to[short](5,4)
+		(5,4) to[L](5,2)
+		(5,0) to[short](5,2)
+		(5,0) node[ground](){}
+		% --- right side of the transformer ---
+		(6,2) to[L](6,4)
+		(6,4) to[short](8,4)
+		(6,2) to[short](8,2)
+		(8,4) to[C](8,2)
+		(8,2) to[short](10,2)
+		(8,4) to[short](10,4)
+		(10,4) to[R](10,2)
+		;
+	\end{circuitikz}
+	\\
+	\hline
+
+	$v_L$
+	&
+	\vspace{50mm}
+	&
+	\vspace{50mm}
+	\\
+	\hline
+
+	$v_o$
+	&
+	\vspace{50mm}
+	&
+	\vspace{50mm}
+	\\
+	\hline
+
+	$v_{LM}$
+	&
+	\vspace{50mm}
+	&
+	\vspace{50mm}
+	\\
+	\hline
+
+	?
+	&
+	\vspace{50mm}
+	&
+	\vspace{50mm}
+	\\
+	\hline
+
+	?
+	&
+	\vspace{50mm}
+	&
+	\vspace{50mm}
+	\\
+	
+\end{longtabu}
+
+
