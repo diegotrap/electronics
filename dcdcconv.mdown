@@ -49,7 +49,10 @@ $$ D = \frac{t_{ON}}{T} $$
 
 
 
+
 # Non-isolated converters
+
+
 
 
 \newpage
@@ -73,7 +76,12 @@ $$ % DC to DC Buck Converter, by Diego Trapero
 \end{circuitikz}
 $$
 
-Known variables: $V_i$, $D$, $L$, $C$, $R$.
+Known variables: 
+
+* Input voltage, $V_i$ (constant, positive voltage)
+* Switch square control signal, $D$ and $T$
+* Circuit components, $L$, $C$, $R$.
+
 
 **State of the diode**
 
@@ -154,6 +162,7 @@ $$ % Buck Converter ON, by Diego Trapero
 \end{circuitikz}
 $$
 
+
 **OFF equivalent circuit**
 
 $$ % Buck Converter OFF, by Diego Trapero
@@ -180,10 +189,10 @@ $$ % Buck Converter OFF, by Diego Trapero
 \end{circuitikz}
 $$
 
-**Inductor voltage, output voltage**
 
-1. ON Circuit, KVL: $v_i = v_L + v_o \rightarrow v_L = v_i - v_o$
+**Inductor voltage**
 
+1. **ON**. KVL @ Inductor: $v_L = V_i - v_o$
 $$ % Buck Converter ON, by Diego Trapero
 \begin{circuitikz}[scale = 1]
 	\draw
@@ -208,7 +217,7 @@ $$ % Buck Converter ON, by Diego Trapero
 \end{circuitikz}
 $$
 
-2. OFF circuit, KVL: $0 = v_L + v_o \rightarrow v_L = - v_o$
+2. **OFF**. KVL @ Inductor: $v_L = - v_o$
 
 $$ % Buck Converter OFF, by Diego Trapero
 \begin{circuitikz}[scale = 1]
@@ -234,44 +243,534 @@ $$ % Buck Converter OFF, by Diego Trapero
 \end{circuitikz}
 $$
 
-To know the sign of the voltage in the inductor, we need to obtain the sign of $v_i$ and $v_o$ first. Knowing that this is a step-down and non-inverting converter, we can suppose both $v_i$ and $v_o$ positive and $v_i > v_o$. To demostrate this is the case, we have to apply the periodic steady state of the inductor condition.
+The voltage in the inductor is
+
+$$
+v_L(t) = 
+\begin{cases}
+	V_i - v_o    &    \text{ON} \\
+	- v_o        &    \text{OFF} 
+\end{cases}$$
+
+If we
+
+* apply the small ripple approximation (consider the $v_o(t)$ constant, $V_o$),
+* suppose that $V_i - V_o > 0$ and $-V_o > 0$, for the inductor to be in periodic steady state (we will check in the output voltage calculation). If we asume that the output voltage sign is placed correctly and $V_i > V_o$, as it would be normal in a step-up converter, then the assumptions are correct.
+
+we can represent the inductor voltage waveform:
+
+$$
+\begin{tikzpicture}[>=stealth, scale = 1, transform shape]
+	\begin{axis}[
+		xmin=0,xmax=4,
+		ymin=-2,ymax=2,
+		axis x line=middle,
+		axis y line=middle,
+		axis line style=->,
+		%xlabel={$t$},
+		%ylabel={$y$},
+		ymajorgrids,
+		xmajorgrids,
+		%xtick={0,1,2,3,4},
+		%xticklabels={$0$, $1$, $2$, $3$, $4$},
+		ytick={},
+		yticklabels={}
+		]
+	\end{axis}
+\end{tikzpicture}
+$$
+
+
+**Output voltage**
+
+In order to calculate the output voltage of the converter, we have to apply the condition $\bar{v_L} = 0$ in the inductor.
 
 1. In periodic steady state, the average voltage of an inductor is zero, $\bar{v_L} = 0$
 
-\vspace{20mm}
+	1.1 Mean value definition
+	$$\bar{v_L(t)} = \frac{1}{T} \int_{t_0}^{t_0+T} v_L(t) dt = 0$$
+	1.2 Substitute the definition of $v_L(t)$ and split the integral
+	$$\cancel{\frac{1}{T}} \left[ \int_{0}^{DT} ( V_i - v_o ) dt + \int_{DT}^{T}( - v_o(t) )dt\right] = 0$$
 
-2. Small-ripple approximation: $v_o(t)$ can be considered constant: $v_o(t) \approx V_o$.
+2. In order to obtain a value for $v_o(t)$ from the integral we have to suppose it is contant. We apply the small-ripple approximation: $v_o(t)$ can be considered constant: $v_o(t) \approx V_o$.
 $$(V_i - V_o)D\cancel{T} + (-V_o)(1-D)\cancel{T} = 0$$
 $$(V_iD - \cancel{V_oD} - V_o + \cancel{V_oD} = 0$$
+
 $$V_o = V_i D$$
+
+Since $V_i > 0$ and $D < 1$, we can say
+
+* $V_o > 0$, so the sign criteria chosen for the diagram shows the correct polarization.
+* $V_o < V_i$, so it is indeed a step-down converter.
+
+From now in advance, all the calculations will be made with the small ripple approximation, so
+
+* $v_o(t)$ ripple is negligible, so $v_o(t) \approx \bar{v_o(t)} = V_o$
+* If $v_o$ is constant, then also $i_o(t)$ is constant: $i_o(t) = \bar{i_o(t)} = I_o$
 
 
 **Duty Cycle**
 
 $$D = \frac{V_o}{V_i}$$
 
+**Output current**
+
+Since we have applied the Small-Ripple approximation, we have already stated that $i_o(t) = \bar{i_o(t)} = I_o$. Output current can be calculated from the problem data:
+
+$$I_o = \frac{V_o}{R}$$
+
+Other ways of calculating output current are
+
+$$I_o = \frac{P_o}{V_o}$$
+
+$$I_o = \sqrt{\frac{P_o}{R}}$$
+
+
+**Output power**
+
+We can calculate the power the load is consuming from the problem data
+
+$$P_o = \frac{V_o^2}{R}$$
+
+Other ways of calculating output power are
+
+$$P_o = I_o^2 R$$
+
 
 **Inductor current**
-\vspace{50mm}
+
+Since the inductor voltage is a square wave with positive and negative voltages, the inductor current is a triangular wave.
+
+The inductor current triangular wave can be described with its mean value and the ripple:
+
+* **Mean value, $\bar{i_L}$**
+	
+	1. KCL @ $v_o$ node: $i_L(t) = i_c(t) + i_o(t)$
+	2. Superposition: $\bar{i_L(t)} = \bar{i_c(t)} + \bar{i_o(t)}$
+	3. $\bar{i_o(t)} = I_o = \frac{V_o}{R}$: $\bar{i_L(t)} = \bar{i_c(t)} + \frac{V_o}{R}$
+	4. PSS: $\bar{i_c(t)} = 0$
+
+	$$\bar{i_L(t)} = I_o = \frac{V_o}{R}$$
+
+	From power:
+	$$\bar{i_L(t)} = I_o = \frac{P_o}{V_o}$$
+
+* **Ripple, $\Delta i_L$**
+	
+	$$\Delta i_L = \frac{V \Delta t}{L}$$
+	$$\Delta i_L = \frac{(V_i - V_o)DT}{L}$$
+	$$\Delta i_L = \frac{V_o (1-D)T}{L}$$
+
+The maximum and minimum value of the current waveform are:
+
+$$I_1 = \bar{i_L} + \frac{1}{2} \Delta i_L$$
+$$I_2 = \bar{i_L} - \frac{1}{2} \Delta i_L$$
+
+The representation is:
+
+$$
+\begin{tikzpicture}[>=stealth, scale = 1, transform shape]
+	\begin{axis}[
+		xmin=0,xmax=4,
+		ymin=-2,ymax=2,
+		axis x line=middle,
+		axis y line=middle,
+		axis line style=->,
+		%xlabel={$t$},
+		%ylabel={$y$},
+		ymajorgrids,
+		xmajorgrids,
+		%xtick={0,1,2,3,4},
+		%xticklabels={$0$, $1$, $2$, $3$, $4$},
+		ytick={},
+		yticklabels={}
+		]
+	\end{axis}
+\end{tikzpicture}
+$$
+
 
 **Switch tension**
-\vspace{50mm}
+
+* When the switch is conducting (in the ON phase of the circuit), the voltage drop across the switch is 0, according to the ideal switch model: $v_S = 0$
+$$ % Buck Converter ON, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1](0,2)
+	(0,2) to[short](0.66, 2) % Switch
+	(1.33,2) to[short](2,2) 
+	(1.33,2) node[circ] {}
+	(0.66, 2) node[circ] {} % End switch
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %Diode
+	(2,1.33) to[short](2,2)
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End Diode
+	(0,2) to[short](2,2) %Close switch
+	(2,0) to[short](4,0)
+	(2,2) to[L](4,2)
+	(4,2) to[C](4,0)
+	(4,2) to[short](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R](6,0)
+	;
+\end{circuitikz}
+$$
+
+* When the switch is not conducting (in the OFF phase of the circuit), voltage drop is $v_S = V_i - 0 = V_i (KVL @ Switch).
+$$ % Buck Converter OFF, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1](0,2)
+	(0,2) to[short](0.66, 2) % Switch
+	(1.33,2) to[short](2,2) 
+	(1.33,2) node[circ] {}
+	(0.66, 2) node[circ] {} % End switch
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %Diode
+	(2,1.33) to[short](2,2)
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End Diode
+	(2,0) to[short](2,2) %Close diode
+	(2,0) to[short](4,0)
+	(2,2) to[L](4,2)
+	(4,2) to[C](4,0)
+	(4,2) to[short](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R](6,0)
+	;
+\end{circuitikz}
+$$
+
+The switch voltage is
+
+$$
+v_S(t) = 
+\begin{cases}
+	0    &    \text{ON} \\
+	V_i        &    \text{OFF} 
+\end{cases}
+$$
+
+$$
+\begin{tikzpicture}[>=stealth, scale = 1, transform shape]
+	\begin{axis}[
+		xmin=0,xmax=4,
+		ymin=-2,ymax=2,
+		axis x line=middle,
+		axis y line=middle,
+		axis line style=->,
+		%xlabel={$t$},
+		%ylabel={$y$},
+		ymajorgrids,
+		xmajorgrids,
+		%xtick={0,1,2,3,4},
+		%xticklabels={$0$, $1$, $2$, $3$, $4$},
+		ytick={},
+		yticklabels={}
+		]
+	\end{axis}
+\end{tikzpicture}
+$$
+
 
 **Switch current**
-\vspace{50mm}
+
+* When the switch is not conducting (in the OFF phase of the circuit), the current through the switch is 0, according to the ideal switch model: $i_S = 0$
+$$ % Buck Converter OFF, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1](0,2)
+	(0,2) to[short](0.66, 2) % Switch
+	(1.33,2) to[short](2,2) 
+	(1.33,2) node[circ] {}
+	(0.66, 2) node[circ] {} % End switch
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %Diode
+	(2,1.33) to[short](2,2)
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End Diode
+	(2,0) to[short](2,2) %Close diode
+	(2,0) to[short](4,0)
+	(2,2) to[L](4,2)
+	(4,2) to[C](4,0)
+	(4,2) to[short](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R](6,0)
+	;
+\end{circuitikz}
+$$
+
+* When the switch is conducting (in the ON phase of the circuit), voltage drop is $i_S = i_L$ (KCL @ $v_D$ node).
+$$ % Buck Converter ON, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1](0,2)
+	(0,2) to[short](0.66, 2) % Switch
+	(1.33,2) to[short](2,2) 
+	(1.33,2) node[circ] {}
+	(0.66, 2) node[circ] {} % End switch
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %Diode
+	(2,1.33) to[short](2,2)
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End Diode
+	(0,2) to[short](2,2) %Close switch
+	(2,0) to[short](4,0)
+	(2,2) to[L](4,2)
+	(4,2) to[C](4,0)
+	(4,2) to[short](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R](6,0)
+	;
+\end{circuitikz}
+$$
+
+The switch current is
+
+$$
+i_S(t) = 
+\begin{cases}
+	i_L    &    \text{ON} \\
+	0        &    \text{OFF} 
+\end{cases}
+$$
+
+This means that the switch conducts the inductor current in the ON phase of the circuit.
+
+$$
+\begin{tikzpicture}[>=stealth, scale = 1, transform shape]
+	\begin{axis}[
+		xmin=0,xmax=4,
+		ymin=-2,ymax=2,
+		axis x line=middle,
+		axis y line=middle,
+		axis line style=->,
+		%xlabel={$t$},
+		%ylabel={$y$},
+		ymajorgrids,
+		xmajorgrids,
+		%xtick={0,1,2,3,4},
+		%xticklabels={$0$, $1$, $2$, $3$, $4$},
+		ytick={},
+		yticklabels={}
+		]
+	\end{axis}
+\end{tikzpicture}
+$$
+
 
 **Diode tension**
-\vspace{50mm}
+
+* When the diode is conducting (in the OFF phase of the circuit), the voltage drop across the diode is 0, according to the ideal diode model: $v_D = 0$
+$$ % Buck Converter OFF, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1](0,2)
+	(0,2) to[short](0.66, 2) % Switch
+	(1.33,2) to[short](2,2) 
+	(1.33,2) node[circ] {}
+	(0.66, 2) node[circ] {} % End switch
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %Diode
+	(2,1.33) to[short](2,2)
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End Diode
+	(2,0) to[short](2,2) %Close diode
+	(2,0) to[short](4,0)
+	(2,2) to[L](4,2)
+	(4,2) to[C](4,0)
+	(4,2) to[short](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R](6,0)
+	;
+\end{circuitikz}
+$$
+
+* When the diode is not conducting (in the ON phase of the circuit), current is $v_D = 0 - V_i = -V_i$ (KVL @ Diode).
+$$ % Buck Converter ON, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1](0,2)
+	(0,2) to[short](0.66, 2) % Switch
+	(1.33,2) to[short](2,2) 
+	(1.33,2) node[circ] {}
+	(0.66, 2) node[circ] {} % End switch
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %Diode
+	(2,1.33) to[short](2,2)
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End Diode
+	(0,2) to[short](2,2) %Close switch
+	(2,0) to[short](4,0)
+	(2,2) to[L](4,2)
+	(4,2) to[C](4,0)
+	(4,2) to[short](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R](6,0)
+	;
+\end{circuitikz}
+$$
+
+The diode voltage is
+
+$$
+v_D(t) = 
+\begin{cases}
+	-V_i    &    \text{ON} \\
+	0       &    \text{OFF} 
+\end{cases}
+$$
+
+$$
+\begin{tikzpicture}[>=stealth, scale = 1, transform shape]
+	\begin{axis}[
+		xmin=0,xmax=4,
+		ymin=-2,ymax=2,
+		axis x line=middle,
+		axis y line=middle,
+		axis line style=->,
+		%xlabel={$t$},
+		%ylabel={$y$},
+		ymajorgrids,
+		xmajorgrids,
+		%xtick={0,1,2,3,4},
+		%xticklabels={$0$, $1$, $2$, $3$, $4$},
+		ytick={},
+		yticklabels={}
+		]
+	\end{axis}
+\end{tikzpicture}
+$$
+
 
 **Diode current**
-\vspace{50mm}
+
+* When the diode is not conducting (in the ON phase of the circuit), the current through the diode is 0, according to the ideal diode model: $i_D = 0$
+$$ % Buck Converter ON, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1](0,2)
+	(0,2) to[short](0.66, 2) % Switch
+	(1.33,2) to[short](2,2) 
+	(1.33,2) node[circ] {}
+	(0.66, 2) node[circ] {} % End switch
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %Diode
+	(2,1.33) to[short](2,2)
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End Diode
+	(0,2) to[short](2,2) %Close switch
+	(2,0) to[short](4,0)
+	(2,2) to[L](4,2)
+	(4,2) to[C](4,0)
+	(4,2) to[short](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R](6,0)
+	;
+\end{circuitikz}
+$$
+
+* When the diode is conducting (in the ON phase of the circuit), current is $i_S = i_L$ (KCL @ $v_D$ node).
+$$ % Buck Converter OFF, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1](0,2)
+	(0,2) to[short](0.66, 2) % Switch
+	(1.33,2) to[short](2,2) 
+	(1.33,2) node[circ] {}
+	(0.66, 2) node[circ] {} % End switch
+	(0,0) to[short](2,0)
+	(2,0) to[short](2,0.66) %Diode
+	(2,1.33) to[short](2,2)
+	(2,0.66) node[circ] {}
+	(2,1.33) node[circ] {} % End Diode
+	(2,0) to[short](2,2) %Close diode
+	(2,0) to[short](4,0)
+	(2,2) to[L](4,2)
+	(4,2) to[C](4,0)
+	(4,2) to[short](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R](6,0)
+	;
+\end{circuitikz}
+$$
+
+The switch current is
+
+$$
+i_D(t) = 
+\begin{cases}
+	0      &    \text{ON} \\
+	i_L    &    \text{OFF} 
+\end{cases}
+$$
+
+This means that the diode conducts the inductor current in the OFF phase of the circuit.
+
+$$
+\begin{tikzpicture}[>=stealth, scale = 1, transform shape]
+	\begin{axis}[
+		xmin=0,xmax=4,
+		ymin=-2,ymax=2,
+		axis x line=middle,
+		axis y line=middle,
+		axis line style=->,
+		%xlabel={$t$},
+		%ylabel={$y$},
+		ymajorgrids,
+		xmajorgrids,
+		%xtick={0,1,2,3,4},
+		%xticklabels={$0$, $1$, $2$, $3$, $4$},
+		ytick={},
+		yticklabels={}
+		]
+	\end{axis}
+\end{tikzpicture}
+$$
+
 
 **Capacitor current**
+
+* We already know that the capacitor current mean value is 0, because it is the steady state condition: $\bar{i_c} = 0$
+* If we apply KCL @ $v_o$ node, we obtain the equation $i_L(t) = i_C(t) + i_o(t)$. We isolate $i_C(t)$:
+$$i_C(t) = i_L(t) - i_o(t)$$
+$$i_C(t) = i_L(t) - I_o$$
+
+So $i_C(t)$ is the same wave as $i_L(t)$, but displaced vertically by a constant $I_o$. If we substitute in the maximum and minimum points of $i_L(t)$, we obtain the extreme values of $i_C(t)$:
+
+$$I_1 = \bar{i_L} + \frac{1}{2} \Delta i_L - I_o = $$
+$$I_2 = \bar{i_L} - \frac{1}{2} \Delta i_L - I_o = $$
+
+$$I_1 = + \frac{1}{2} \Delta i_L$$
+$$I_2 = - \frac{1}{2} \Delta i_L$$
+
+$$
+\begin{tikzpicture}[>=stealth, scale = 1, transform shape]
+	\begin{axis}[
+		xmin=0,xmax=4,
+		ymin=-2,ymax=2,
+		axis x line=middle,
+		axis y line=middle,
+		axis line style=->,
+		%xlabel={$t$},
+		%ylabel={$y$},
+		ymajorgrids,
+		xmajorgrids,
+		%xtick={0,1,2,3,4},
+		%xticklabels={$0$, $1$, $2$, $3$, $4$},
+		ytick={},
+		yticklabels={}
+		]
+	\end{axis}
+\end{tikzpicture}
+$$
+
+**Voltage ripple**
 \vspace{50mm}
 
-**Output current**
+**Source waveforms**
 \vspace{50mm}
-
 
 
 
@@ -296,13 +795,16 @@ $$
 \end{circuitikz}
 $$
 
-Known variables: $V_i$, $D$, $L$, $C$, $R$.
+Known variables: 
+
+* Input voltage, $V_i$ (constant, positive voltage)
+* Switch square control signal, $D$ and $T$
+* Circuit components, $L$, $C$, $R$.
 
 
 **State of the diode**
 
 * **ON Circuit**: Since $v_D = 0-v_o = -v_o$, the diode is reverse polarized (OFF), if $v_o > 0$. We can make that asumprion and check later.
-
 $$ 
 \begin{circuitikz}[scale = 1]
 	\draw
@@ -324,9 +826,7 @@ $$
 \end{circuitikz}
 $$
 
-
 * **OFF circuit**: $v_D = V_i - v_L - V_o$. We assume the diode is ON for the current in the inductor to be continuous.
-
 $$ 
 \begin{circuitikz}[scale = 1]
 	\draw
@@ -346,6 +846,7 @@ $$
 	;
 \end{circuitikz}
 $$
+
 
 **Diode table**
 
@@ -403,10 +904,9 @@ $$ % Boost Converter OFF, by Diego Trapero
 $$
 
 
-**Inductor voltage, output voltage**
+**Inductor voltage**
 
-1. ON Circuit: $v_L = v_i$
-
+1. **ON**. KVL @ Inductor: $v_L = V_i$
 $$ % Boost Converter ON, by Diego Trapero
 \begin{circuitikz}[scale = 1]
 	\draw
@@ -429,8 +929,7 @@ $$ % Boost Converter ON, by Diego Trapero
 \end{circuitikz}
 $$
 
-2. OFF circuit: $v_L = v_i - v_o$
-
+2. **OFF**. KVL @ Inductor: $v_L = V_i - v_o$
 $$ % Boost Converter OFF, by Diego Trapero
 \begin{circuitikz}[scale = 1]
 	\draw
@@ -453,16 +952,71 @@ $$ % Boost Converter OFF, by Diego Trapero
 \end{circuitikz}
 $$
 
+The voltage in the inductor is
+
+$$
+v_L(t) = 
+\begin{cases}
+	V_i          &    \text{ON} \\
+	V_i - v_o    &    \text{OFF} 
+\end{cases}$$
+
+If we
+
+* apply the small ripple approximation (consider the $v_o(t)$ constant, $V_o$),
+* suppose that $V_i - V_o < 0$, for the inductor to be in periodic steady state (we will check in the output voltage calculation). If we asume that the output voltage sign is placed correctly and $V_o > V_i$, as it would be normal in a step-up converter, then $V_i - V_o < 0$ is true.
+
+we can represent the inductor voltage waveform:
+
+$$
+\begin{tikzpicture}[>=stealth, scale = 1, transform shape]
+	\begin{axis}[
+		xmin=0,xmax=4,
+		ymin=-2,ymax=2,
+		axis x line=middle,
+		axis y line=middle,
+		axis line style=->,
+		%xlabel={$t$},
+		%ylabel={$y$},
+		ymajorgrids,
+		xmajorgrids,
+		%xtick={0,1,2,3,4},
+		%xticklabels={$0$, $1$, $2$, $3$, $4$},
+		ytick={},
+		yticklabels={}
+		]
+	\end{axis}
+\end{tikzpicture}
+$$
+
+
+**Output voltage**
+
+In order to calculate the output voltage of the converter, we have to apply the condition $\bar{v_L} = 0$ in the inductor.
+
 1. In periodic steady state, the average voltage of an inductor is zero, $\bar{v_L} = 0$
 
-\vspace{20mm}
+	1.1 Mean value definition
+	$$\bar{v_L(t)} = \frac{1}{T} \int_{t_0}^{t_0+T} v_L(t) dt = 0$$
+	1.2 Substitute the definition of $V_L(t)$ and split the integral
+	$$\cancel{\frac{1}{T}} \left[ \int_{0}^{DT} ( V_i ) dt + \int_{DT}^{T}( V_i - v_o(t) )dt\right] = 0$$
 
-2. Small-ripple approximation: $v_o(t)$ can be considered constant: $v_o(t) \approx V_o$.
+2. In order to obtain a value for $v_o(t)$ from the integral we have to suppose it is contant. We apply the small-ripple approximation: $v_o(t)$ can be considered constant: $v_o(t) \approx V_o$.
 $$ V_iD \cancel{T} + (V_i-V_o)(1-D)\cancel{T} = 0$$
 $$\cancel{V_iD} + V_i - \cancel{V_iD} - V_o + V_oD = 0 $$
 $$V_i = V_o (1-D)$$
 
 $$V_o = V_i \frac{1}{1-D}$$
+
+Since $V_i > 0$ and $D < 1$, we can say
+
+* $V_o > 0$, so the sign criteria chosen for the diagram shows the correct polarization.
+* $V_o > V_i$, so it is indeed a step-up converter.
+
+From now in advance, all the calculations will be made with the small ripple approximation, so
+
+* $v_o(t)$ ripple is negligible, so $v_o(t) \approx \bar{v_o(t)} = V_o$
+* If $v_o$ is constant, then also $i_o(t)$ is constant: $i_o(t) = \bar{i_o(t)} = I_o$
 
 
 **Duty Cycle**
