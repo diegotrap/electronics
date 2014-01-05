@@ -417,7 +417,7 @@ $$ % Buck Converter ON, by Diego Trapero
 \end{circuitikz}
 $$
 
-* When the switch is not conducting (in the OFF phase of the circuit), voltage drop is $v_S = V_i - 0 = V_i (KVL @ Switch).
+* When the switch is not conducting (in the OFF phase of the circuit), voltage drop is $v_S = V_i - 0 = V_i$ (KVL @ Switch).
 $$ % Buck Converter OFF, by Diego Trapero
 \begin{circuitikz}[scale = 1]
 	\draw
@@ -1142,30 +1142,31 @@ $$
 	% --- left side of the transformer ---
 	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
 	(0,0) node[ground](){}
-	(0,4) to[short](4,4) %left side upper node
-	(4,4) to[L](4,2) %First transformer winding
+	(0,4) to[short, i^>=$i$](2,4) %left side upper node
+	(2,4) to[short, i^>=$i_1$](4,4)
+	(4,4) to[L, v_<=$v_1$](4,2) %First transformer winding
 	(4,2) to[opening switch](4,0) %switching MOSFET
 	(0,0) to[short](4,0) %lower node, ground
-	(2,4) to[L](2,2) %transformer magnetizing inductance
+	(2,4) to[L, v_<=$v_{LM}$, i^>=$i_{LM}$](2,2) %transformer magnetizing inductance
 	(2,2) to[short](4,2)
 	% --- third winding ---
 	(0,4) to[short](0,5)
 	(0,5) to[short](5,5)
 	(5,5) to[short](5,4)
-	(5,4) to[L](5,2)
-	(5,0) to[diode](5,2)
+	(5,4) to[L, v_>=$v_3$](5,2)
+	(5,0) to[diode, i>^=$i_{D3}$, v_<=$v_{D3}$](5,2)
 	(5,0) node[ground](){}
 	% --- right side of the transformer ---
-	(6,2) to[L](6,4)
-	(6,4) to[diode](8,4)
+	(6,2) to[L, v^>=$v_2$](6,4)
+	(6,4) to[diode, i>^=$i_{D1}$, v_<=$v_{D1}$](8,4)
 	(6,2) to[short](8,2)
-	(8,2) to[diode, i^>=$i_D$, v_<=$v_D$](8,4)
+	(8,2) to[diode, i>^=$i_{D2}$, v_<=$v_{D2}$](8,4)
 	(8,2) to[short](10,2)
 	(8,4) to[L, v^<=$v_L$, i_>=$i_L$](10,4)
 	(10,4) to[C, i^>=$i_C$](10,2)
 	(10,4) to[short, i^>=$i_o$](12,4)
 	(10,2) to[short](12,2)
-	(12,4) to[R, l=$R$, v_<=$v_o$](12,2)
+	(12,4) to[R, v^<=$v_o$](12,2)
 	;
 \end{circuitikz}
 $$
@@ -1181,7 +1182,8 @@ $$ %Forward shorted circuit (to complete by hand)
 	(0,0) node[ground](){}
 	(0,4) to[short](4,4) %left side upper node
 	(4,4) to[L](4,2) %First transformer winding
-	(4,2) to[short](4,0) %switching MOSFET
+	(4,2) to[short, -*](4,1.33)
+	(4,0) to[short, -*](4,0.66)
 	(0,0) to[short](4,0) %lower node, ground
 	(2,4) to[L](2,2) %transformer magnetizing inductance
 	(2,2) to[short](4,2)
@@ -1218,7 +1220,9 @@ $$ %Forward shorted circuit (to complete by hand)
 	(0,0) node[ground](){}
 	(0,4) to[short](4,4) %left side upper node
 	(4,4) to[L](4,2) %First transformer winding
-	(4,2) to[short](4,0) %switching MOSFET
+	(4,2) to[short, -*](4,1.33)
+	(4,0) to[short, -*](4,0.66)
+	(4,1.33) to[short](4,0.66)
 	(0,0) to[short](4,0) %lower node, ground
 	(2,4) to[L](2,2) %transformer magnetizing inductance
 	(2,2) to[short](4,2)
