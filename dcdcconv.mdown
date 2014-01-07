@@ -1,6 +1,5 @@
 % DC to DC Converters
 % Diego Trapero
-% 02/01/2014 draft
 
 
 
@@ -1473,10 +1472,10 @@ $$
 	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
 	(0,0) node[ground](){}
 	(0,4) to[short](4,4) %left side upper node
-	(4,4) to[L](4,2) %First transformer winding
-	(4,2) to[opening switch](4,0) %switching MOSFET
+	(4,4) to[L, v_<=$v_1$](4,2) %First transformer winding
+	(4,2) to[opening switch](4,0)
 	(0,0) to[short](4,0) %lower node, ground
-	(2,4) to[L](2,2) %transformer magnetizing inductance
+	(2,4) to[L, v_<=$v_L$, i^>=$i_L$](2,2) %transformer magnetizing inductance
 	(2,2) to[short](4,2)
 	% --- right side of the transformer ---
 	(5,2) to[L](5,4)
@@ -1499,10 +1498,12 @@ $$ %Flyback shorted circuit (to complete by hand)
 	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
 	(0,0) node[ground](){}
 	(0,4) to[short](4,4) %left side upper node
-	(4,4) to[L](4,2) %First transformer winding
-	(4,2) to[short](4,0) %switching MOSFET
+	(4,4) to[L, v_<=$v_1$](4,2) %First transformer winding
+	(4,2) to[short, -*](4,1.33)
+	(4,0) to[short, -*](4,0.66)
+	(4,1.33) to[short](4,0.66)
 	(0,0) to[short](4,0) %lower node, ground
-	(2,4) to[L](2,2) %transformer magnetizing inductance
+	(2,4) to[L, v_<=$v_L$, i^>=$i_L$](2,2) %transformer magnetizing inductance
 	(2,2) to[short](4,2)
 	% --- right side of the transformer ---
 	(5,2) to[L](5,4)
@@ -1525,10 +1526,12 @@ $$ %Flyback shorted circuit (to complete by hand)
 	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
 	(0,0) node[ground](){}
 	(0,4) to[short](4,4) %left side upper node
-	(4,4) to[L](4,2) %First transformer winding
-	(4,2) to[short](4,0) %switching MOSFET
+	(4,4) to[L, v_<=$v_1$](4,2) %First transformer winding
+	(4,2) to[short, -*](4,1.33)
+	(4,0) to[short, -*](4,0.66)
+	(4,1.33) to[open](4,0.66)
 	(0,0) to[short](4,0) %lower node, ground
-	(2,4) to[L](2,2) %transformer magnetizing inductance
+	(2,4) to[L, v_<=$v_L$, i^>=$i_L$](2,2) %transformer magnetizing inductance
 	(2,2) to[short](4,2)
 	% --- right side of the transformer ---
 	(5,2) to[L](5,4)
@@ -1541,3 +1544,7 @@ $$ %Flyback shorted circuit (to complete by hand)
 	;
 \end{circuitikz}
 $$
+
+# Reference
+
+* Electrónica de Potencia, Hart
