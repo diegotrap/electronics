@@ -1073,7 +1073,11 @@ $$
 \end{circuitikz}
 $$
 
-Known variables: $V_i$, $D$, $L$, $C$, $R$.
+Known variables: 
+
+* Input voltage, $V_i$ (constant, positive voltage)
+* Switch square control signal, $D$ and $T$
+* Circuit components, $L$, $C$, $R$.
 
 
 **State of the diode**
@@ -1095,14 +1099,56 @@ Known variables: $V_i$, $D$, $L$, $C$, $R$.
 
 **ON equivalent circuit**
 
-\vspace{50mm}
+$$ % Buck-Boost Converter ON, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
+	(0,2) to[short, -*](0.66,2)
+	(1.33,2) to[short, *-](2,2)
+	(0.66,2) to[short](1.33,2)
+	(2,2) to[L, v^<=$v_L$, i_>=$i_L$](2,0)
+	(0,0) to[short](2,0)
+	(2,2) to[short, -*](2.66,2)
+	(3.33,2) to[short, *-](4,2)
+	(2.66,2) to[open](3.33,2)
+	(2,0) to[short](4,0)
+	(4,2) to[C, i^>=$i_C$](4,0)
+	(4,2) to[short, i^>=$i_o$](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R, l_=$R$, v^>=$v_o$](6,0)
+	;
+\end{circuitikz}
+$$
 
 **OFF equivalent circuit**
 
-\vspace{50mm}
+$$ % Buck-Boost Converter OFF, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,2)
+	(0,2) to[short, -*](0.66,2)
+	(1.33,2) to[short, *-](2,2)
+	(0.66,2) to[open](1.33,2)
+	(2,2) to[L, v^<=$v_L$, i_>=$i_L$](2,0)
+	(0,0) to[short](2,0)
+	(2,2) to[short, -*](2.66,2)
+	(3.33,2) to[short, *-](4,2)
+	(2.66,2) to[short](3.33,2)
+	(2,0) to[short](4,0)
+	(4,2) to[C, i^>=$i_C$](4,0)
+	(4,2) to[short, i^>=$i_o$](6,2)
+	(4,0) to[short](6,0)
+	(6,2) to[R, l_=$R$, v^>=$v_o$](6,0)
+	;
+\end{circuitikz}
+$$
 
 **Inductor voltage**
 \vspace{50mm}
+
+**Output voltage**
+\vspace{50mm}
+$$V_o = \frac{D}{1-D} V_i$$
 
 **Inductor current**
 \vspace{50mm}
@@ -1432,21 +1478,14 @@ $$
 	(0,0) to[short](4,0) %lower node, ground
 	(2,4) to[L](2,2) %transformer magnetizing inductance
 	(2,2) to[short](4,2)
-	% --- third winding ---
-	(0,4) to[short](0,5)
-	(0,5) to[short](5,5)
-	(5,5) to[short](5,4)
-	(5,4) to[L](5,2)
-	(5,0) to[diode](5,2)
-	(5,0) node[ground](){}
 	% --- right side of the transformer ---
-	(6,2) to[L](6,4)
-	(6,4) to[diode](8,4)
-	(6,2) to[short](8,2)
-	(8,4) to[C](8,2)
-	(8,2) to[short](10,2)
-	(8,4) to[short](10,4)
-	(10,4) to[R](10,2)
+	(5,2) to[L](5,4)
+	(5,4) to[diode](7,4)
+	(5,2) to[short](7,2)
+	(7,4) to[C](7,2)
+	(7,2) to[short](9,2)
+	(7,4) to[short](9,4)
+	(9,4) to[R](9,2)
 	;
 \end{circuitikz}
 $$
@@ -1465,21 +1504,14 @@ $$ %Flyback shorted circuit (to complete by hand)
 	(0,0) to[short](4,0) %lower node, ground
 	(2,4) to[L](2,2) %transformer magnetizing inductance
 	(2,2) to[short](4,2)
-	% --- third winding ---
-	(0,4) to[short](0,5)
-	(0,5) to[short](5,5)
-	(5,5) to[short](5,4)
-	(5,4) to[L](5,2)
-	(5,0) to[short](5,2)
-	(5,0) node[ground](){}
 	% --- right side of the transformer ---
-	(6,2) to[L](6,4)
-	(6,4) to[short](8,4)
-	(6,2) to[short](8,2)
-	(8,4) to[C](8,2)
-	(8,2) to[short](10,2)
-	(8,4) to[short](10,4)
-	(10,4) to[R](10,2)
+	(5,2) to[L](5,4)
+	(5,4) to[short](7,4)
+	(5,2) to[short](7,2)
+	(7,4) to[C](7,2)
+	(7,2) to[short](9,2)
+	(7,4) to[short](9,4)
+	(9,4) to[R](9,2)
 	;
 \end{circuitikz}
 $$
@@ -1498,21 +1530,14 @@ $$ %Flyback shorted circuit (to complete by hand)
 	(0,0) to[short](4,0) %lower node, ground
 	(2,4) to[L](2,2) %transformer magnetizing inductance
 	(2,2) to[short](4,2)
-	% --- third winding ---
-	(0,4) to[short](0,5)
-	(0,5) to[short](5,5)
-	(5,5) to[short](5,4)
-	(5,4) to[L](5,2)
-	(5,0) to[short](5,2)
-	(5,0) node[ground](){}
 	% --- right side of the transformer ---
-	(6,2) to[L](6,4)
-	(6,4) to[short](8,4)
-	(6,2) to[short](8,2)
-	(8,4) to[C](8,2)
-	(8,2) to[short](10,2)
-	(8,4) to[short](10,4)
-	(10,4) to[R](10,2)
+	(5,2) to[L](5,4)
+	(5,4) to[short](7,4)
+	(5,2) to[short](7,2)
+	(7,4) to[C](7,2)
+	(7,2) to[short](9,2)
+	(7,4) to[short](9,4)
+	(9,4) to[R](9,2)
 	;
 \end{circuitikz}
 $$
