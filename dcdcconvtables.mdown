@@ -562,3 +562,49 @@
 \end{longtabu}
 
 
+
+
+\newpage
+
+# Waveforms
+
+From *Electrónica de Potencia*, Daniel W. Hart.
+
+
+
+\newpage
+
+## Buck
+
+![](images/buck1.png)
+![](images/buck2.png)
+![](images/buck-dcm.png)
+
+
+\newpage
+
+## Boost
+
+![](images/boost.png)
+![](images/boost-dcm.png)
+
+
+\newpage
+
+## Buck-Boost
+
+![](images/buck-boost.png)
+
+
+\newpage
+
+## Forward
+
+![](images/forward.png)
+
+
+\newpage
+
+## Flyback
+
+![](images/flyback.png)
