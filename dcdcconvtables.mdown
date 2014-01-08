@@ -8,7 +8,7 @@
 
 
 \tabulinesep=2mm
-\begin{longtabu} to\linewidth{|X[1,m,c]|X[2,m,c]|X[2,m,c]|X[2,m,c]|}
+\begin{longtabu} to\linewidth{|X[1,m,c]|X[2,m,l]|X[2,m,l]|X[2,m,l]|}
 
 	\hline
 	What & Buck & Boost & Buck-Boost \\
@@ -239,7 +239,7 @@
 	\textbf{ON:}
 	$$v_L = V_i - V_o$$
 	\textbf{OFF:}
-	$$v_L = - v_o$$
+	$$v_L = - V_o$$
 	\textbf{Waveform:}
 	\vspace{40mm}
 	&
@@ -251,8 +251,12 @@
 
 	$i_L$
 	&
-	\textbf{ON:}
-	\textbf{OFF:}
+	\textbf{Mean value:}
+	$$\bar{i_L} = \cancel{\bar{i_C}} + I_o$$
+	$$\bar{i_L} = \frac{V_o}{R}$$
+	\textbf{Ripple:}
+	$$\Delta i_L = \frac{(V_i - V_o)DT}{L}$$
+	$$\Delta i_L = \frac{V_o (1-D)T}{L}$$
 	\textbf{Waveform:}
 	\vspace{40mm}
 	&
@@ -268,15 +272,16 @@
 	&
 	$$I_o = \frac{V_o}{R} = \frac{P_o}{V_o} = \sqrt{\frac{P_o}{R}}$$
 	&
-	$$I_o = \frac{V_o}{R} = \frac{P_o}{V_o} = \sqrt{\frac{P_o}{R}}$$
+	$$I_o = \frac{V_o}{R} = \frac{P_o}{V_o} = \sqrt{\frac{P_o}{R}}$$ 
 	\\
 	\hline
 
 	$v_S$
 	&
 	\textbf{ON:}
+	$$v_S = 0$$
 	\textbf{OFF:}
-	\textbf{Waveform:}
+	$$v_S = V_i - 0 = V_i$$
 	\vspace{40mm}
 	&
 	\vspace{40mm}
@@ -288,8 +293,9 @@
 	$i_S$
 	&
 	\textbf{ON:}
+	$$i_S = i_L$$
 	\textbf{OFF:}
-	\textbf{Waveform:}
+	$$i_S = 0$$
 	\vspace{40mm}
 	&
 	\vspace{40mm}
@@ -301,8 +307,9 @@
 	$v_D$
 	&
 	\textbf{ON:}
+	$$v_D = 0 - V_i = -V_i$$
 	\textbf{OFF:}
-	\textbf{Waveform:}
+	$$v_D = 0$$
 	\vspace{40mm}
 	&
 	\vspace{40mm}
@@ -314,8 +321,9 @@
 	$i_D$
 	&
 	\textbf{ON:}
+	$$i_D = 0$$
 	\textbf{OFF:}
-	\textbf{Waveform:}
+	$$i_S = i_L$$
 	\vspace{40mm}
 	&
 	\vspace{40mm}
@@ -326,6 +334,10 @@
 
 	$i_C$
 	&
+	$$i_C(t) = i_L(t) - I_o$$
+	$$I_1 = + \frac{1}{2} \Delta i_L$$
+	$$I_2 = - \frac{1}{2} \Delta i_L$$
+	\textbf{Waveform:}
 	\vspace{40mm}
 	&
 	\vspace{40mm}
@@ -593,6 +605,7 @@
 	&
 	\vspace{50mm}
 	\\
+	\hline
 
 	$$v_{LM}$$
 	&
