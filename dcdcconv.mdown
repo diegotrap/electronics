@@ -1450,7 +1450,7 @@ $$v_2 = \frac{N_1}{N_3}v_3$$
 
 $$v_3 = -v_1$$
 
-$$v_{LM} = \frac{N_1}{N_3}V_i$$
+$$v_{LM} = -\frac{N_1}{N_3}V_i$$
 
 
 
@@ -1472,33 +1472,33 @@ $$
 	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
 	(0,0) node[ground](){}
 	(0,4) to[short](4,4) %left side upper node
-	(4,4) to[L, v_<=$v_1$](4,2) %First transformer winding
-	(4,2) to[opening switch](4,0)
+	(4,4) to[L, v_<=$v_1$, i>^=$~$](4,2) %First transformer winding
+	(4,2) to[opening switch, v_<=$v_S$, i^>=$i_S$](4,0)
 	(0,0) to[short](4,0) %lower node, ground
 	(2,4) to[L, v_<=$v_L$, i^>=$i_L$](2,2) %transformer magnetizing inductance
 	(2,2) to[short](4,2)
 	% --- right side of the transformer ---
-	(5,2) to[L](5,4)
-	(5,4) to[diode](7,4)
+	(5,2) to[L, v^<=$v_2$, i>^=$~$](5,4) %Second transformer winding
+	(5,4) to[diode, i>^=$i_D$, v_<=$v_D$](7,4)
 	(5,2) to[short](7,2)
-	(7,4) to[C](7,2)
+	(7,4) to[C, i^>=$i_C$](7,2)
 	(7,2) to[short](9,2)
-	(7,4) to[short](9,4)
-	(9,4) to[R](9,2)
+	(7,4) to[short, i^>=$i_o$](9,4)
+	(9,4) to[R, v^<=$v_o$](9,2)
 	;
 \end{circuitikz}
 $$
 
 **ON circuit**
 
-$$ %Flyback shorted circuit (to complete by hand)
+$$ %Flyback Converter ON
 \begin{circuitikz}
 	\draw
 	% --- left side of the transformer ---
 	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
 	(0,0) node[ground](){}
 	(0,4) to[short](4,4) %left side upper node
-	(4,4) to[L, v_<=$v_1$](4,2) %First transformer winding
+	(4,4) to[L, v_<=$v_1$, i>^=$~$](4,2) %First transformer winding
 	(4,2) to[short, -*](4,1.33)
 	(4,0) to[short, -*](4,0.66)
 	(4,1.33) to[short](4,0.66)
@@ -1506,13 +1506,15 @@ $$ %Flyback shorted circuit (to complete by hand)
 	(2,4) to[L, v_<=$v_L$, i^>=$i_L$](2,2) %transformer magnetizing inductance
 	(2,2) to[short](4,2)
 	% --- right side of the transformer ---
-	(5,2) to[L](5,4)
-	(5,4) to[short](7,4)
+	(5,2) to[L, v^<=$v_2$, i>^=$~$](5,4) %Second transformer winding
+	(5,4) to[short, -*](5.66,4)
+	(6.33,4) to[short, *-](7,4)
+	(5.66,4) to[open](6.33,4)
 	(5,2) to[short](7,2)
-	(7,4) to[C](7,2)
+	(7,4) to[C, i^>=$i_C$](7,2)
 	(7,2) to[short](9,2)
-	(7,4) to[short](9,4)
-	(9,4) to[R](9,2)
+	(7,4) to[short, i^>=$i_o$](9,4)
+	(9,4) to[R, v^<=$v_o$](9,2)
 	;
 \end{circuitikz}
 $$
@@ -1526,7 +1528,7 @@ $$ %Flyback shorted circuit (to complete by hand)
 	(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
 	(0,0) node[ground](){}
 	(0,4) to[short](4,4) %left side upper node
-	(4,4) to[L, v_<=$v_1$](4,2) %First transformer winding
+	(4,4) to[L, v_<=$v_1$, i>^=$~$](4,2) %First transformer winding
 	(4,2) to[short, -*](4,1.33)
 	(4,0) to[short, -*](4,0.66)
 	(4,1.33) to[open](4,0.66)
@@ -1534,16 +1536,29 @@ $$ %Flyback shorted circuit (to complete by hand)
 	(2,4) to[L, v_<=$v_L$, i^>=$i_L$](2,2) %transformer magnetizing inductance
 	(2,2) to[short](4,2)
 	% --- right side of the transformer ---
-	(5,2) to[L](5,4)
-	(5,4) to[short](7,4)
+	(5,2) to[L, v^<=$v_2$, i>^=$~$](5,4) %Second transformer winding
+	(5,4) to[short, -*](5.66,4)
+	(6.33,4) to[short, *-](7,4)
+	(5.66,4) to[short](6.33,4)
 	(5,2) to[short](7,2)
-	(7,4) to[C](7,2)
+	(5,2) to[short](7,2)
+	(7,4) to[C, i^>=$i_C$](7,2)
 	(7,2) to[short](9,2)
-	(7,4) to[short](9,4)
-	(9,4) to[R](9,2)
+	(7,4) to[short, i^>=$i_o$](9,4)
+	(9,4) to[R, v^<=$v_o$](9,2)
 	;
 \end{circuitikz}
 $$
+
+
+**Output voltage**
+
+$$ V_o = \frac{N_2}{N_1} \frac{D}{1-D} V_i $$
+
+
+
+
+\newpage
 
 # Reference
 

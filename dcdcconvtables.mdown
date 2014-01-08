@@ -236,7 +236,12 @@
 
 	$v_L$
 	&
-	\vspace{50mm}
+	\textbf{ON:}
+	$$v_L = V_i - V_o$$
+	\textbf{OFF:}
+	$$v_L = - v_o$$
+	\textbf{Waveform:}
+	\vspace{40mm}
 	&
 	\vspace{50mm}
 	&
@@ -246,7 +251,10 @@
 
 	$i_L$
 	&
-	\vspace{50mm}
+	\textbf{ON:}
+	\textbf{OFF:}
+	\textbf{Waveform:}
+	\vspace{40mm}
 	&
 	\vspace{50mm}
 	&
@@ -256,16 +264,19 @@
 
 	$i_o$
 	&
-	\vspace{40mm}
+	$$I_o = \frac{V_o}{R} = \frac{P_o}{V_o} = \sqrt{\frac{P_o}{R}}$$
 	&
-	\vspace{40mm}
+	$$I_o = \frac{V_o}{R} = \frac{P_o}{V_o} = \sqrt{\frac{P_o}{R}}$$
 	&
-	\vspace{40mm}
+	$$I_o = \frac{V_o}{R} = \frac{P_o}{V_o} = \sqrt{\frac{P_o}{R}}$$
 	\\
 	\hline
 
 	$v_S$
 	&
+	\textbf{ON:}
+	\textbf{OFF:}
+	\textbf{Waveform:}
 	\vspace{40mm}
 	&
 	\vspace{40mm}
@@ -276,6 +287,9 @@
 
 	$i_S$
 	&
+	\textbf{ON:}
+	\textbf{OFF:}
+	\textbf{Waveform:}
 	\vspace{40mm}
 	&
 	\vspace{40mm}
@@ -286,6 +300,9 @@
 
 	$v_D$
 	&
+	\textbf{ON:}
+	\textbf{OFF:}
+	\textbf{Waveform:}
 	\vspace{40mm}
 	&
 	\vspace{40mm}
@@ -296,6 +313,9 @@
 
 	$i_D$
 	&
+	\textbf{ON:}
+	\textbf{OFF:}
+	\textbf{Waveform:}
 	\vspace{40mm}
 	&
 	\vspace{40mm}
@@ -323,7 +343,7 @@
 # Isolated DC to DC Converters
 
 \tabulinesep=2mm
-\begin{longtabu} to\linewidth{|X[0.6,m,c]|X[2,m,c]|X[2,m,c]|}
+\begin{longtabu} to\linewidth{|X[0.6,m,c]|X[2,m,l]|X[2,m,l]|}
 
 	\hline
 	What & Forward & Flyback \\
@@ -370,19 +390,19 @@
 		(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
 		(0,0) node[ground](){}
 		(0,4) to[short](4,4) %left side upper node
-		(4,4) to[L](4,2) %First transformer winding
-		(4,2) to[opening switch](4,0) %switching MOSFET
+		(4,4) to[L, v_<=$v_1$, i>^=$~$](4,2) %First transformer winding
+		(4,2) to[opening switch, v_<=$v_S$, i^>=$i_S$](4,0)
 		(0,0) to[short](4,0) %lower node, ground
-		(2,4) to[L](2,2) %transformer magnetizing inductance
+		(2,4) to[L, v_<=$v_L$, i^>=$i_L$](2,2) %transformer magnetizing inductance
 		(2,2) to[short](4,2)
 		% --- right side of the transformer ---
-		(6,2) to[L](6,4)
-		(6,4) to[diode](8,4)
-		(6,2) to[short](8,2)
-		(8,4) to[C](8,2)
-		(8,2) to[short](10,2)
-		(8,4) to[short](10,4)
-		(10,4) to[R](10,2)
+		(5,2) to[L, v^<=$v_2$, i>^=$~$](5,4) %Second transformer winding
+		(5,4) to[diode, i>^=$i_D$, v_<=$v_D$](7,4)
+		(5,2) to[short](7,2)
+		(7,4) to[C, i^>=$i_C$](7,2)
+		(7,2) to[short](9,2)
+		(7,4) to[short, i^>=$i_o$](9,4)
+		(9,4) to[R, v^<=$v_o$](9,2)
 		;
 	\end{circuitikz}
 	\\
@@ -436,19 +456,23 @@
 		(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
 		(0,0) node[ground](){}
 		(0,4) to[short](4,4) %left side upper node
-		(4,4) to[L](4,2) %First transformer winding
-		(4,2) to[short](4,0) %switching MOSFET
+		(4,4) to[L, v_<=$v_1$, i>^=$~$](4,2) %First transformer winding
+		(4,2) to[short, -*](4,1.33)
+		(4,0) to[short, -*](4,0.66)
+		(4,1.33) to[short](4,0.66)
 		(0,0) to[short](4,0) %lower node, ground
-		(2,4) to[L](2,2) %transformer magnetizing inductance
+		(2,4) to[L, v_<=$v_L$, i^>=$i_L$](2,2) %transformer magnetizing inductance
 		(2,2) to[short](4,2)
 		% --- right side of the transformer ---
-		(6,2) to[L](6,4)
-		(6,4) to[short](8,4)
-		(6,2) to[short](8,2)
-		(8,4) to[C](8,2)
-		(8,2) to[short](10,2)
-		(8,4) to[short](10,4)
-		(10,4) to[R](10,2)
+		(5,2) to[L, v^<=$v_2$, i>^=$~$](5,4) %Second transformer winding
+		(5,4) to[short, -*](5.66,4)
+		(6.33,4) to[short, *-](7,4)
+		(5.66,4) to[open](6.33,4)
+		(5,2) to[short](7,2)
+		(7,4) to[C, i^>=$i_C$](7,2)
+		(7,2) to[short](9,2)
+		(7,4) to[short, i^>=$i_o$](9,4)
+		(9,4) to[R, v^<=$v_o$](9,2)
 		;
 	\end{circuitikz}
 	\\
@@ -502,63 +526,126 @@
 		(0,0) to[battery1, v^>=$V_i$, i^>=$i_i$](0,4) %battery
 		(0,0) node[ground](){}
 		(0,4) to[short](4,4) %left side upper node
-		(4,4) to[L](4,2) %First transformer winding
-		(4,2) to[short](4,0) %switching MOSFET
+		(4,4) to[L, v_<=$v_1$, i>^=$~$](4,2) %First transformer winding
+		(4,2) to[short, -*](4,1.33)
+		(4,0) to[short, -*](4,0.66)
+		(4,1.33) to[open](4,0.66)
 		(0,0) to[short](4,0) %lower node, ground
-		(2,4) to[L](2,2) %transformer magnetizing inductance
+		(2,4) to[L, v_<=$v_L$, i^>=$i_L$](2,2) %transformer magnetizing inductance
 		(2,2) to[short](4,2)
 		% --- right side of the transformer ---
-		(6,2) to[L](6,4)
-		(6,4) to[short](8,4)
-		(6,2) to[short](8,2)
-		(8,4) to[C](8,2)
-		(8,2) to[short](10,2)
-		(8,4) to[short](10,4)
-		(10,4) to[R](10,2)
+		(5,2) to[L, v^<=$v_2$, i>^=$~$](5,4) %Second transformer winding
+		(5,4) to[short, -*](5.66,4)
+		(6.33,4) to[short, *-](7,4)
+		(5.66,4) to[short](6.33,4)
+		(5,2) to[short](7,2)
+		(5,2) to[short](7,2)
+		(7,4) to[C, i^>=$i_C$](7,2)
+		(7,2) to[short](9,2)
+		(7,4) to[short, i^>=$i_o$](9,4)
+		(9,4) to[R, v^<=$v_o$](9,2)
 		;
 	\end{circuitikz}
 	\\
 	\hline
 
+	$v_o$ CCM
+	&
+	$$V_o = \frac{N_2}{N_1}D V_i$$
+	&
+	$$ V_o = \frac{N_2}{N_1} \frac{D}{1-D} V_i $$
+	\\
+	\hline
+
+	$D$ CCM
+	&
+	$$D = \frac{V_o}{V_i} \frac{N_1}{N_2}$$
+	&
+	\vspace{10mm}
+	\\
+	\hline
+
 	$v_L$
 	&
+	\textbf{ON:}
+	$$v_L = v_2 - V_o$$
+	$$v_L = \frac{N_2}{N_1}v_1 - V_o$$
+	$$v_L = \frac{N_2}{N_1}V_i - V_o$$
+	\textbf{OFF:}
+	$$v_L = - V_o$$
+	\textbf{Waveform:}
+	\vspace{40mm}
+	&
+	\textbf{ON:}
+	$$v_L = V_i$$
+	\textbf{OFF:}
+	$$v_L = v_1$$
+	$$v_L = \frac{N_1}{N_2} v_2$$
+	$$v_L = -\frac{N_1}{N_2} V_o$$
+	\textbf{Waveform:}
+	\vspace{40mm}
+	\\
+	\hline
+
+	$$i_L$$
+	&
+	\vspace{50mm}
+	&
+	\vspace{50mm}
+	\\
+
+	$$v_{LM}$$
+	&
+	\vspace{50mm}
+	&
+	No
+	\\
+	\hline
+
+	$$v_3$$
+	&
+	\textbf{ON:}
+	$$v_3 = \frac{N_3}{N_1} v_1$$
+	$$v_3 = \frac{N_3}{N_1} V_i$$
+	\textbf{OFF:}
+	$$v_3 = -V_i$$
+	\textbf{Waveform:}
+	\vspace{40mm}
+	&
+	No
+	\\
+	\hline
+
+	$$v_S$$
+	&
 	\vspace{50mm}
 	&
 	\vspace{50mm}
 	\\
 	\hline
-
-	$v_o$
-	&
-	\vspace{50mm}
-	&
-	\vspace{50mm}
-	\\
-	\hline
-
-	$v_{LM}$
-	&
-	\vspace{50mm}
-	&
-	\vspace{50mm}
-	\\
-	\hline
-
-	?
-	&
-	\vspace{50mm}
-	&
-	\vspace{50mm}
-	\\
-	\hline
-
-	?
-	&
-	\vspace{50mm}
-	&
-	\vspace{50mm}
-	\\
 	
+	$$v_D$$
+	&
+	\vspace{50mm}
+	&
+	\vspace{50mm}
+	\\
+	\hline
+
+	$$i_S$$
+	&
+	\vspace{50mm}
+	&
+	\vspace{50mm}
+	\\
+	\hline
+
+	$$i_D$$
+	&
+	\vspace{50mm}
+	&
+	\vspace{50mm}
+	\\
 \end{longtabu}
 
 
