@@ -14,36 +14,199 @@ $$ % AC to DC Inverter, by Diego Trapero
 \begin{circuitikz}[scale = 1]
 	\draw
 	%Sinusoidal source and connections
-	(0,2) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](0,4)
-	(0,4) |- (6,6)
-	(0,2) |- (6,0)
+	(0,0) to[battery1, v^>=$v_i$, i^>=$i_i$](0,6)
+	(0,0) -- (8,0)
+	(0,6) -- (8,6)
 	%Rectifier branch left
-	(2,0) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](2,2)
-	(2,2) to[short](2,4)
-	(2,4) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](2,6)
+	(4,0) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](4,3)
+	(4,3) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](4,6)
 	%Rectifier branch right
-	(6,0) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](6,2)
-	(6,2) to[short](6,4)
-	(6,4) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](6,6)
+	(8,0) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](8,3)
+	(8,3) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](8,6)
 	%Load
-	(2,3) to[R](6,3) %load
+	(4,3) to[R](8,3) %load
 	;
 \end{circuitikz}
 $$
 
+$$ % AC to DC Inverter, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	%Sinusoidal source and connections
+	(0,0) to[battery1, v^>=$v_i$, i^>=$i_i$](0,3)
+	(0,0) -- (4,0)
+	(0,3) -- (4,3)
+	%Rectifier branch left
+	(2,0) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](2,1.5)
+	(2,1.5) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](2,3)
+	%Rectifier branch right
+	(4,0) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](4,1.5)
+	(4,1.5) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](4,3)
+	%Load
+	(2,1.5) to[R](4,1.5) %load
+	;
+\end{circuitikz}
+$$
+
+**Direct polarization of the load.** S1 and S4
+
+$$ % AC to DC Inverter, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	%Sinusoidal source and connections
+	(0,0) to[battery1, v^>=$v_i$, i^>=$i_i$](0,3)
+	(0,0) -- (4,0)
+	(0,3) -- (4,3)
+	%Rectifier branch left
+	%S3
+	(2,0) to[short, -*](2,0.5)
+	(2,1) to[short, *-](2,1.5)
+	(2,0.5) to[open](2,1.5)
+	%S1
+	(2,1.5) to[short, -*](2,2)
+	(2,2.5) to[short, *-](2,3)
+	(2,2) to[short](2,2.5)
+	%Rectifier branch right
+	%S4
+	(4,0) to[short, -*](4,0.5)
+	(4,1) to[short, *-](4,1.5)
+	(4,0.5) to[short](4,1.5)
+	%S2
+	(4,1.5) to[short, -*](4,2)
+	(4,2.5) to[short, *-](4,3)
+	(4,2) to[open](4,2.5)
+	%Load
+	(2,1.5) to[generic, v^<=$v_{AB}$](4,1.5) %load
+	;
+\end{circuitikz}
+$$
+
+$$v_{AB} = V_i$$
 
 
-# Square wave control
+**Inverse polarization of the load.** S2 and S3
+
+$$ % AC to DC Inverter, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	%Sinusoidal source and connections
+	(0,0) to[battery1, v^>=$v_i$, i^>=$i_i$](0,3)
+	(0,0) -- (4,0)
+	(0,3) -- (4,3)
+	%Rectifier branch left
+	%S3
+	(2,0) to[short, -*](2,0.5)
+	(2,1) to[short, *-](2,1.5)
+	(2,0.5) to[short](2,1.5)
+	%S1
+	(2,1.5) to[short, -*](2,2)
+	(2,2.5) to[short, *-](2,3)
+	(2,2) to[open](2,2.5)
+	%Rectifier branch right
+	%S4
+	(4,0) to[short, -*](4,0.5)
+	(4,1) to[short, *-](4,1.5)
+	(4,0.5) to[open](4,1.5)
+	%S2
+	(4,1.5) to[short, -*](4,2)
+	(4,2.5) to[short, *-](4,3)
+	(4,2) to[short](4,2.5)
+	%Load
+	(2,1.5) to[generic, v^<=$v_{AB}$](4,1.5) %load
+	;
+\end{circuitikz}
+$$
+
+$$v_{AB} = -V_i$$
+
+**Grounding.** S1 and S3 OR S2 and S4
+
+$$ % AC to DC Inverter, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	%Sinusoidal source and connections
+	(0,0) to[battery1, v^>=$v_i$, i^>=$i_i$](0,3)
+	(0,0) -- (4,0)
+	(0,3) -- (4,3)
+	%Rectifier branch left
+	%S3
+	(2,0) to[short, -*](2,0.5)
+	(2,1) to[short, *-](2,1.5)
+	(2,0.5) to[open](2,1.5)
+	%S1
+	(2,1.5) to[short, -*](2,2)
+	(2,2.5) to[short, *-](2,3)
+	(2,2) to[short](2,2.5)
+	%Rectifier branch right
+	%S4
+	(4,0) to[short, -*](4,0.5)
+	(4,1) to[short, *-](4,1.5)
+	(4,0.5) to[open](4,1.5)
+	%S2
+	(4,1.5) to[short, -*](4,2)
+	(4,2.5) to[short, *-](4,3)
+	(4,2) to[short](4,2.5)
+	%Load
+	(2,1.5) to[generic, v^<=$v_{AB}$](4,1.5) %load
+	;
+\end{circuitikz}
+$$
+
+$$ % AC to DC Inverter, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	%Sinusoidal source and connections
+	(0,0) to[battery1, v^>=$v_i$, i^>=$i_i$](0,3)
+	(0,0) -- (4,0)
+	(0,3) -- (4,3)
+	%Rectifier branch left
+	%S3
+	(2,0) to[short, -*](2,0.5)
+	(2,1) to[short, *-](2,1.5)
+	(2,0.5) to[short](2,1.5)
+	%S1
+	(2,1.5) to[short, -*](2,2)
+	(2,2.5) to[short, *-](2,3)
+	(2,2) to[open](2,2.5)
+	%Rectifier branch right
+	%S4
+	(4,0) to[short, -*](4,0.5)
+	(4,1) to[short, *-](4,1.5)
+	(4,0.5) to[short](4,1.5)
+	%S2
+	(4,1.5) to[short, -*](4,2)
+	(4,2.5) to[short, *-](4,3)
+	(4,2) to[open](4,2.5)
+	%Load
+	(2,1.5) to[generic, v^<=$v_{AB}$](4,1.5) %load
+	;
+\end{circuitikz}
+$$
+
+$$v_{AB} = 0$$
+
+**Shorting the source.** The two switches of a branch cannot be closed at the same time because it would short the source. That's the reason why same-branch switch control signals have to be complementary:
+
+$$S1 = \bar{S3}$$
+$$S2 = \bar{S4}$$
+
+
+# Non modulated control
+
 
 ## Square wave control
 
+
+
+
 ## Phase shift control
+
 
 # PWM control
 
-## Unipolar control
+## Unipolar PWM
 
-## Bipolar control
+## Bipolar PWM
 
 # Triphasic inverters 
 
@@ -75,3 +238,106 @@ $$
 | $n = 1$        | 0.087 | 0.173 | 0.260 | 0.346 | 0.433 | 0.520 | 0.606 | 0.693 | 0.779 | 0.866 |
 | $n = mf +- 2$  | 0.003 | 0.013 | 0.030 | 0.053 | 0.801 | 0.114 | 0.150 | 0.190 | 0.232 | 0.275 |
 | $n = 2mf +- 1$ | 0.086 | 0.165 | 0.232 | 0.282 | 0.313 | 0.321 | 0.307 | 0.272 | 0.221 | 0.157 |
+
+
+**Fourier series table**
+
+\tabulinesep=1mm
+
+\begin{longtabu} to\linewidth{|X[1,m,c]|X[3,m,c]|}
+
+
+	\hline
+	Function & Fourier Series \\
+	\hline
+
+
+	\begin{tikzpicture}[>=stealth, scale = 0.4, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=4,
+			ymin=-2,ymax=2,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,1,2,3,4},
+			xticklabels={$0$, $1$, $2$, $3$, $4$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,red,-] expression[domain=0:1,samples=100]{1};
+			\addplot[no marks,red,-] expression[domain=1:2,samples=100]{-1};
+			\addplot[no marks,red,-] expression[domain=2:3,samples=100]{1};
+			\addplot[no marks,red,-] expression[domain=3:4,samples=100]{-1};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	$$ \frac{4}{\pi} \left( \frac{\sin{t}}{1} + \frac{\sin{3t}}{3} + \frac{\sin{5t}}{5} + ... \right) $$
+	\\
+	\hline
+
+	\begin{tikzpicture}[>=stealth, scale = 0.4, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=4,
+			ymin=-2,ymax=2,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,1,2,3,4},
+			xticklabels={$0$, $1$, $2$, $3$, $4$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,red,-] expression[domain=0.00:0.33,samples=100]{0};
+			\addplot[no marks,red,-] expression[domain=0.33:0.66,samples=100]{1};
+			\addplot[no marks,red,-] expression[domain=0.66:1.33,samples=100]{0};
+			\addplot[no marks,red,-] expression[domain=1.33:1.66,samples=100]{-1};
+			\addplot[no marks,red,-] expression[domain=1.66:2.33,samples=100]{0};
+			\addplot[no marks,red,-] expression[domain=2.33:2.66,samples=100]{1};
+			\addplot[no marks,red,-] expression[domain=2.66:3.33,samples=100]{0};
+			\addplot[no marks,red,-] expression[domain=3.33:3.66,samples=100]{-1};
+			\addplot[no marks,red,-] expression[domain=3.66:4.00,samples=100]{-1};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	$$\frac{4}{\pi} \left( \frac{\sin{t}\cos{\beta}}{1} + \frac{\sin{3t}\cos{3\beta}}{3} + \frac{\sin{5t}\cos{5\beta}}{5} + ... \right)$$
+	\\
+	\hline
+
+
+	\begin{tikzpicture}[>=stealth, scale = 0.4, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=13,
+			ymin=-1,ymax=1,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			%xlabel={$t$},
+			%ylabel={$y$},
+			ymajorgrids,
+			xmajorgrids,
+			xtick={0,3.14,6.28,9.42, 12.56},
+			xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+			ytick={},
+			yticklabels={}
+			]
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=0:pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=pi:2*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=2*pi:3*pi,samples=100]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=3*pi:4*pi,samples=100]{-sin(deg(x))};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	$$ \frac{2}{\pi} - \frac{4}{\pi} \left( \frac{\sin{t}}{1 \cdot 3} + \frac{\sin{2t}}{3 \cdot 5} + \frac{\sin{3t}}{5 \cdot 7} + ... \right) $$
+	\\
+	\hline
+
+\end{longtabu}
