@@ -85,6 +85,43 @@ In the worst case, a signal with amplitude $V_ref$
 
 #AD Converters
 
+## AD converter types
+
+### Flash ADC
+
+The flash converter employs several comparators with fixed reference voltages (obtained with a large voltage divisor) to obtain a thermometric code from the input signal. An encoder can next convert to binary code.
+
+\vspace{80mm}
+
+### Half-Flash ADC
+
+Flash converter is fast but uses many components (growing exponentially with the number of bits). For avoiding this problem, the half-flash converts $q+p$ bits using two flash-converters of $q$ and $p$ bits.
+
+
+\vspace{80mm}
+
+**Half-Flash vs Flash components comparation** For 8 bits:
+
+* Flash
+	* $2^8-1 = 255$ comparators
+	* $2^8 = 256$ resistors
+* Half-Flash
+	* $2 \cdot (2^4-1) = 30$ comparators
+	* $2 \cdot (2^4) = 32$ resistors
+
+### Successive approximation ADC
+
+The succesive approximation ADC is an ADC that can convert an analog signal in a digital code of $2^n$ levels in $n$ approximations (or tries). It obtains the code bit by bit, starting from the MSB.
+
+The control circuit starts generating the code for 1 MSB and all zeros, and outputing it to the DAC. The output of the DAC is then compared with the analog signal. If the analog signal is greater than the DAC output, the control circuit recives a "greater" signal from the comparator, and knows that the first digit is 1. In the other case, the digit is a 0. The converter then tries to get the next digit from the (holded) analog signal until it is completedly converter.
+
+\vspace{80mm}
+
+### Pipeline ADC
+
+\vspace{80mm}
+
+
 
 
 #DA Converters
