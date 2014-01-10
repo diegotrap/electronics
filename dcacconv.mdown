@@ -18,13 +18,25 @@ $$ % AC to DC Inverter, by Diego Trapero
 	(0,0) -- (8,0)
 	(0,6) -- (8,6)
 	%Rectifier branch left
-	(4,0) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](4,3)
-	(4,3) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](4,6)
+	(4,0) to[Tpigbt, l=$3$, i^>=$i_D$, v_<=$v_D$](4,3)
+	(4.5,1) to[diode](4.5,2)
+	(4.5,1) -- (4,1)
+	(4.5,2) -- (4,2)
+	(4,3) to[Tpigbt, l=$1$, i^>=$i_D$, v_<=$v_D$](4,6)
+	(4.5,4) to[diode](4.5,5)
+	(4.5,4) -- (4,4)
+	(4.5,5) -- (4,5)
 	%Rectifier branch right
-	(8,0) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](8,3)
-	(8,3) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](8,6)
+	(8,0) to[Tpigbt, l=$4$, i^>=$i_D$, v_<=$v_D$](8,3)
+	(8.5,1) to[diode](8.5,2)
+	(8.5,1) -- (8,1)
+	(8.5,2) -- (8,2)
+	(8,3) to[Tpigbt, l=$2$, i^>=$i_D$, v_<=$v_D$](8,6)
+	(8.5,4) to[diode](8.5,5)
+	(8.5,4) -- (8,4)
+	(8.5,5) -- (8,5)
 	%Load
-	(4,3) to[R](8,3) %load
+	(4,3) to[generic, v^<=$v_o$, i>_=$i_o$](8,3) %load
 	;
 \end{circuitikz}
 $$
@@ -43,7 +55,7 @@ $$ % AC to DC Inverter, by Diego Trapero
 	(4,0) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](4,1.5)
 	(4,1.5) to[Tnigfete, i^>=$i_D$, v_<=$v_D$](4,3)
 	%Load
-	(2,1.5) to[R](4,1.5) %load
+	(2,1.5) to[generic, v^<=$v_o$, i>_=$i_o$](4,1.5) %load
 	;
 \end{circuitikz}
 $$
@@ -190,25 +202,108 @@ $$v_{AB} = 0$$
 $$S1 = \bar{S3}$$
 $$S2 = \bar{S4}$$
 
+**$i_o$ and $v_o$ phase shift** If a phase shift $\varphi$ exists between output voltage and current, the diodes in the bridge start conducting the current in some moments of the period.
+
+**RLC/RL Load** If an RLC or RL load is connected to the inverter
+
+* $i_o$ can be considered perfectly sinusoidal as an analysis hypothesis.
+* A phase-shift $\varphi$ may appear and the diodes would conduct current.
+
 
 # Non modulated control
 
 
 ## Square wave control
 
+**Control signals**
+\vspace{40mm}
+
+
+**Conducting devices** When $i_o$ is shifted $\varphi$ from the voltage $v_o$:
+
+* if $v_o$ and $i_o$ have the same sign, the IGBT are conducting the current.
+* if $v_o$ and $i_o$ have the different sign, the diodes are conducting the current.
+
+The 4 regions are
+
+1. D4, D1
+2. S1, S4
+3. D1, D3
+4. S1, S4
+
+**Output current**
+
+* when the IGBTs are conducting, current is leaving the source, $i_i > 0$.
+* when the diodes are conducting, current is entering the source, $i_i < 0$.
+
+\vspace{40mm}
+
+The output current mean value can be calculated with the following integral:
+
+\begin{align*}
+\bar{i_i} &= \frac{1}{T} \int_{t}^{t+T} A \sin{\omega t} d\omega t  \\
+          &= \frac{A}{\pi} \Big[ -\cos{\omega t} \Big]_{\pi - \varphi}^{-\varphi} \\
+          &= \frac{A}{\pi} \Big[ -\cos{\pi - \varphi} + \cos{- \varphi} \Big] \\
+          &= \frac{A}{\pi} \Big[ -(\cos{\pi} \cos{\varphi} + \sin{\pi} \sin{\varphi}) + \cos{- \varphi} \Big]  \\
+          &= \frac{A}{\pi} \Big[ \cos{\varphi} + \cos{- \varphi} \Big] \\
+          &= \frac{2A}{\pi} \cos{\varphi}
+\end{align*}
+
 
 
 
 ## Phase shift control
 
+**Control signals**
+\vspace{40mm}
+
+
+**Conducting devices** When $i_o$ is shifted $\varphi$ from the voltage $v_o$:
+
+* if $v_o \ne 0$, $v_o$ and $i_o$ have the same sign, the IGBT are conducting the current.
+* if $v_o \ne 0$, $v_o$ and $i_o$ have the different sign, the diodes are conducting the current.
+* if $v_o = 0$, a pair diode-IGBT is conducting the current.
+
+The 6 regions are
+
+1. diodes
+2. igbts
+3. S1 and D2
+4. diodes
+5. igbts
+6. D4 and S3
+
+**Output current**
+
+* when the IGBTs are conducting, current is leaving the source, $i_i > 0$.
+* when the diodes are conducting, current is entering the source, $i_i < 0$.
+* when a IGBT-diode pair is conducting, no current leaves or enter the source, $i_i = 0$.
+
+
 
 # PWM control
+
+$$m_a = \frac{V_{sin}}{V_{tri}} < 1$$
+
+$$m_f = \frac{T_{sin}}{T_{tri}} = \frac{f_{tri}}{f_{sin}} > 1$$
 
 ## Unipolar PWM
 
 ## Bipolar PWM
 
 # Triphasic inverters 
+
+## Non modulated control
+
+**Control**
+
+* Same-branch switches are complementary.
+* Each switch conducts for 180 degrees and then opens for other 180 degrees.
+* Branches are phase-shifted 120 degrees between them.
+
+## PWM control
+
+**Control**
 
 \newpage
 
