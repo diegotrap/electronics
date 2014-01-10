@@ -135,3 +135,9 @@ $$Q = 0$$
 **Power in a inductor**
 
 **Power in a capacitor**
+
+# Three-phase systems
+
+**Delta-Wye transform**
+
+$$Z_{\Delta} = 3 Z_{Y}$$

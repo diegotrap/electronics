@@ -474,6 +474,12 @@ $$PF = \frac{P}{S}$$
 $$PF = \cos{\varphi}$$
 
 
+**Three-phase systems**
+
+
+**Delta-Wye transform**
+
+$$Z_{\Delta} = 3 Z_{Y}$$
 
 
 # Electric power
