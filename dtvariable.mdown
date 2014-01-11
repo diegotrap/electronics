@@ -1,12 +1,11 @@
 % Discrete-time variable
 % Diego Trapero
-% 03/12/2013 draft
 
 
 
 
 
-#Sampling
+# Sampling
 
 **Signals**
 
@@ -52,6 +51,7 @@ Shannon's enunciation: If a function x(t) contains no frequencies higher than B 
 
 \vspace{30mm} 
 
+
 **Antialiasing filters** To avoid the problem of aliasing, a low-pass filter called antialising filter can be used before sampling to attenuate any frecuencies that may cause aliasing.
 
 \vspace{30mm} 
@@ -60,6 +60,7 @@ The filters represented in the figure are
 1. An ideal (infinite order) filter, that only let frecuencies in the range $[0, f_M]$ pass (the useful part of the signal).
 2. A filter that let pass frecuencies, that let frecuencies between $[0, f_N]$ pass (the complete alias-free zone).
 3, A filter that let pass frecuencies between $0$ and $f_s - f_M$. This filter let pass all the frecuencies before the aliases zones, where aliases may be mapped to the $[0, f_M]$ range (the useful components of the signal). This is the most used filter because it is completely functional while having the minimum order.
+
 
 **Designing a Antialising Filter for sampling with a ADC**
 
@@ -77,21 +78,132 @@ In the worst case, a signal with amplitude $V_ref$
 
 \vspace{80mm}
 
+
+
+
 #Signal reconstruction
 
+
+
+
 #Sample and hold
+
+
+**Ideal S/H model**
+
+$$ % Ideal S/H Circuit
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,2) node[ocirc](){}
+	(0,2) to[opening switch](2,2)
+	(2,2) to[short, -o](4,2)
+	(2,2) to[C](2,0)
+	(2,0) node[ground](){}
+	;
+\end{circuitikz}
+$$
+
+
+**Real S/H model**
+
+$$ % Real model S/H Circuit
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,2) node[ocirc](){}
+	(0,2) to[R](1,2)
+	(1,2) to[opening switch](2,2)
+	(2,2) to[short, -o](4,2)
+	(2,2) to[C](2,0)
+	(2,0) node[ground](){}
+	(3,2) to[R](3,0)
+	(3,0) node[ground](){}
+	;
+\end{circuitikz}
+$$
+
+
+**Ideal S/H operation**
+
+\vspace{50mm}
+
+**Real S/H operation**
+
+**Sample phase**
+
+$$
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,2) node[ocirc](){}
+	(0,2) to[R, -o](1,2)
+	(1,2) to[open](2,2)
+	(2,2) to[short, -o](4,2)
+	(2,2) to[C](2,0)
+	(2,0) node[ground](){}
+	(3,2) to[R](3,0)
+	(3,0) node[ground](){}
+	;
+\end{circuitikz}
+$$
+
+\vspace{50mm}
+
+**Hold phase**
+
+$$
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,2) node[ocirc](){}
+	(0,2) to[open](2,2)
+	(2,2) to[short, -o](4,2)
+	(2,2) to[C](2,0)
+	(2,0) node[ground](){}
+	(3,2) to[R](3,0)
+	(3,0) node[ground](){}
+	;
+\end{circuitikz}
+$$
+
+\vspace{50mm}
+
+**Transition between S/H**
+
+\vspace{50mm}
+
+**S/H complete cycle**
+
+\vspace{50mm}
+
+**S/H circuits**
+
+\vspace{100mm}
 
 
 
 #AD Converters
 
+
+
+
+## Quantification
+
+\vspace{100mm}
+
+
+
+
 ## AD converter types
+
+
+
 
 ### Flash ADC
 
 The flash converter employs several comparators with fixed reference voltages (obtained with a large voltage divisor) to obtain a thermometric code from the input signal. An encoder can next convert to binary code.
 
 \vspace{80mm}
+
+
+
 
 ### Half-Flash ADC
 
@@ -109,6 +221,9 @@ Flash converter is fast but uses many components (growing exponentially with the
 	* $2 \cdot (2^4-1) = 30$ comparators
 	* $2 \cdot (2^4) = 32$ resistors
 
+
+
+
 ### Successive approximation ADC
 
 The succesive approximation ADC is an ADC that can convert an analog signal in a digital code of $2^n$ levels in $n$ approximations (or tries). It obtains the code bit by bit, starting from the MSB.
@@ -117,14 +232,76 @@ The control circuit starts generating the code for 1 MSB and all zeros, and outp
 
 \vspace{80mm}
 
+
+
+
 ### Pipeline ADC
 
 \vspace{80mm}
 
 
 
+# AD Times
 
-#DA Converters
+**Concurrent times**
+
+$$t = \text{max} \{ t_1, t_2, t_3, ... \}$$
+
+$$t = \sqrt{ t_1^2 + t_2^2 + t_3^2 + ... } $$
+
+**Sequential times**
+
+$$t =t_1 + t_2 + t_3 + ... $$
+
+**AD Conversion times** An ADC needs its input analog signal to be constant during its convertion time. The minimum time is the following, that determines the sample frecuency:
+
+$$T_{min} = (t_{adquisition} + t_{setling}+ t_{ap.delay})_{SH} + t_{conv}$$
+
+$$f_s \le \frac{1}{T_{min}}$$
+
+**Times**
+
+* $t_{MUX}$, MUX conmutation time
+
+* $t_{sample}$, delay in sampling (until output constant is constant)
+$$t_{sample} = t_{switch closes} + t_{sampling settling}$$
+
+* $t_{hold}$, delay in holding.
+$$t_{hold} = t_{switch opens} + t_{hold settling}$$
+
+* $t_{PGA}$, programmable amplifier settling time.
+
+* $t_{conv}$, ADC conversion time
+
+
+
+
+# DA Converters
+
+
+
+
+## Codification
+
+\vspace{100mm}
+
+
+## AD converter types
+
+
+
+
+### Weighted resistor DAC
+
+\vspace{100mm}
+
+
+
+
+### R-2R Ladder
+
+\vspace{100mm}
+
 
 
 
