@@ -1,0 +1,93 @@
+**Diodes**
+
+$$ % Diode
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[diode, i^>=$i_D$, v_<=$v_{AK}$](2,0)
+	;
+\end{circuitikz}
+$$
+
+**Common Cathode Diodes** If two or more diodes are connected with a common cathode, the closed diode is the one with the most positive anode voltage. The rest of the diodes are open.
+
+$$ % Common Cathode Diodes, by Diego Trapero
+\begin{circuitikz}
+	\draw
+	(0,0) to[battery1](0,1)
+	(0,1) to[diode](0,2)
+	(1,0) to[battery1](1,1)
+	(1,1) to[diode](1,2)
+	(2,0) to[R](2,2)
+	(0,0) -- (2,0)
+	(0,2) -- (2,2)
+	;
+\end{circuitikz}
+$$
+
+**Common Anode Diodes** If two or more diodes are connected with a common anode, the closed diode is the one with the most negative anode voltage. The rest of the diodes are open.
+
+$$ % Common Anode Diodes, by Diego Trapero
+\begin{circuitikz}
+	\draw
+	(0,0) to[diode](0,1)
+	(0,1) to[battery1](0,2)
+	(1,0) to[diode](1,1)
+	(1,1) to[battery1](1,2)
+	(2,0) to[R](2,2)
+	(0,0) -- (2,0)
+	(0,2) -- (2,2)
+	;
+\end{circuitikz}
+$$
+
+\tabulinesep=1mm
+\begin{longtabu} to\linewidth{X[1,m,c]X[1,m,c]X[1,m,c]}
+
+	\hline
+	Configuration & Circuit diagram & Conducting Diode \\
+	\hline
+
+	Common Cathode
+	&
+	$$ % Common Cathode Diodes, by Diego Trapero
+	\begin{circuitikz}
+		\draw
+		(0,0) to[battery1](0,1)
+		(0,1) to[diode](0,2)
+		(1,0) to[battery1](1,1)
+		(1,1) to[diode](1,2)
+		(2,0) to[R](2,2)
+		(0,0) -- (2,0)
+		(0,2) -- (2,2)
+		;
+	\end{circuitikz}
+	$$
+	&
+	The diode with the most positive anode voltage
+	\\
+	
+	\hline
+
+	Common Anode
+	&
+	$$ % Common Anode Diodes, by Diego Trapero
+	\begin{circuitikz}
+		\draw
+		(0,0) to[diode](0,1)
+		(0,1) to[battery1](0,2)
+		(1,0) to[diode](1,1)
+		(1,1) to[battery1](1,2)
+		(2,0) to[R](2,2)
+		(0,0) -- (2,0)
+		(0,2) -- (2,2)
+		;
+	\end{circuitikz}
+	$$
+	&
+	The diode with the most negative cathode voltage
+	\\
+	
+	\hline
+\end{longtabu}
+
+General rule: The most polarized diode is the one conducting. The one with the biggest $v_{AK}$
