@@ -283,6 +283,8 @@ The 6 regions are
 
 # PWM control
 
+**Modulation parameters:**
+
 $$m_a = \frac{V_{sin}}{V_{tri}} < 1$$
 
 $$m_f = \frac{T_{sin}}{T_{tri}} = \frac{f_{tri}}{f_{sin}} > 1$$
@@ -292,6 +294,52 @@ $$m_f = \frac{T_{sin}}{T_{tri}} = \frac{f_{tri}}{f_{sin}} > 1$$
 ## Bipolar PWM
 
 # Triphasic inverters 
+
+$$ % AC to DC Three-Phase Inverter, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	%Sinusoidal source and connections
+	(0,0) to[battery1, v^>=$v_i$, i^>=$i_i$](0,6)
+	(0,0) -- (8,0)
+	(0,6) -- (8,6)
+	%Rectifier branch A
+	(4,0) to[Tpigbt, l=$2$, i^>=$i_D$, v_<=$v_D$](4,3)
+	(4.5,1) to[diode](4.5,2)
+	(4.5,1) -- (4,1)
+	(4.5,2) -- (4,2)
+	(4,3) to[Tpigbt, l=$1$, i^>=$i_D$, v_<=$v_D$](4,6)
+	(4.5,4) to[diode](4.5,5)
+	(4.5,4) -- (4,4)
+	(4.5,5) -- (4,5)
+	%Rectifier branch B
+	(6,0) to[Tpigbt, l=$4$, i^>=$i_D$, v_<=$v_D$](6,3)
+	(6.5,1) to[diode](6.5,2)
+	(6.5,1) -- (6,1)
+	(6.5,2) -- (6,2)
+	(6,3) to[Tpigbt, l=$3$, i^>=$i_D$, v_<=$v_D$](6,6)
+	(6.5,4) to[diode](6.5,5)
+	(6.5,4) -- (6,4)
+	(6.5,5) -- (6,5)
+	%Rectifier branch C
+	(8,0) to[Tpigbt, l=$6$, i^>=$i_D$, v_<=$v_D$](8,3)
+	(8.5,1) to[diode](8.5,2)
+	(8.5,1) -- (8,1)
+	(8.5,2) -- (8,2)
+	(8,3) to[Tpigbt, l=$5$, i^>=$i_D$, v_<=$v_D$](8,6)
+	(8.5,4) to[diode](8.5,5)
+	(8.5,4) -- (8,4)
+	(8.5,5) -- (8,5)
+	%Load
+	(8,2.5) to[short, *-](10,2.5) %load A
+	(6,3) to[short, *-](10,3) %load B
+	(4,3.5) to[short, *-](10,3.5) %load C
+	(10,2.5) to[generic](12,2.5)
+	(10,3) to[generic](12,3) 
+	(10,3.5) to[generic](12,3.5)
+	(12,2.5) to[short](12,3.5)
+	;
+\end{circuitikz}
+$$
 
 ## Non modulated control
 
