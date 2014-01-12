@@ -1,0 +1,5 @@
+\vspace{60mm}
+
+\begin{tikzpicture}
+	\draw[step=.5cm,gray,very thin] (0,0) grid (120mm,180mm);
+\end{tikzpicture}
