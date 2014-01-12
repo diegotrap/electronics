@@ -390,8 +390,7 @@ $$ % Rectifier model, by Diego Trapero
 	(2,2) to[C](2,0)
 	(2,2) to[short](3,2)
 	(3,0) to[R](3,2)
-	(2,0) to[short](3,0)
-	(0,0) to[short](2,0)
+	(0,0) to[short](3,0)
 	(0,0) node[ground](){}
 	;
 \end{circuitikz}
@@ -409,8 +408,7 @@ $$ % Rectifier model, by Diego Trapero
 	(2,2) to[C](2,0)
 	(2,2) to[short](3,2)
 	(3,0) to[R](3,2)
-	(2,0) to[short](3,0)
-	(0,0) to[short](2,0)
+	(0,0) to[short](3,0)
 	(0,0) node[ground](){}
 	;
 \end{circuitikz}
@@ -430,8 +428,7 @@ $$ % Rectifier model, by Diego Trapero
 	(2,2) to[C](2,0)
 	(2,2) to[short](3,2)
 	(3,0) to[R](3,2)
-	(2,0) to[short](3,0)
-	(0,0) to[short](2,0)
+	(0,0) to[short](3,0)
 	(0,0) node[ground](){}
 	;
 \end{circuitikz}
@@ -494,7 +491,9 @@ The ripple of the wave using the triangular approximation is
 $$\Delta v_o = \frac{V \Delta T}{C}$$
 $$\Delta v_o = \frac{V_i T }{2RC}$$
 
-**
+**Mean value**
+
+******
 
 **Advantages of a smoothing condenser**
 
@@ -526,12 +525,116 @@ $$ % AC to DC Full Wave Rectifier with RLC load, by Diego Trapero
 \end{circuitikz}
 $$
 
+**$v_R$ mean value**
+
+The mean value of $v_o$ can be calculated by using superposition with the circuit:
+
+$$ % Rectifier model, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[voltage source, l=$v_o$](0,2)
+	(0,2) to[diode](2,2)
+	(2,2) to[L](4,2)
+	(4,2) to[C](4,0)
+	(4,2) to[short](5,2)
+	(5,0) to[R](5,2)
+	(0,0) to[short](5,0)
+	(0,0) node[ground](){}
+	;
+\end{circuitikz}
+$$
+
+For the mean values, the resulting DC circuit is:
+
+$$ % Rectifier model, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[voltage source, l=$\bar{v_o}$](0,2)
+	(0,2) to[diode](2,2)
+	(2,2) to[short](4,2)
+	(4,2) to[open](4,0)
+	(4,2) to[short](5,2)
+	(5,0) to[R](5,2)
+	(0,0) to[short](5,0)
+	(0,0) node[ground](){}
+	;
+\end{circuitikz}
+$$
+
+The resulting $\bar{v_R}$ is
+
+$$\bar{v_R} = \bar{v_o} = \frac{2V_{ip}}{\pi}$$
+
+
 **RLC circuit transfer function**
 
 $$ \mathbf{H} = \frac{\mathbf{V_o}}{\mathbf{V_i}} = \frac{1}{1 + \frac{L}{R}j\omega - LC \omega^2} $$
 
 $$ H = | \frac{\mathbf{V_o}}{\mathbf{V_i}} | = \frac{1}{ \sqrt{(1- LC \omega^2 )^2 + (\frac{L}{R} \omega )^2 } } $$
 
+
+**$v_R$ ripple**
+
+Ripple is due to the first harmonic:
+
+$$\Delta v_R = H_{filter} \cdot |V_{o1}|$$
+
+$$ H = \frac{1}{ \sqrt{(1- LC \omega^2 )^2 + (\frac{L}{R} \omega )^2 } } $$
+
+$$|V_{o1}| = \frac{4}{\pi} \frac{1}{3} V_{ip}$$
+
+
+**Inductor current, $i_L$**
+
+Inductor current can be approximated with its mean value and ripple.
+
+* **Mean value**. Using superposition
+
+$$ % Rectifier model, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[voltage source, l=$\bar{v_o}$](0,2)
+	(0,2) to[diode](2,2)
+	(2,2) to[short](4,2)
+	(4,2) to[open](4,0)
+	(4,2) to[short](5,2)
+	(5,0) to[R](5,2)
+	(0,0) to[short](5,0)
+	(0,0) node[ground](){}
+	;
+\end{circuitikz}
+$$
+
+$$i_L = \frac{\bar{v_o}}{R}$$
+
+* **Ripple**. As in the $v_R$ ripple, maximum variation of the current is due to the 1st harmonic of $v_o$. Thus, ripple can be calculated:
+
+$$ % Rectifier model, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[voltage source, l=$v_o$](0,2)
+	(0,2) to[diode](2,2)
+	(2,2) to[L](4,2)
+	(4,2) to[C](4,0)
+	(4,2) to[short](5,2)
+	(5,0) to[R](5,2)
+	(0,0) to[short](5,0)
+	(0,0) node[ground](){}
+	;
+\end{circuitikz}
+$$
+
+$$I_{1p} = \frac{V_{o1}}{Z_1}$$
+
+If $\Delta v_R$ is already calculated, it can be used to compute the ripple:
+
+$$\Delta i_L = \frac{\Delta v_R}{Z_{RC}}$$
+
+
+
+The rectifier is in CCM if the inductor is always conducting some current:
+
+$$\frac{1}{2}\Delta i_l < \bar{i_L} $$
 
 **Advantages of LC filtering**
 
@@ -544,81 +647,6 @@ $$ H = | \frac{\mathbf{V_o}}{\mathbf{V_i}} | = \frac{1}{ \sqrt{(1- LC \omega^2 )
 * Size and weight of the inductor
 
 ### RL load
-
-### Loads table
-
-\tabulinesep=1mm
-\begin{longtabu} to\linewidth{|X[1,m,c]|X[2,m,c]|X[2,m,c]|X[2,m,c]|}
-
-	\hline
-	What & R load & RC load & RLC load \\
-	\hline
-
-	Circuit Diagram
-	&
-	$$ % AC to DC Full Wave Rectifier with R load, by Diego Trapero
-	\begin{circuitikz}[scale = 0.6, transform shape]
-		\draw
-		(0,0) node[fullWaveRectifier](FWR){}
-		(-19mm, -5mm) to[sinusoidal voltage source](-19mm, 5mm)
-		(9mm, 5mm) to[short](19mm,5mm)
-		(19mm, 5mm) to[open](19mm,-5mm)
-		(29mm, 5mm) to[R](29mm,-5mm)
-		(-19mm, 5mm) -- (FWR.1)
-		(-19mm, -5mm) -- (FWR.2)
-		(19mm,5mm) -- (29mm, 5mm)
-		(FWR.3) -- (29mm,-5mm)
-		;
-	\end{circuitikz}
-	$$	
-	&
-	$$ % AC to DC Full Wave Rectifier with RC load, by Diego Trapero
-	\begin{circuitikz}[scale = 0.6, transform shape]
-		\draw
-		(0,0) node[fullWaveRectifier](FWR){}
-		(-19mm, -5mm) to[sinusoidal voltage source](-19mm, 5mm)
-		(9mm, 5mm) to[short](19mm,5mm)
-		(19mm, 5mm) to[C](19mm,-5mm)
-		(29mm, 5mm) to[R](29mm,-5mm)
-		(-19mm, 5mm) -- (FWR.1)
-		(-19mm, -5mm) -- (FWR.2)
-		(19mm,5mm) -- (29mm, 5mm)
-		(FWR.3) -- (29mm,-5mm)
-		;
-	\end{circuitikz}
-	$$
-	&
-	$$ % AC to DC Full Wave Rectifier with RLC load, by Diego Trapero
-	\begin{circuitikz}[scale = 0.6, transform shape]
-		\draw
-		(0,0) node[fullWaveRectifier](FWR){}
-		(-19mm, -5mm) to[sinusoidal voltage source](-19mm, 5mm)
-		(9mm, 5mm) to[L](19mm,5mm)
-		(19mm, 5mm) to[C](19mm,-5mm)
-		(29mm, 5mm) to[R](29mm,-5mm)
-		(-19mm, 5mm) -- (FWR.1)
-		(-19mm, -5mm) -- (FWR.2)
-		(19mm,5mm) -- (29mm, 5mm)
-		(FWR.3) -- (29mm,-5mm)
-		;
-	\end{circuitikz}
-	$$
-	\\
-	\hline
-
-	$v_g$ vs $i_g$
-	&
-	\vspace{20mm}
-	&
-	RC
-	&
-	RLC
-	\\
-
-	
-\end{longtabu}
-
-\vspace{80mm}
 
 
 **Flyback Diode**
