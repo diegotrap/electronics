@@ -318,6 +318,7 @@ $$
 
 The voltage in the resistive load, $v_R$, and the current demanded to the source depends on the load type, and can be different for a same kind of rectifier depending on the load that is connected to it.
 
+*Note:* Although this $v_o$ waveform can always be used with the reduced model circuit, where it is behind a diode, in some cases, like the RC load, the $v_o$ node in the complete circuit coincides with the $v_R$ node and the output voltage directly after the rectifier has not this typical rectified waveform, but a filtered version of it.
 
 **Reduced model of the rectifier** If $v_o$ is already known, a simplified model of the rectifier can be represented to study the loaded rectifier. The left hand side of the circuit is substituted by 
 
@@ -375,7 +376,11 @@ $$ % AC to DC Full Wave Rectifier with RC load, by Diego Trapero
 \end{circuitikz}
 $$
 
-**Load voltage, $v_R$**
+**Output voltage, $v_o$; Load voltage, $v_R$**
+
+*  Mean value
+
+
 
 $$ % Rectifier model, by Diego Trapero
 \begin{circuitikz}[scale = 1]
@@ -392,7 +397,7 @@ $$ % Rectifier model, by Diego Trapero
 \end{circuitikz}
 $$
 
-Not exactly like this, it's more complex.
+*Not exactly like this, it's more complex.*
 
 * When the diode conducts, $v_o = v_R$ and the capacitor is charged with the current from the source.
 
@@ -489,6 +494,8 @@ The ripple of the wave using the triangular approximation is
 $$\Delta v_o = \frac{V \Delta T}{C}$$
 $$\Delta v_o = \frac{V_i T }{2RC}$$
 
+**
+
 **Advantages of a smoothing condenser**
 
 * Small size
@@ -518,6 +525,13 @@ $$ % AC to DC Full Wave Rectifier with RLC load, by Diego Trapero
 	;
 \end{circuitikz}
 $$
+
+**RLC circuit transfer function**
+
+$$ \mathbf{H} = \frac{\mathbf{V_o}}{\mathbf{V_i}} = \frac{1}{1 + \frac{L}{R}j\omega - LC \omega^2} $$
+
+$$ H = | \frac{\mathbf{V_o}}{\mathbf{V_i}} | = \frac{1}{ \sqrt{(1- LC \omega^2 )^2 + (\frac{L}{R} \omega )^2 } } $$
+
 
 **Advantages of LC filtering**
 
@@ -609,6 +623,19 @@ $$
 
 **Flyback Diode**
 
+### Controlled Full Wave Rectifier
+
+
+**$\bar{v_o}$ with flyback diode **
+
+\begin{align*}
+\bar{v_o} 	&	= {1 \over T} \int_{\theta_0}^{\theta_0 + T} { v_o(\theta) d\theta}\\
+        	&	= {1 \over \pi} \int_{0}^{\pi} { v_o(\theta) d\theta}	\\
+        	&	= \cancelto{0}{{1 \over \pi} \int_{0}^{\alpha} { 0 d\theta}} + {1 \over \pi} \int_{\alpha}^{\pi} { V_{ip} \sin{\theta} d\theta}	\\
+        	&	= {V_{ip} \over \pi} [ -\cos{\theta} ]_{\alpha}^{\pi} \\
+        	&	= {V_{ip} \over \pi} [ -\cos{\pi} + \cos{\alpha} ] \\
+        	&	= {V_{ip} \over \pi} ( \cos{\alpha} + 1 )
+\end{align*}
 
 # Triphasic Rectifiers
 
