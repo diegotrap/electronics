@@ -473,14 +473,14 @@
 			ytick={},
 			yticklabels={}
 			]
-			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
-			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
-			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
-			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
-			\addplot[no marks,red,-] expression[domain=0:pi,samples=100]{sin(deg(x))};
-			\addplot[no marks,red,-] expression[domain=pi:2*pi,samples=100]{-sin(deg(x))};
-			\addplot[no marks,red,-] expression[domain=2*pi:3*pi,samples=100]{sin(deg(x))};
-			\addplot[no marks,red,-] expression[domain=3*pi:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=50]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=50]{-sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=50]{sin(deg(x))};
+			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=50]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=0:pi,samples=20]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=pi:2*pi,samples=20]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=2*pi:3*pi,samples=20]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=3*pi:4*pi,samples=20]{-sin(deg(x))};
 		\end{axis}
 	\end{tikzpicture}
 	&

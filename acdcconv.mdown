@@ -111,6 +111,16 @@ $$
 
 General rule: The most polarized diode is the one conducting. The one with the biggest $v_{AK}$
 
+**Thyristors**
+
+(Ideal)
+
+* Closing conditions
+	* $v_AK > 0$, the thyristor is forward polarized
+	* $i_G$, current in the gate (thyristors are current-controlled)
+* Opening conditions
+	* $i_AK < 0$, current is reversed
+
 # Monophasic Rectifiers
 
 
@@ -214,6 +224,15 @@ $$ % AC to DC Full Wave rectifier, by Diego Trapero
 	;
 \end{circuitikz}
 $$
+
+where
+
+* $v_i$ is a pure sinusoidal wave $v_i = V_i \sqrt{2} \sin{2 \pi f}$
+	* RMS value is $V_i$
+	* Peak value, or $V_{ip}$ is $V_i \sqrt{2}$
+	* Frecuency is $f$
+	* $\varphi = 0$ beacause it is the reference for phase shifts
+* $R$ is resitance that models the load
 
 
 **Full Wave Rectifier Symbol**
@@ -328,9 +347,9 @@ The voltage in the resistive load, $v_R$, and the current demanded to the source
 $$ % Rectifier model, by Diego Trapero
 \begin{circuitikz}[scale = 1]
 	\draw
-	(0,0) to[voltage source](0,2)
+	(0,0) to[voltage source, l=$v_o$](0,2)
 	(0,2) to[diode](2,2)
-	(2,2) to[generic](2,0)
+	(2,2) to[generic, l=$\text{load}$](2,0)
 	(0,0) to[short](2,0)
 	(0,0) node[ground](){}
 	;
@@ -491,9 +510,10 @@ The ripple of the wave using the triangular approximation is
 $$\Delta v_o = \frac{V \Delta T}{C}$$
 $$\Delta v_o = \frac{V_i T }{2RC}$$
 
-**Mean value**
+**Mean value** Can be calculated from the triangular approximation
 
-******
+$$\bar{v_o} = V_{ip} - \frac{1}{2} \Delta v_o$$
+
 
 **Advantages of a smoothing condenser**
 
@@ -636,6 +656,51 @@ The rectifier is in CCM if the inductor is always conducting some current:
 
 $$\frac{1}{2}\Delta i_l < \bar{i_L} $$
 
+**Power factor in the source**
+
+$$
+\begin{tikzpicture}[>=stealth]
+	\begin{axis}[
+		xmin=0,xmax=13,
+		ymin=-1,ymax=1,
+		axis x line=middle,
+		axis y line=middle,
+		axis line style=->,
+		%xlabel={$t$},
+		%ylabel={$y$},
+		ymajorgrids,
+		xmajorgrids,
+		xtick={0,3.14,6.28,9.42, 12.56},
+		xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+		ytick={},
+		yticklabels={}
+		]
+		\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+		\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\addplot[no marks,red,-] expression[domain=0:4*pi,samples=100, line width=2]{sin(deg(x))};
+		\addplot[no marks,blue,-] expression[domain=0:pi,samples=100, line width=2]{0.5};
+		\addplot[no marks,blue,-] expression[domain=pi:2*pi,samples=100, line width=2]{-0.5};
+		\addplot[no marks,blue,-] expression[domain=2*pi:3*pi,samples=100, line width=2]{0.5};
+		\addplot[no marks,blue,-] expression[domain=3*pi:4*pi,samples=100, line width=2]{-0.5};
+	\end{axis}
+\end{tikzpicture}
+$$
+
+$$\text{PF} = \frac{P}{S}$$
+
+* Only first harmonic delivers power:
+$$P = V_1 I_1 \cos{\varphi}$$
+$$P = \frac{V_{ip}}{\sqrt{2}} \frac{4}{\pi} \frac{I}{\sqrt{2}} \cos{0}$$
+* Apparent power
+$$S = V_{\text{RMS}} I_{\text{RMS}}$$
+$$S = \frac{V_{ip}}{\sqrt{2}} I$$
+
+$$\text{PF} = \frac{P}{S} = \frac{\frac{V_{ip}}{\sqrt{2}} \frac{4}{\pi} \frac{I}{\sqrt{2}} \cos{0}}{\frac{V_{ip}}{\sqrt{2}} I}$$
+$$\text{PF} = \frac{4}{\pi} \frac{1}{\sqrt{2}} \approx 0.9003 ...$$
+
+
+
+
 **Advantages of LC filtering**
 
 * No current peaks in the diodes.
@@ -651,10 +716,164 @@ $$\frac{1}{2}\Delta i_l < \bar{i_L} $$
 
 **Flyback Diode**
 
-### Controlled Full Wave Rectifier
+### Controlled Full Wave Rectifier R
+
+$$ % AC to DC Full Wave Controlled rectifier, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	%Sinusoidal source and connections
+	(0,2) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](0,4)
+	(0,2) to[short](4,2)
+	(4,2) node[circ] {}
+	(0,4) to[short](2,4)
+	(2,4) node[circ] {}
+	%Rectifier branch left
+	(2,0) to[thyristor, i^>=$i_D$, v_<=$v_D$](2,2)
+	(2,2) to[short](2,4)
+	(2,4) to[thyristor, i^>=$i_D$, v_<=$v_D$](2,6)
+	%Rectifier branch right
+	(4,0) to[thyristor, i^>=$i_D$, v_<=$v_D$](4,2)
+	(4,2) to[short](4,4)
+	(4,4) to[thyristor, i^>=$i_D$, v_<=$v_D$](4,6)
+	%Load and connections
+	(2,6) to[short](8,6) %upper node
+	(2,0) to[short](8,0) %lower node
+	(8,6) to[R](8,0) %load
+	;
+\end{circuitikz}
+$$
+
+where
+
+* $v_i$ is a pure sinusoidal wave $v_i = V_i \sqrt{2} \sin{2 \pi f}$
+	* RMS value is $V_i$
+	* Peak value, or $V_{ip}$ is $V_i \sqrt{2}$
+	* Frecuency is $f$
+	* $\varphi = 0$ beacause it is the reference for phase shifts
+* $R$ is resitance that models the load
+* $\alpha$ is the delay angle for thyristors
 
 
-**$\bar{v_o}$ with flyback diode **
+
+
+
+
+$$
+\begin{tikzpicture}[>=stealth]
+	\begin{axis}[
+		xmin=0,xmax=13,
+		ymin=-1,ymax=1,
+		axis x line=middle,
+		axis y line=middle,
+		axis line style=->,
+		%xlabel={$t$},
+		%ylabel={$y$},
+		ymajorgrids,
+		xmajorgrids,
+		xtick={0,3.14,6.28,9.42, 12.56},
+		xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+		ytick={},
+		yticklabels={}
+		]
+		\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+		\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\addplot[no marks,red,-] expression[domain=0:0.53,samples=20, line width=2]{0};
+		\addplot[no marks,red,-] expression[domain=0.53:pi,samples=20, line width=2]{sin(deg(x))};
+		\addplot[no marks,red,-] expression[domain=pi:(pi+0.53),samples=20, line width=2]{0};
+		\addplot[no marks,red,-] expression[domain=(pi+0.53):2*pi,samples=20, line width=2]{-sin(deg(x))};
+		\addplot[no marks,red,-] expression[domain=2*pi:(2*pi+0.53),samples=20, line width=2]{0};
+		\addplot[no marks,red,-] expression[domain=(2*pi+0.53):3*pi,samples=20, line width=2]{sin(deg(x))};
+		\addplot[no marks,red,-] expression[domain=3*pi:(3*pi+0.53),samples=20, line width=2]{0};
+		\addplot[no marks,red,-] expression[domain=(3*pi+0.53):4*pi,samples=20, line width=2]{-sin(deg(x))};
+	\end{axis}
+\end{tikzpicture}
+$$
+
+
+**$v_o$ mean value, $\bar{v_o}$**
+
+\begin{align*}
+\bar{v_o} 	&	= {1 \over T} \int_{\theta_0}^{\theta_0 + T} { v_o(\theta) d\theta}\\
+        	&	= {1 \over \pi} \int_{0}^{\pi} { v_o(\theta) d\theta}	\\
+        	&	= \cancelto{0}{{1 \over \pi} \int_{0}^{\alpha} { 0 d\theta}} + {1 \over \pi} \int_{\alpha}^{\pi} { V_{ip} \sin{\theta} d\theta}	\\
+        	&	= {V_{ip} \over \pi} [ -\cos{\theta} ]_{\alpha}^{\pi} \\
+        	&	= {V_{ip} \over \pi} [ -\cos{\pi} + \cos{\alpha} ] \\
+        	&	= {V_{ip} \over \pi} ( \cos{\alpha} + 1 )
+\end{align*}
+
+
+
+### Controlled Full Wave Rectifier RL
+
+When it is loaded with a RL load, current cannot be suddenly cut and thyristos continue to be closed even when they're polarized backwards, until the other bramch is triggered. The 
+
+$$ % AC to DC Full Wave Controlled rectifier, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	%Sinusoidal source and connections
+	(0,2) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](0,4)
+	(0,2) to[short](4,2)
+	(4,2) node[circ] {}
+	(0,4) to[short](2,4)
+	(2,4) node[circ] {}
+	%Rectifier branch left
+	(2,0) to[thyristor, i^>=$i_D$, v_<=$v_D$](2,2)
+	(2,2) to[short](2,4)
+	(2,4) to[thyristor, i^>=$i_D$, v_<=$v_D$](2,6)
+	%Rectifier branch right
+	(4,0) to[thyristor, i^>=$i_D$, v_<=$v_D$](4,2)
+	(4,2) to[short](4,4)
+	(4,4) to[thyristor, i^>=$i_D$, v_<=$v_D$](4,6)
+	%Load and connections
+	(2,6) to[short](8,6) %upper node
+	(2,0) to[short](8,0) %lower node
+	(8,6) to[R](8,0) %load
+	;
+\end{circuitikz}
+$$
+
+$$
+\begin{tikzpicture}[>=stealth]
+	\begin{axis}[
+		xmin=0,xmax=13,
+		ymin=-1,ymax=1,
+		axis x line=middle,
+		axis y line=middle,
+		axis line style=->,
+		%xlabel={$t$},
+		%ylabel={$y$},
+		ymajorgrids,
+		xmajorgrids,
+		xtick={0,3.14,6.28,9.42, 12.56},
+		xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+		ytick={},
+		yticklabels={}
+		]
+		\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+		\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+		\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\addplot[no marks,red,-] expression[domain=0.53:(pi+0.53),samples=20, line width=2]{sin(deg(x))};
+		\addplot[no marks,red,-] expression[domain=(pi+0.53):(2*pi+0.53),samples=20, line width=2]{-sin(deg(x))};
+		\addplot[no marks,red,-] expression[domain=(2*pi+0.53):(3*pi+0.53),samples=20, line width=2]{sin(deg(x))};
+		\addplot[no marks,red,-] expression[domain=(3*pi+0.53):4*pi,samples=20, line width=2]{-sin(deg(x))};
+	\end{axis}
+\end{tikzpicture}
+$$
+
+**$v_o$ mean value, $\bar{v_o}$** falta acabar de copiar la integral
+
+\begin{align*}
+\bar{v_o} 	&	= {1 \over T} \int_{\theta_0}^{\theta_0 + T} { v_o(\theta) d\theta}\\
+        	&	= {1 \over \pi} \int_{\alpha}^{\pi+\alpha} { \sin{\theta} d\theta}	\\
+        	&	= \cancelto{0}{{1 \over \pi} \int_{0}^{\alpha} { 0 d\theta}} + {1 \over \pi} \int_{\alpha}^{\pi} { V_{ip} \sin{\theta} d\theta}	\\
+        	&	= {V_{ip} \over \pi} [ -\cos{\theta} ]_{\alpha}^{\pi} \\
+        	&	= {V_{ip} \over \pi} [ -\cos{\pi} + \cos{\alpha} ] \\
+        	&	= {2 V_{ip} \over \pi} \cos{\alpha}
+\end{align*}
+
+
+**$\bar{v_o}$ with flyback diode** Same as R loaded converter
 
 \begin{align*}
 \bar{v_o} 	&	= {1 \over T} \int_{\theta_0}^{\theta_0 + T} { v_o(\theta) d\theta}\\

@@ -1,0 +1,49 @@
+% Filters
+%Diego Trapero
+
+
+# Filters
+
+
+## LC filter
+
+
+**LC filter loaded with R transfer function**
+
+$$
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,2) node[ocirc](vi){}
+	(vi) node[left] {$v_i$}
+	(4,2) node[ocirc](vo){}
+	(vo) node[right] {$v_o$}
+	(vi) to[L, l=$L$](2,2)
+	(2,2) to[C, l=$C$](2,0)
+	(2,0) node[ground](){}
+	(3,2) to[R, l=$R$](3,0)
+	(3,0) node[ground](){}
+	(2,2) to[short](vo)
+	;
+\end{circuitikz}
+$$
+
+In the voltage-divider form:
+
+$$
+\begin{circuitikz}[scale = 1]
+	\draw
+	(2,4) node[ocirc](vi){}
+	(vi) node[left] {$v_i$}
+	(4,2) node[ocirc](vo){}
+	(vo) node[right] {$v_o$}
+	(vi) to[L, l=$L$](2,2)
+	(2,2) to[C, l=$C$](2,0)
+	(2,0) node[ground](){}
+	(3,2) to[R, l=$R$](3,0)
+	(3,0) node[ground](){}
+	(2,2) to[short](vo)
+	;
+\end{circuitikz}
+$$
+
+$$V_o = V_i \frac{Z_{R//C}}{Z_L+Z_{R//C}} $$
