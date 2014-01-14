@@ -690,13 +690,13 @@ $$\text{PF} = \frac{P}{S}$$
 
 * Only first harmonic delivers power:
 $$P = V_1 I_1 \cos{\varphi}$$
-$$P = \frac{V_{ip}}{\sqrt{2}} \frac{4}{\pi} \frac{I}{\sqrt{2}} \cos{0}$$
+$$P = \frac{V_{ip}}{\sqrt{2}} \frac{4}{\pi} \frac{I_o}{\sqrt{2}} \cos{\alpha}$$
 * Apparent power
 $$S = V_{\text{RMS}} I_{\text{RMS}}$$
-$$S = \frac{V_{ip}}{\sqrt{2}} I$$
+$$S = \frac{V_{ip}}{\sqrt{2}} I_o$$
 
-$$\text{PF} = \frac{P}{S} = \frac{\frac{V_{ip}}{\sqrt{2}} \frac{4}{\pi} \frac{I}{\sqrt{2}} \cos{0}}{\frac{V_{ip}}{\sqrt{2}} I}$$
-$$\text{PF} = \frac{4}{\pi} \frac{1}{\sqrt{2}} \approx 0.9003 ...$$
+$$\text{PF} = \frac{P}{S} = \frac{\frac{V_{ip}}{\sqrt{2}} \frac{4}{\pi} \frac{I}{\sqrt{2}} \cos{\alpha}}{\frac{V_{ip}}{\sqrt{2}} I_o}$$
+$$\text{PF} = \frac{4}{\pi} \frac{1}{\sqrt{2}} = \frac{2 \sqrt{2}}{\pi} \cos{\alpha}$$
 
 
 
@@ -752,10 +752,6 @@ where
 	* $\varphi = 0$ beacause it is the reference for phase shifts
 * $R$ is resitance that models the load
 * $\alpha$ is the delay angle for thyristors
-
-
-
-
 
 
 $$
@@ -825,9 +821,164 @@ $$ % AC to DC Full Wave Controlled rectifier, by Diego Trapero
 	(4,2) to[short](4,4)
 	(4,4) to[thyristor, i^>=$i_D$, v_<=$v_D$](4,6)
 	%Load and connections
-	(2,6) to[short](8,6) %upper node
-	(2,0) to[short](8,0) %lower node
+	(2,6) to[short](4,6) %upper node
+	(4,6) to[L](8,6)
 	(8,6) to[R](8,0) %load
+	(2,0) to[short](8,0) %lower node
+	;
+\end{circuitikz}
+$$
+
+$$
+\begin{tikzpicture}[>=stealth]
+	\begin{axis}[
+		xmin=0,xmax=13,
+		ymin=-1,ymax=1,
+		axis x line=middle,
+		axis y line=middle,
+		axis line style=->,
+		%xlabel={$t$},
+		%ylabel={$y$},
+		ymajorgrids,
+		xmajorgrids,
+		xtick={0,3.14,6.28,9.42, 12.56},
+		xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+		ytick={},
+		yticklabels={}
+		]
+		\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+		\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\addplot[no marks,red,-] expression[domain=0.53:(pi+0.53),samples=20, line width=2]{sin(deg(x))};
+		\addplot[no marks,red,-] expression[domain=(pi+0.53):(2*pi+0.53),samples=20, line width=2]{-sin(deg(x))};
+		\addplot[no marks,red,-] expression[domain=(2*pi+0.53):(3*pi+0.53),samples=20, line width=2]{sin(deg(x))};
+		\addplot[no marks,red,-] expression[domain=(3*pi+0.53):4*pi,samples=20, line width=2]{-sin(deg(x))};
+	\end{axis}
+\end{tikzpicture}
+$$
+
+**$v_o$ mean value, $\bar{v_o}$**
+
+\begin{align*}
+\bar{v_o} 	&	= {1 \over T} \int_{\theta_0}^{\theta_0 + T} { v_o(\theta) d\theta}\\
+        	&	= {1 \over \pi} \int_{\alpha}^{\pi+\alpha} { V_{ip} \sin{\theta} d\theta}	\\
+        	&	= {V_{ip} \over \pi} [ -\cos{\theta} ]_{\alpha}^{\alpha + \pi} \\
+        	&	= {V_{ip} \over \pi} [ -\cos{\alpha + \pi} + \cos{\alpha} ] \\
+        	&	= {2 V_{ip} \over \pi} \cos{\alpha}
+\end{align*}
+
+
+**$\bar{v_o}$ with flyback diode** Same as R loaded converter
+
+\begin{align*}
+\bar{v_o} 	&	= {1 \over T} \int_{\theta_0}^{\theta_0 + T} { v_o(\theta) d\theta}\\
+        	&	= {1 \over \pi} \int_{0}^{\pi} { v_o(\theta) d\theta}	\\
+        	&	= \cancelto{0}{{1 \over \pi} \int_{0}^{\alpha} { 0 d\theta}} + {1 \over \pi} \int_{\alpha}^{\pi} { V_{ip} \sin{\theta} d\theta}	\\
+        	&	= {V_{ip} \over \pi} [ -\cos{\theta} ]_{\alpha}^{\pi} \\
+        	&	= {V_{ip} \over \pi} [ -\cos{\pi} + \cos{\alpha} ] \\
+        	&	= {V_{ip} \over \pi} ( \cos{\alpha} + 1 )
+\end{align*}
+
+**Phases** *hacer mejor, poner ciruiticos, explicar por que se extingue la corriente a traves de los tiristores*
+
+1. $v_i > 0$, T1 and T4 triggered
+	* T2 and T3 are backwards polarized
+	* T1 and T4 have been triggered and are conducting
+	* $i_i > 0$
+2. $v_i < 0$, T2 and T3 haven't been triggered yet
+	* T2 and T3 are forward polarized but haven't been triggered yet
+	* T1 and T4 are still conduction because current through the inductor cannot be discontinued
+	* $i_i > 0$
+3. $v_i < 0$, T2 and T3 triggered
+	* T1 and T4 are triggered and start conducting.
+	* Current extingueshes through T2 and T3, that cur and become backwards polarized
+	* $i_i < 0$
+4. $v_i > 0$, T2 and T3 haven't been triggered yet
+	* $i_i < 0$
+
+**Source current, $i_i$**
+
+$$
+\begin{tikzpicture}[>=stealth]
+	\begin{axis}[
+		xmin=0,xmax=13,
+		ymin=-1,ymax=1,
+		axis x line=middle,
+		axis y line=middle,
+		axis line style=->,
+		%xlabel={$t$},
+		%ylabel={$y$},
+		ymajorgrids,
+		xmajorgrids,
+		xtick={0,3.14,6.28,9.42, 12.56},
+		xticklabels={0, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+		ytick={},
+		yticklabels={}
+		]
+		\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
+		\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\addplot[no marks,red,-] expression[domain=0:4*pi,samples=50, line width=2]{sin(deg(x))};
+		\addplot[no marks,blue,-] expression[domain=0:0.53,samples=20, line width=2]{-0.5};
+		\addplot[no marks,blue,-] expression[domain=0.53:(pi+0.53),samples=20, line width=2]{0.5};
+		\addplot[no marks,blue,-] expression[domain=(pi+0.53):(2*pi+0.53),samples=20, line width=2]{-0.5};
+		\addplot[no marks,blue,-] expression[domain=(2*pi+0.53):(3*pi+0.53),samples=20, line width=2]{0.5};
+		\addplot[no marks,blue,-] expression[domain=(3*pi+0.53):4*pi,samples=20, line width=2]{-0.5};
+	\end{axis}
+\end{tikzpicture}
+$$
+
+*Tip:* For drawing the current, when the thyristors are triggered during the positive semicycle of the $v_i$ current, current flows in the positive direction. Or, $\alpha$ delays the current square wave.
+
+**Power**
+
+Calculated in the source:
+
+Only first harmonic produces power:
+
+$$P = V_{1 RMS} I_{1 RMS} \cos{\varphi_1}$$
+$$P = \frac{V_{ip}}{\sqrt{2}}  \frac{4}{\pi} \frac{I}{\sqrt{2}} \cos{\alpha}$$
+$$P = \frac{2V_{ip}I}{\pi} \cos{\alpha}$$
+
+
+**Power factor in the source**
+
+$$\text{PF} = \frac{P}{S}$$
+
+$$P = \frac{2V_{ip}I}{\pi} \cos{\alpha}$$
+
+$$S = V_{RMS} I_{RMS}$$
+$$S = \frac{V_{1p}}{\sqrt{2}} I$$
+
+$$\text{PF} = \frac{P}{S} = \frac{2 \sqrt{2}}{\pi} \cos{\alpha}$$
+
+
+
+### Controlled Full Wave Rectifier RLE
+
+RLE loads can be used to transfer power to the net, for example in solar powers. Using a rectifier to inject power in the net is cheaper than using an inverter because it uses thyristors instead of MOSFETs/IGBTs, which are more expensive.
+
+$$ % AC to DC Full Wave Controlled rectifier, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	%Sinusoidal source and connections
+	(0,2) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](0,4)
+	(0,2) to[short](4,2)
+	(4,2) node[circ] {}
+	(0,4) to[short](2,4)
+	(2,4) node[circ] {}
+	%Rectifier branch left
+	(2,0) to[thyristor, i^>=$i_D$, v_<=$v_D$](2,2)
+	(2,2) to[short](2,4)
+	(2,4) to[thyristor, i^>=$i_D$, v_<=$v_D$](2,6)
+	%Rectifier branch right
+	(4,0) to[thyristor, i^>=$i_D$, v_<=$v_D$](4,2)
+	(4,2) to[short](4,4)
+	(4,4) to[thyristor, i^>=$i_D$, v_<=$v_D$](4,6)
+	%Load and connections
+	(2,6) to[short](4,6) %upper node
+	(4,6) to[L](8,6)
+	(8,6) to[R](8,3)
+	(8,3) to[battery1, l=$E$](8,0)
+	(2,0) to[short](8,0) %lower node
 	;
 \end{circuitikz}
 $$
@@ -853,6 +1004,7 @@ $$
 		\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
 		\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
 		\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+		\addplot[no marks,red,-] expression[domain=0:0.53,samples=20, line width=2]{-sin(deg(x))};
 		\addplot[no marks,red,-] expression[domain=0.53:(pi+0.53),samples=20, line width=2]{sin(deg(x))};
 		\addplot[no marks,red,-] expression[domain=(pi+0.53):(2*pi+0.53),samples=20, line width=2]{-sin(deg(x))};
 		\addplot[no marks,red,-] expression[domain=(2*pi+0.53):(3*pi+0.53),samples=20, line width=2]{sin(deg(x))};
@@ -861,28 +1013,56 @@ $$
 \end{tikzpicture}
 $$
 
-**$v_o$ mean value, $\bar{v_o}$** falta acabar de copiar la integral
+**$v_o$ mean value, $\bar{v_o}$**
 
 \begin{align*}
 \bar{v_o} 	&	= {1 \over T} \int_{\theta_0}^{\theta_0 + T} { v_o(\theta) d\theta}\\
-        	&	= {1 \over \pi} \int_{\alpha}^{\pi+\alpha} { \sin{\theta} d\theta}	\\
-        	&	= \cancelto{0}{{1 \over \pi} \int_{0}^{\alpha} { 0 d\theta}} + {1 \over \pi} \int_{\alpha}^{\pi} { V_{ip} \sin{\theta} d\theta}	\\
-        	&	= {V_{ip} \over \pi} [ -\cos{\theta} ]_{\alpha}^{\pi} \\
-        	&	= {V_{ip} \over \pi} [ -\cos{\pi} + \cos{\alpha} ] \\
+        	&	= {1 \over \pi} \int_{\alpha}^{\pi+\alpha} { V_{ip} \sin{\theta} d\theta}	\\
+        	&	= {V_{ip} \over \pi} [ -\cos{\theta} ]_{\alpha}^{\alpha + \pi} \\
+        	&	= {V_{ip} \over \pi} [ -\cos{\alpha + \pi} + \cos{\alpha} ] \\
         	&	= {2 V_{ip} \over \pi} \cos{\alpha}
 \end{align*}
 
+**Power flow** Three operanting regions, depending of the value of $\bar{v_o}$:
 
-**$\bar{v_o}$ with flyback diode** Same as R loaded converter
+$$ % Rectifier model, by Diego Trapero
+\begin{circuitikz}[scale = 1]
+	\draw
+	(0,0) to[voltage source, l=$\bar{v_o}$](0,2)
+	(0,2) to[diode](2,2)
+	(2,2) to[R](2,1)
+	(2,1) to[battery1, l=$E$](2,0)
+	(0,0) to[short](2,0)
+	(0,0) node[ground](){}
+	;
+\end{circuitikz}
+$$
 
-\begin{align*}
-\bar{v_o} 	&	= {1 \over T} \int_{\theta_0}^{\theta_0 + T} { v_o(\theta) d\theta}\\
-        	&	= {1 \over \pi} \int_{0}^{\pi} { v_o(\theta) d\theta}	\\
-        	&	= \cancelto{0}{{1 \over \pi} \int_{0}^{\alpha} { 0 d\theta}} + {1 \over \pi} \int_{\alpha}^{\pi} { V_{ip} \sin{\theta} d\theta}	\\
-        	&	= {V_{ip} \over \pi} [ -\cos{\theta} ]_{\alpha}^{\pi} \\
-        	&	= {V_{ip} \over \pi} [ -\cos{\pi} + \cos{\alpha} ] \\
-        	&	= {V_{ip} \over \pi} ( \cos{\alpha} + 1 )
-\end{align*}
+$$i = \frac{\bar{v_o} - (-E)}{R}$$
+
+* if $i>0$
+	* if $\bar{v_o} > 0$
+		* The rectifier produces power
+		* The E source produces power
+		* R consumes all the power
+		* Bad operating regime
+	* if $\bar{v_o} < 0$
+		* The rectifier consumes power
+		* The E source produces power
+		* R consumes some power
+		* Good operating regime if you want to inject power in the net
+* if $i=0$ the diode blocks the current and no power is consumed or generated
+
+So, if you want to inject power from a DC source into the net with a rectifier, the output voltage of the rectifier should be negative, but current must be flowing from it.
+
+The limit angle is calculated from the condition $i = 0$:
+
+$$0 = \frac{\bar{v_o} - (-E)}{R}$$
+
+$$\bar{v_o} = -E$$
+
+
+
 
 # Triphasic Rectifiers
 
