@@ -21,7 +21,7 @@
 \begin{longtabu} to\linewidth{|X[0.6,m,c]|X[2,m,c]|X[2,m,c]|}
 
 	\hline
-	What & $3 \Phi$ Controlled HWR R load & $3 \Phi$ Controlled HWR R load \\
+	What & $3 \Phi$ Controlled HWR R load & $3 \Phi$ Controlled HWR RL load \\
 	\hline
 
 	Circuit Diagram
@@ -176,7 +176,9 @@
 	&
 	\vspace{30mm}
 	&
-	\vspace{30mm}
+	$$\bar{v_o} = \frac{1}{\frac{2\pi}{3}} \int_{\frac{\pi}{6}+\alpha}^{\frac{5\pi}{6}+\alpha} { V_{PN} \sin{\theta} d\theta}$$
+	$$\bar{v_o} = \frac{3 V_{PN}}{2\pi} [ -\cos{\theta} ]_{\frac{\pi}{6}+\alpha}^{\frac{5\pi}{6}+\alpha}$$
+	$$\bar{v_o} = \frac{3 \sqrt{3}}{2\pi}  V_{PN} \cos{\alpha}$$
 	\\
 	\hline
 
@@ -309,7 +311,7 @@
 \begin{longtabu} to\linewidth{|X[0.6,m,c]|X[2,m,c]|X[2,m,c]|}
 
 	\hline
-	What & $3 \Phi$ Controlled FWR R load & $3 \Phi$ Controlled FWR R load \\
+	What & $3 \Phi$ Controlled FWR R load & $3 \Phi$ Controlled FWR RL load \\
 	\hline
 
 	Circuit Diagram
@@ -464,7 +466,9 @@
 	&
 	\vspace{30mm}
 	&
-	\vspace{30mm}
+	$$\bar{v_o} = \frac{1}{\frac{\pi}{3}} \int_{\frac{\pi}{3}+\alpha}^{\frac{2\pi}{3}+\alpha} { V_{LL} \sin{\theta} d\theta}$$
+	$$\bar{v_o} = \frac{3 V_{LL}}{\pi} [ -\cos{\theta} ]_{\frac{\pi}{3}+\alpha}^{\frac{2\pi}{3}+\alpha}$$
+	$$\bar{v_o} = \frac{3}{\pi}  V_{LL} \cos{\alpha}$$
 	\\
 	\hline
 

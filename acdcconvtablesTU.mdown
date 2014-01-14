@@ -84,7 +84,6 @@
 		\end{axis}
 	\end{tikzpicture}
 	\\
-	\hline
 
 	Peaks/period
 	&
@@ -92,7 +91,6 @@
 	&
 	3 peaks/period
 	\\
-	\hline
 
 	Period
 	&
@@ -100,7 +98,6 @@
 	&
 	$$ \frac{2\pi}{6} = \frac{\pi}{3} $$
 	\\
-	\hline
 
 	Integration limits
 	&
@@ -108,7 +105,6 @@
 	&
 	\vspace{10mm}
 	\\
-	\hline
 
 	Load Voltage
 	&
@@ -116,13 +112,16 @@
 	&
 	Line Voltage
 	\\
-	\hline
 
 	$\bar{v_o}$
 	&
-	\vspace{30mm}
+	$$\bar{v_o} = \frac{1}{\frac{2\pi}{3}} \int_{\frac{\pi}{6}}^{\frac{5\pi}{6}} { V_{PN} \sin{\theta} d\theta}$$
+	$$\bar{v_o} = \frac{3 V_{PN}}{2\pi} [ -\cos{\theta} ]_{\frac{\pi}{6}}^{\frac{5\pi}{6}}$$
+	$$\bar{v_o} = \frac{3 \sqrt{3}}{2\pi}  V_{PN}$$
 	&
-	\vspace{30mm}
+	$$\bar{v_o} = \frac{1}{\frac{\pi}{3}} \int_{\frac{\pi}{3}}^{\frac{2\pi}{3}} { V_{LL} \sin{\theta} d\theta}$$
+	$$\bar{v_o} = \frac{3 V_{LL}}{\pi} [ -\cos{\theta} ]_{\frac{\pi}{3}}^{\frac{2\pi}{3}}$$
+	$$\bar{v_o} = \frac{3}{\pi}  V_{LL}$$
 	\\
 	\hline
 
