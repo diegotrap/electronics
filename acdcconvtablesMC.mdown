@@ -36,13 +36,13 @@
 		(0,4) to[short](2,4)
 		(2,4) node[circ] {}
 		%Rectifier branch left
-		(2,0) to[diode, l^=$D3$](2,2)
+		(2,0) to[thyristor, l^=$T3$](2,2)
 		(2,2) to[short](2,4)
-		(2,4) to[diode, l^=$D1$](2,6)
+		(2,4) to[thyristor, l^=$T1$](2,6)
 		%Rectifier branch right
-		(4,0) to[diode, l^=$D4$](4,2)
+		(4,0) to[thyristor, l^=$T4$](4,2)
 		(4,2) to[short](4,4)
-		(4,4) to[diode, l^=$D2$](4,6)
+		(4,4) to[thyristor, l^=$T2$](4,6)
 		%Load and connections
 		(2,6) to[short](8,6) %upper node
 		(2,0) to[short](8,0) %lower node
@@ -61,17 +61,18 @@
 		(0,4) to[short](2,4)
 		(2,4) node[circ] {}
 		%Rectifier branch left
-		(2,0) to[diode, l^=$D3$](2,2)
+		(2,0) to[thyristor, l^=$T3$](2,2)
 		(2,2) to[short](2,4)
-		(2,4) to[diode, l^=$D1$](2,6)
+		(2,4) to[thyristor, l^=$T1$](2,6)
 		%Rectifier branch right
-		(4,0) to[diode, l^=$D4$](4,2)
+		(4,0) to[thyristor, l^=$T4$](4,2)
 		(4,2) to[short](4,4)
-		(4,4) to[diode, l^=$D2$](4,6)
+		(4,4) to[thyristor, l^=$T2$](4,6)
 		%Load and connections
 		(2,6) to[short](8,6) %upper node
 		(2,0) to[short](8,0) %lower node
-		(8,6) to[R](8,0) %load
+		(8,6) to[L](8,3) %load
+		(8,0) to[R](8,3)
 		;
 	\end{circuitikz}
 	$$
@@ -194,8 +195,7 @@
 			]
 			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
 			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
-			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
-			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=0:4*pi,samples=100, line width=2]{0.55+0.015*sin(deg(x))+0.01*sin(2*deg(x))+0.025*sin(3*deg(x))};
 		\end{axis}
 	\end{tikzpicture}
 	\\
@@ -260,18 +260,34 @@
 			]
 			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
 			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
-			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
-			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=0:4*pi,samples=100, line width=2]{0.55+0.015*sin(deg(x))+0.01*sin(2*deg(x))+0.025*sin(3*deg(x))};
 		\end{axis}
 	\end{tikzpicture}
 	\\
-	\hline
 
 	$\bar{i_o}$
 	&
-	\vspace{20mm}
+	\begin{circuitikz}[scale = 0.6, transform shape]
+		\draw
+		(0,0) to[voltage source, l=$\bar{v_o}$](0,2)
+		(0,2) to[diode](2,2)
+		(2,2) to[R](2,0)
+		(0,0) to[short](2,0)
+		(0,0) node[ground](){}
+		;
+	\end{circuitikz}
+	$$\bar{i_o} = \frac{\bar{v_o}}{R} = \frac{\frac{V_i}{\pi} ( \cos{\alpha} + 1 )}{R}$$
 	&
-	\vspace{20mm}
+	\begin{circuitikz}[scale = 0.6, transform shape]
+		\draw
+		(0,0) to[voltage source, l=$\bar{v_o}$](0,2)
+		(0,2) to[diode](2,2)
+		(2,2) to[R](2,0)
+		(0,0) to[short](2,0)
+		(0,0) node[ground](){}
+		;
+	\end{circuitikz}
+	$$\bar{i_o} = \frac{\bar{v_o}}{R} = \frac{\frac{2 V_i}{\pi} \cos{\alpha}}{R}$$
 	\\
 	\hline
 
@@ -295,6 +311,14 @@
 			]
 			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
 			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=0:0.53,samples=20, line width=2]{0};
+			\addplot[no marks,red,-] expression[domain=0.53:pi,samples=20, line width=2]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=pi:(pi+0.53),samples=20, line width=2]{0};
+			\addplot[no marks,red,-] expression[domain=(pi+0.53):2*pi,samples=20, line width=2]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=2*pi:(2*pi+0.53),samples=20, line width=2]{0};
+			\addplot[no marks,red,-] expression[domain=(2*pi+0.53):3*pi,samples=20, line width=2]{sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=3*pi:(3*pi+0.53),samples=20, line width=2]{0};
+			\addplot[no marks,red,-] expression[domain=(3*pi+0.53):4*pi,samples=20, line width=2]{sin(deg(x))};
 		\end{axis}
 	\end{tikzpicture}
 	&
@@ -316,8 +340,11 @@
 			]
 			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
 			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
-			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
-			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
+			\addplot[no marks,red,-] expression[domain=0:0.53,samples=20, line width=2]{-0.55+0.015*sin(deg(x))+0.01*sin(2*deg(x))+0.025*sin(3*deg(x))};
+			\addplot[no marks,red,-] expression[domain=0.53:(pi+0.53),samples=20, line width=2]{0.55+0.015*sin(deg(x))+0.01*sin(2*deg(x))+0.025*sin(3*deg(x))};
+			\addplot[no marks,red,-] expression[domain=(pi+0.53):(2*pi+0.53),samples=20, line width=2]{-0.55+0.015*sin(deg(x))+0.01*sin(2*deg(x))+0.025*sin(3*deg(x))};
+			\addplot[no marks,red,-] expression[domain=(2*pi+0.53):(3*pi+0.53),samples=20, line width=2]{0.55+0.015*sin(deg(x))+0.01*sin(2*deg(x))+0.025*sin(3*deg(x))};
+			\addplot[no marks,red,-] expression[domain=(3*pi+0.53):4*pi,samples=20, line width=2]{-0.55+0.015*sin(deg(x))+0.01*sin(2*deg(x))+0.025*sin(3*deg(x))};
 		\end{axis}
 	\end{tikzpicture}
 	\\
@@ -364,19 +391,33 @@
 			]
 			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
 			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
-			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{sin(deg(x))};
-			\addplot[no marks,gray,-] expression[domain=0:4*pi,samples=100]{-sin(deg(x))};
 		\end{axis}
 	\end{tikzpicture}
 	\\
 	\hline
 
-	Power Factor
+	Power
 	&
 	\vspace{30mm}
 	&
+	$$P = V_{1\text{ RMS}} I_{1\text{ RMS}} \cos{\varphi_1}$$
+	$$P = V_{ip} I_o \frac{2\sqrt{2}}{\pi} \cos{\alpha}$$
+	\\
+	
+	Apparent Power
+	&
 	\vspace{30mm}
+	&
+	$$S = V_{\text{RMS}} I_{\text{RMS}}$$
+	$$S = \frac{V_{ip}}{\sqrt{2}} I_o$$
+	\\
+
+	Power factor
+	&
+	\vspace{30mm}
+	&
+	$$\text{PF} = \frac{2\sqrt{2}}{\pi} \cos{\alpha}$$
 	\\
 	\hline
-	
+
 \end{longtabu}
