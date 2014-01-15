@@ -1066,43 +1066,99 @@ $$\bar{v_o} = -E$$
 
 # Triphasic Rectifiers
 
-$$ % AC to DC Full Wave rectifier, by Diego Trapero
+
+
+
+## Half Wave Triphasic Rectifier
+
+$$
 \begin{circuitikz}[scale = 1]
 	\draw
 	%Sinusoidal source and connections
-	(0,2) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](0,4)
-	(0,2) to[short](4,2)
-	(4,2) node[circ] {}
-	(0,4) to[short](2,4)
-	(2,4) node[circ] {}
+	(0,5) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](2,5)
+	(0,4) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](2,4)
+	(0,3) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](2,3)
+	(2,5) to[diode](4,5)
+	(2,4) to[diode](4,4)
+	(2,3) to[diode](4,3)
+	(0,5) to[short](0,0)
+	(4,5) to[short](4,3)
+	(4,4) to[short](5,4)
+	(5,4) to[R](5,0)
+	(0,0) to[short](5,0)
+	(0,0) node[ground](){}
+	;
+\end{circuitikz}
+$$
+
+## Full Wave Triphasic Rectifier
+
+$$
+\begin{circuitikz}[scale = 1]
+	\draw
+	%Sinusoidal source and connections
+	(0,2) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](1,2)
+	(0,3) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](1,3)
+	(0,4) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](1,4)
+	(1,4) to[short, -*](2,4)
+	(1,3) to[short, -*](3,3)
+	(1,2) to[short, -*](4,2)
+	(0,2) to[short](0,4)
 	%Rectifier branch A
-	(2,0) to[diode, i^>=$i_D$, v_<=$v_D$](2,2)
+	(2,0) to[diode, l=$D4$](2,2)
 	(2,2) to[short](2,4)
-	(2,4) to[diode, i^>=$i_D$, v_<=$v_D$](2,6)
+	(2,4) to[diode, l=$D1$](2,6)
 	%Rectifier branch B
-	(4,0) to[diode, i^>=$i_D$, v_<=$v_D$](4,2)
+	(3,0) to[diode, l=$D3$](3,2)
+	(3,2) to[short](3,4)
+	(3,4) to[diode, l=$D2$](3,6)
+	%Rectifier branch C
+	(4,0) to[diode, l=$D6$](4,2)
 	(4,2) to[short](4,4)
-	(4,4) to[diode, i^>=$i_D$, v_<=$v_D$](4,6)
-	%Rectifier branch B
-	(6,0) to[diode, i^>=$i_D$, v_<=$v_D$](6,2)
-	(6,2) to[short](6,4)
-	(6,4) to[diode, i^>=$i_D$, v_<=$v_D$](6,6)
+	(4,4) to[diode, l=$D3$](4,6)
 	%Load and connections
-	(2,6) to[short](8,6) %upper node
-	(2,0) to[short](8,0) %lower node
-	(8,6) to[R](8,0) %load
+	(2,6) to[short](6,6) %upper node
+	(2,0) to[short](6,0) %lower node
+	(6,6) to[R](6,0) %load
+	;
+\end{circuitikz}
+$$
+
+$$
+\begin{circuitikz}[scale = 1]
+	\draw
+	%Sinusoidal source and connections
+	(0,2) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](1,2)
+	(0,3) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](1,3)
+	(0,4) to[sinusoidal voltage source, v^>=$v_i$, i^>=$i_i$](1,4)
+	(1,4) to[short, -*](2,4)
+	(1,3) to[short, -*](3,3)
+	(1,2) to[short, -*](4,2)
+	(0,2) to[short](0,4)
+	%Rectifier branch A
+	(2,0) to[thyristor, l=$T4$](2,2)
+	(2,2) to[short](2,4)
+	(2,4) to[thyristor, l=$T1$](2,6)
+	%Rectifier branch B
+	(3,0) to[thyristor, l=$T5$](3,2)
+	(3,2) to[short](3,4)
+	(3,4) to[thyristor, l=$T2$](3,6)
+	%Rectifier branch C
+	(4,0) to[thyristor, l=$T6$](4,2)
+	(4,2) to[short](4,4)
+	(4,4) to[thyristor, l=$T3$](4,6)
+	%Load and connections
+	(2,6) to[short](6,6) %upper node
+	(2,0) to[short](6,0) %lower node
+	(6,6) to[R](6,0) %load
 	;
 \end{circuitikz}
 $$
 
 
-## Half Wave Triphasic Rectifier
-
-
-
-## Full Wave Triphasic Rectifier
-
 
 # Reference
 
 * https://en.wikipedia.org/wiki/Rectifier
+
+$$\alpha_{max} = 180 \text{ para cualquier convertidor}$$
