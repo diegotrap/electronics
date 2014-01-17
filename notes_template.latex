@@ -88,8 +88,6 @@
    {\normalfont\sffamily\normalsize\bfseries\color{cyan}}
    {\thesubsubsection}{1em}{}
 
-%new page for every section
-%\newcommand{\sectionbreak}{\clearpage}
 
 % Set custom table of contents title
 \renewcommand{\contentsname}{Table of contents}
