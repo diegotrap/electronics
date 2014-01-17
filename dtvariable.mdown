@@ -3,22 +3,83 @@
 
 
 
-
-
 # Sampling
 
 **Signals**
 
-\vspace{30mm}
+|      Value       | Time Continuous |      Time discrete      |
+| ---------------- | --------------- | ----------------------- |
+| Value continuous | Analog          | Sampled signals (DV/DT) |
+| Value discrete   | DV/CT (rare)    | Digital                 |
 
-**Sampling** Sampling is the reduction of a continuous time signal to a discrete time signal by taking values at different instants of time.
+**Sampling.** Sampling is the reduction of a continuous time signal to a discrete time signal by taking values at different instants of time.
 
 Sampling at a constant rate: for functions that vary with time, let $s(t)$ be a continuous function (or signal) to be sampled, and let sampling be performed by measuring the value of the continuous function every $T$ units of time, which is called the sampling interval. Thus, the sampled function is given by the sequence $s(nT)$, for integer values of $n$, $n = 0, 1, 2, 3, ...$ [#](http://en.wikipedia.org/wiki/Sampling_(signal_processing))
+
+$$ s = \{ s(0), s(T), s(2T), s(3T), ... \}$$
 
 * Sampling period, $T_s$ is the time interval between samples.
 * Sampling frequency $f_s$ is the is the number of samples per time unit, or the sampling rate. It is the reciprocal of the period, $f_s = 1/T_s$
 
-\vspace{50mm}
+\tabulinesep=2mm
+\begin{longtabu} to \linewidth{X[1,m,c]X[1,m,c]}
+
+	\hline
+	Continuous & Discrete \\
+	\hline
+
+	\begin{tikzpicture}[>=stealth, scale = 0.7, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=8,
+			ymin=0,ymax=8,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			xlabel={$IN [V]$},
+			ylabel={$OUT [\varnothing]$},
+			ymajorgrids,
+			xmajorgrids,
+			ytick={0,1,2,3,4,6,7,8},
+			yticklabels={$0$, $1$, $2$, $3$, $4$, $N-3$,$N-2$,$N - 1$},
+			xtick={0,0.5,1,2,3,4,6,7,7.5,8},
+			xticklabels={$0$, $\frac{1}{2}h$, $h$, $2h$, $3h$, $4h$,$~$, $~$,$~$,$V_{ref}$},
+			]
+			\addplot[no marks,red,-] expression[domain=0:8,samples=50, line width = 2]{x};
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.7, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=8,
+			ymin=0,ymax=8,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			xlabel={$IN [\varnothing]$},
+			ylabel={$OUT [V]$},
+			ymajorgrids,
+			xmajorgrids,
+			ytick={0,1,2,3,4,6,7,8},
+			yticklabels={$0$, $\text{LSB}$, $2 \text{ LSB}$, $3 \text{ LSB}$, $4 \text{ LSB}$, $~$,$~$,$V_{ref}$},
+			xtick={0,1,2,3,4,6,7,8},
+			xticklabels={$0$, $1$, $2$, $3$, $4$, $~$, $~$, $N-1$},
+			]
+			\addplot [red, mark = *] coordinates {(0,0)};
+			\addplot [red, mark = *] coordinates {(1,1)};
+			\addplot [red, mark = *] coordinates {(2,2)};
+			\addplot [red, mark = *] coordinates {(3,3)};
+			\addplot [red, mark = *] coordinates {(4,4)};
+			\addplot [red, mark = *] coordinates {(6,6)};
+			\addplot [red, mark = *] coordinates {(7,7)};
+			\addplot [red, mark = *] coordinates {(8,8)};
+			\addplot[no marks,gray,-] expression[domain=0:8,samples=50, line width = 0.5]{x};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	
+	\hline
+\end{longtabu}
+
 
 **Aliasing** Aliasing is the effect that occurs when sampling a continuous signal, whereby frequency components higher than half the sampling frecuency are transformed into lower frequency components. These components, or aliases, (which where a valid part of a signal, or noise) may appear in the band of the signal that we are interested in, thus making the reconstruction of the original signal impossible. From the time-domain point of view, aliasing occurs when we sample a continuous signal at a too low sample rate. The resulting sequence is an alias of the original signal, with lower frequency components.
 
@@ -80,11 +141,7 @@ In the worst case, a signal with amplitude $V_ref$
 
 
 
-
-#Signal reconstruction
-
-
-
+\newpage
 
 #Sample and hold
 
@@ -134,8 +191,8 @@ $$
 \begin{circuitikz}[scale = 1]
 	\draw
 	(0,2) node[ocirc](){}
-	(0,2) to[R, -o](1,2)
-	(1,2) to[open](2,2)
+	(0,2) to[R](1,2)
+	(1,2) to[short](2,2)
 	(2,2) to[short, -o](4,2)
 	(2,2) to[C](2,0)
 	(2,0) node[ground](){}
@@ -153,7 +210,7 @@ $$
 \begin{circuitikz}[scale = 1]
 	\draw
 	(0,2) node[ocirc](){}
-	(0,2) to[open](2,2)
+	(0,2) to[R, -o](1,2)
 	(2,2) to[short, -o](4,2)
 	(2,2) to[C](2,0)
 	(2,0) node[ground](){}
@@ -179,6 +236,8 @@ $$
 
 
 
+\newpage
+
 #AD Converters
 
 
@@ -186,8 +245,72 @@ $$
 
 ## Quantification
 
-\vspace{100mm}
+$$
+\begin{tikzpicture}[>=stealth, scale = 1, transform shape]
+	\begin{axis}[
+		xmin=0,xmax=8,
+		ymin=0,ymax=8,
+		axis x line=middle,
+		axis y line=middle,
+		axis line style=->,
+		xlabel={$IN [V]$},
+		ylabel={$OUT [\varnothing]$},
+		ymajorgrids,
+		xmajorgrids,
+		ytick={0,1,2,3,4,6,7,8},
+		yticklabels={$0$, $1$, $2$, $3$, $4$, $N-3$,$N-2$,$2^n -1 = N - 1$},
+		xtick={0,0.5,1,2,3,4,6,7,7.5,8},
+		xticklabels={$0$, $\frac{1}{2}h$, $h$, $2h$, $3h$, $4h$,$~$, $~$,$~$,$V_{ref}$},
+		]
+		\addplot[no marks,gray,-] expression[domain=0:8,samples=50, line width = 0.5]{x};
+		\addplot[no marks,red,-] expression[domain=0:0.5,samples=50, line width = 2]{0};
+		\addplot[no marks,red,-] expression[domain=0.5:1.5,samples=50, line width = 2]{1};
+		\addplot[no marks,red,-] expression[domain=1.5:2.5,samples=50, line width = 2]{2};
+		\addplot[no marks,red,-] expression[domain=2.5:3.5,samples=50, line width = 2]{3};
+		\addplot[no marks,red,-] expression[domain=3.5:4.5,samples=50, line width = 2]{4};
+		\addplot[no marks,red,-] expression[domain=5.5:6.5,samples=50, line width = 2]{6};
+		\addplot[no marks,red,-] expression[domain=6.5:7.5,samples=50, line width = 2]{7};
+		\addplot[no marks,red,-] expression[domain=7.5:8,samples=50, line width = 2]{8};	
+	\end{axis}
+\end{tikzpicture}
+$$
 
+$$\text{LSB}_{[V]} = h = \frac{V_{ref}}{N-1} = \frac{V_{ref}}{2^n-1}$$
+$$\text{LSB}_N = \frac{1}{N-1} = \frac{1}{2^n-1}$$
+
+
+\vspace{20mm}
+**Example, 3 bit (8 levels) ADC** $V_{ref} = 5V$
+
+$$
+\begin{tikzpicture}[>=stealth, scale = 1, transform shape]
+	\begin{axis}[
+		xmin=0,xmax=7,
+		ymin=0,ymax=7,
+		axis x line=middle,
+		axis y line=middle,
+		axis line style=->,
+		xlabel={$IN [V]$},
+		ylabel={$OUT [\varnothing]$},
+		ymajorgrids,
+		xmajorgrids,
+		ytick={0,1,2,3,4,5,6,7},
+		yticklabels={$0$, $1$, $2$, $3$,$4$,$5$,$6$,$2^3 -1 = 7$},
+		xtick={0,1,2,3,4,5,6,7},
+		xticklabels={$0$, $0.71$, $1.43$, $2.14$, $2.86$, $3.57$,$4.29$,$5$},
+		]
+		\addplot[no marks,gray,-] expression[domain=0:8,samples=50, line width = 0.5]{x};
+		\addplot[no marks,red,-] expression[domain=0:0.5,samples=50, line width = 2]{0};
+		\addplot[no marks,red,-] expression[domain=0.5:1.5,samples=50, line width = 2]{1};
+		\addplot[no marks,red,-] expression[domain=1.5:2.5,samples=50, line width = 2]{2};
+		\addplot[no marks,red,-] expression[domain=2.5:3.5,samples=50, line width = 2]{3};
+		\addplot[no marks,red,-] expression[domain=3.5:4.5,samples=50, line width = 2]{4};
+		\addplot[no marks,red,-] expression[domain=4.5:5.5,samples=50, line width = 2]{5};
+		\addplot[no marks,red,-] expression[domain=5.5:6.5,samples=50, line width = 2]{6};
+		\addplot[no marks,red,-] expression[domain=6.5:7.5,samples=50, line width = 2]{7};
+	\end{axis}
+\end{tikzpicture}
+$$
 
 
 
@@ -241,6 +364,9 @@ The control circuit starts generating the code for 1 MSB and all zeros, and outp
 
 
 
+
+\newpage
+
 # AD Times
 
 **Concurrent times**
@@ -276,6 +402,8 @@ $$t_{hold} = t_{switch opens} + t_{hold settling}$$
 
 
 
+\newpage
+
 # DA Converters
 
 
@@ -283,7 +411,35 @@ $$t_{hold} = t_{switch opens} + t_{hold settling}$$
 
 ## Codification
 
-\vspace{100mm}
+$$
+\begin{tikzpicture}[>=stealth, scale = 1, transform shape]
+	\begin{axis}[
+		xmin=0,xmax=8,
+		ymin=0,ymax=8,
+		axis x line=middle,
+		axis y line=middle,
+		axis line style=->,
+		xlabel={$IN [\varnothing]$},
+		ylabel={$OUT [V]$},
+		ymajorgrids,
+		xmajorgrids,
+		ytick={0,1,2,3,4,6,7,8},
+		yticklabels={$0$, $\text{LSB}$, $2 \text{ LSB}$, $3 \text{ LSB}$, $4 \text{ LSB}$, $~$,$~$,$V_{ref}$},
+		xtick={0,1,2,3,4,6,7,8},
+		xticklabels={$0$, $1$, $2$, $3$, $4$, $~$, $~$, $N-1$},
+		]
+		\addplot [red, mark = *] coordinates {(0,0)};
+		\addplot [red, mark = *] coordinates {(1,1)};
+		\addplot [red, mark = *] coordinates {(2,2)};
+		\addplot [red, mark = *] coordinates {(3,3)};
+		\addplot [red, mark = *] coordinates {(4,4)};
+		\addplot [red, mark = *] coordinates {(6,6)};
+		\addplot [red, mark = *] coordinates {(7,7)};
+		\addplot [red, mark = *] coordinates {(8,8)};
+		\addplot[no marks,gray,-] expression[domain=0:8,samples=50, line width = 0.5]{x};
+	\end{axis}
+\end{tikzpicture}
+$$
 
 
 ## AD converter types
@@ -304,6 +460,123 @@ $$t_{hold} = t_{switch opens} + t_{hold settling}$$
 
 
 
+\newpage
+
+# ADC / DAC tables
+
+\tabulinesep=2mm
+\begin{longtabu} to \linewidth{|X[1,m,c]|X[3,m,c]|X[3,m,c]|}
+
+	\hline
+	~ & ADC & DAC \\
+	\hline
+
+	Process
+	&
+	Quantification
+	&
+	Codification
+	\\
+
+	~
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=8,
+			ymin=0,ymax=8,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			xlabel={$IN [V]$},
+			ylabel={$OUT [\varnothing]$},
+			ymajorgrids,
+			xmajorgrids,
+			ytick={0,1,2,3,4,6,7,8},
+			yticklabels={$0$, $1$, $2$, $3$, $4$, $N-3$,$N-2$,$N - 1$},
+			xtick={0,0.5,1,2,3,4,6,7,7.5,8},
+			xticklabels={$0$, $\frac{1}{2}h$, $h$, $2h$, $3h$, $4h$,$~$, $~$,$~$,$V_{ref}$},
+			]
+			\addplot[no marks,gray,-] expression[domain=0:8,samples=50, line width = 0.5]{x};
+			\addplot[no marks,red,-] expression[domain=0:0.5,samples=50, line width = 2]{0};
+			\addplot[no marks,red,-] expression[domain=0.5:1.5,samples=50, line width = 2]{1};
+			\addplot[no marks,red,-] expression[domain=1.5:2.5,samples=50, line width = 2]{2};
+			\addplot[no marks,red,-] expression[domain=2.5:3.5,samples=50, line width = 2]{3};
+			\addplot[no marks,red,-] expression[domain=3.5:4.5,samples=50, line width = 2]{4};
+			\addplot[no marks,red,-] expression[domain=5.5:6.5,samples=50, line width = 2]{6};
+			\addplot[no marks,red,-] expression[domain=6.5:7.5,samples=50, line width = 2]{7};
+			\addplot[no marks,red,-] expression[domain=7.5:8,samples=50, line width = 2]{8};	
+		\end{axis}
+	\end{tikzpicture}
+	&
+	\begin{tikzpicture}[>=stealth, scale = 0.6, transform shape]
+		\begin{axis}[
+			xmin=0,xmax=8,
+			ymin=0,ymax=8,
+			axis x line=middle,
+			axis y line=middle,
+			axis line style=->,
+			xlabel={$IN [\varnothing]$},
+			ylabel={$OUT [V]$},
+			ymajorgrids,
+			xmajorgrids,
+			ytick={0,1,2,3,4,6,7,8},
+			yticklabels={$0$, $\text{LSB}$, $2 \text{ LSB}$, $3 \text{ LSB}$, $4 \text{ LSB}$, $~$,$~$,$V_{ref}$},
+			xtick={0,1,2,3,4,6,7,8},
+			xticklabels={$0$, $1$, $2$, $3$, $4$, $~$, $~$, $N-1$},
+			]
+			\addplot [red, mark = *] coordinates {(0,0)};
+			\addplot [red, mark = *] coordinates {(1,1)};
+			\addplot [red, mark = *] coordinates {(2,2)};
+			\addplot [red, mark = *] coordinates {(3,3)};
+			\addplot [red, mark = *] coordinates {(4,4)};
+			\addplot [red, mark = *] coordinates {(6,6)};
+			\addplot [red, mark = *] coordinates {(7,7)};
+			\addplot [red, mark = *] coordinates {(8,8)};
+			\addplot[no marks,gray,-] expression[domain=0:8,samples=50, line width = 0.5]{x};
+		\end{axis}
+	\end{tikzpicture}
+	\\
+	\hline
+
+	Static
+	&
+	\vspace{80mm}
+	&
+	\vspace{80mm}
+	\\
+	\hline
+
+	Dynamic
+	&
+	\vspace{80mm}
+	&
+	\vspace{80mm}
+	\\
+	\hline
+
+	Errors
+	&
+	\vspace{80mm}
+	&
+	\vspace{80mm}
+	\\
+	\hline
+
+	Types
+	&
+	\vspace{80mm}
+	&
+	\vspace{80mm}
+	\\
+	
+	\hline
+\end{longtabu}
+
+
+
+
+
+\newpage
 
 # Z transform
 
@@ -326,8 +599,8 @@ $$\mathcal{Z}[f(n-k)](z) = z^{-k} F(z)$$
 
 
 \begin{align*}
-y(n) & = b_0(n) + b_1 x(n-1) + ... + b_z (n-z) \\
-	 & = - a_1 y(n-1) - a_2  y(n-2) - ... - a_p y(n-p)
+y(n)  =	& b_0(n) + b_1 x(n-1) + ... + b_z (n-z) \\
+	 	& - a_1 y(n-1) - a_2  y(n-2) - ... - a_p y(n-p)
 \end{align*}
 
 $$ y(n) = b_0(n) + b_1 x(n-1) + ... + b_z (n-z) - a_1 y(n-1) - a_2  y(n-2) - ... - a_p y(n-p)$$
@@ -543,8 +816,8 @@ $$H_d(z) = H_a(s) \bigg|_{s = \frac{2}{T} \frac{z - 1}{z + 1}} = H_a \left( \fra
 4. For implementing the digital filter, transform in a difference equation of the form
 
 \begin{align*}
-y(n) & = b_0(n) + b_1 x(n-1) + ... + b_z (n-z) \\
-	 & = - a_1 y(n-1) - a_2  y(n-2) - ... - a_p y(n-p)
+y(n) =	& b_0(n) + b_1 x(n-1) + ... + b_z (n-z) \\
+	 	& - a_1 y(n-1) - a_2  y(n-2) - ... - a_p y(n-p)
 \end{align*}
 
 using the Z-transform property
@@ -554,13 +827,15 @@ $$\mathcal{Z}[f(n-k)](z) = z^{-k} F(z)$$.
 
 
 
+\newpage
+
 # Reference
 
 * "Digital Signal Processing and the Microcontroller", Dale Grover, John Deller
 * "Instrumentación Electrónica", Miguel A. Pérez, Juan C. Álvarez, Juan C. Campo, Fco. Javier Ferrero, Gustavo J. Grillo. Editorial Thomson
 * Wikipedia
 * [Sampling (signal processing), Wikipedia](http://en.wikipedia.org/wiki/Sampling_(signal_processing))
-* [Butterworth filter, Wikipedia](http://en.wikipedia.org/wiki/Butterworth_filter)
+* [Butterworth filter](http://en.wikipedia.org/wiki/Butterworth_filter)
 * [Z-transform](https://en.wikipedia.org/wiki/Z-transform)
 
 
