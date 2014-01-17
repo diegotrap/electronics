@@ -73,3 +73,5 @@ From [Butterworth filter, Wikipedia](http://en.wikipedia.org/wiki/Butterworth_fi
 * two frequencies which ratio is 1:10 are separate by a decade
 * two frequencies which ratio is 1:2 are separate by a octave
 * 1 decade is 3.33 octaves
+
+$$\frac{6dB}{oct} = \frac{20dB}{dec}$$
