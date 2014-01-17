@@ -1,6 +1,9 @@
 % VHDL
+% Diego Trapero
 
-# VHDL
+
+
+# VHDL syntax
 
 ## when / else : concurrent signal assignment statement
 
@@ -25,8 +28,304 @@ A conditional assignment statement is also a concurrent signal assignment statem
 	-- "waveform" for this statement seems to include [ delay_mechanism ]
 	-- See sequential signal assignment statement
 
+## Snippets
+
+**Proceso de reloj** útil para un testbech
+
+~~~~~~~~{.vhdl}
+
+--proceso de reloj, útil para un testbech
+
+-- inicializar la variable en la zona de señales
+SIGNAL CLK  :  STD_LOGIC := '0';
+
+
+clock : process(clk)
+begin
+   clk <= not clk after 20ns;
+end process;
+
+~~~~~~~~
+
+**Todos los procesos sincronos con resets**
+
+~~~~~~~~{.vhdl}
+
+--todos los procesos sincronos con resets:
+
+process (clk, reset)
+   if reset = '1' then
+      -- do RESET, other asyncronous taska ;
+   elseif rising_edge(clk) then
+      -- SINCRONOUS TASKS
+      if enable = '1' then
+         -- ENABLED TASKS
+
+   endif;
+end process;
+
+~~~~~~~~
+
+
+# VHDL component
+
+
+
+
+## Gates
+
+**NAND Gate**
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.vhdl}
+entity NANDGate is
+   port (
+      a, b : in bit;
+      x : out bit
+   );
+end NANDGate;
+
+architecture NANDArch of NANDGate is
+begin
+   x <= a NAND b;
+end NANDArch;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+## Biestables
+
+
+**Latch Internal signal implementation**
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.vhdl }
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity S_R_latch_top is
+    Port ( S : in    STD_LOGIC;
+           R : in    STD_LOGIC;
+           Q : out   STD_LOGIC);
+end S_R_latch_top;
+
+architecture Behavioral of S_R_latch_top is
+signal Q2   : STD_LOGIC;
+signal notQ : STD_LOGIC;
+begin
+
+Q    <= Q2;
+Q2   <= R nor notQ;
+notQ <= S nor Q2;
+
+end Behavioral;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+**Latch Inout ports implementation**
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.vhdl}
+entity SR_Latch is  
+  Port ( S,R : in STD_LOGIC;  
+         Q : inout STD_LOGIC;  
+         Q_n : inout STD_LOGIC);  
+ end SR_Latch;  
+   
+ architecture SR_Latch_arch of SR_Latch is  
+ begin  
+ process (S,R,Q,Q_n)  
+       begin  
+             Q <= R NOR Q_n;  
+             Q_n <= S NOR Q;  
+       end process;  
+   
+ end SR_Latch_arch;  
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.vhdl }
+-- http://vhdlbynaresh.blogspot.com.es/2013/07/design-of-sr-latch-using-behavior.html
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+
+entity SR_Latch is
+     port(
+         enable : in STD_LOGIC;
+         s : in STD_LOGIC;
+         r : in STD_LOGIC;
+         reset : in STD_LOGIC;
+         q : out STD_LOGIC;
+         qb : out STD_LOGIC
+         );
+end SR_Latch;
+
+architecture SR_Latch_arc of SR_Latch is
+begin
+
+    latch : process (s,r,enable,reset) is
+    begin
+        if (reset='1') then
+            q <= '0';
+            qb <= '1';
+        elsif (enable='1') then
+            if (s/=r) then
+                q <= s;
+                qb <= r;
+            elsif (s='1' and r='1') then
+                q <= 'Z';
+                qb <= 'Z';
+            end if;
+        end if;
+    end process latch;
+
+end SR_Latch_arc;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+**D Flip-FLop**
+
+
+~~~~~~~~{.vhdl}
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity DFF is
+   port(
+      D : in std_logic; --Data input
+      C : in std_logic; --Clock signal
+      Q : out std_logic --Data output
+   );
+end DFF;
+
+architecture Behavioral of DFF is
+
+begin
+   process(C)
+   begin
+      if rising_edge(C) then
+         Q <= D;
+      end if;
+   end process;
+end Behavioral;
+
+~~~~~~~~
+
+![Synthesis Result](images/DFF_synthesis.png)
+
+
+**D Flip Flop with Enable and Reset**
+
+~~~~~~~~{.vhdl}
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx primitives in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity DFF is
+   port(
+      D  : in  std_logic; --Data input
+      C  : in  std_logic; --Clock signal
+      EN : in  std_logic; --Enable signal
+      R  : in  std_logic; -- Asyncronous reset
+      Q  : out std_logic  --Data output
+   );
+end DFF;
+
+architecture Behavioral of DFF is
+begin
+   
+   process(C, R)
+   begin
+      if (R = '1') then
+         Q <= '0';
+      else if rising_edge(C) AND EN='1' then
+         Q <= D;
+      end if;
+      end if;
+   end process;
+
+end Behavioral;
+
+~~~~~~~~
+
+![Synthesis Result](images/DFF2_synthesis.png)
+
+**D Flip Flop with Enable, Reset and Preset**
+
+~~~~~~~~{.vhdl}
+
+-- Code from Wikibooks:
+-- https://en.wikibooks.org/wiki/VHDL_for_FPGA_Design/D_Flip_Flop
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+ 
+entity DFF is
+   port
+   (
+      clk : in std_logic;
+ 
+      rst : in std_logic;
+      pre : in std_logic;
+      ce  : in std_logic;
+ 
+      d : in std_logic;
+ 
+      q : out std_logic
+   );
+end entity DFF;
+ 
+architecture Behavioral of DFF is
+begin
+   process (clk) is
+   begin
+      if rising_edge(clk) then  
+         if (rst='1') then   
+            q <= '0';
+         elsif (pre='1') then
+            q <= '1';
+         elsif (ce='1') then
+            q <= d;
+         end if;
+      end if;
+   end process;
+end architecture Behavioral;
+
+~~~~~~~~
+
+**With Guarded Block**
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.vhdl}
+-- D Flip Flop with Guarded Block, from Circuit Design with VHDL
+
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+
+ENTITY dff IS
+   PORT (
+      d, clk, rst: IN STD_LOGIC;
+      q : out std_logic
+END dff;
+
+ARCHITECTURE dff OF dff IS
+BEGIN
+    b1: BLOCK (clk'EVENT AND clk='1')
+   BEGIN
+      q <= GUARDED '0' WHEN rst='1' ELSE d;
+    END BLOCK b1;
+END dff;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 ## FSM
+
+**FSM template**
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.vhdl}
 -- FSM template: from Circuit Design with VHDL
@@ -80,35 +379,7 @@ END IF; ...
 END <arch_name>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-~~~~~~~~{.vhdl}
-
---proceso de reloj, útil para un testbech
-
--- inicializar la variable en la zona de señales
-SIGNAL CLK  :  STD_LOGIC := '0';
+# Examples
 
 
-clock : process(clk)
-begin
-   clk <= not clk after 20ns;
-end process;
-
-~~~~~~~~
-
-~~~~~~~~{.vhdl}
-
---todos los procesos sincronos con resets:
-
-process (clk, reset)
-   if reset = '1' then
-      -- do RESET, other asyncronous taska ;
-   elseif rising_edge(clk) then
-      -- SINCRONOUS TASKS
-      if enable = '1' then
-         -- ENABLED TASKS
-
-   endif;
-end process;
-
-~~~~~~~~
+# More
