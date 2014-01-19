@@ -28,24 +28,67 @@ A conditional assignment statement is also a concurrent signal assignment statem
 	-- "waveform" for this statement seems to include [ delay_mechanism ]
 	-- See sequential signal assignment statement
 
-## Snippets
+# Libraries
 
-**Proceso de reloj** útil para un testbech
+
+~~~~~~~~{.vhdl}
+library IEEE;
+use IEEE.std_logic_1164.all;
+~~~~~~~~
+
+
+# Simulation
+
+## Clocks
+
+### Default clock
+
+Default clock used in automatically generated testbenchs:
+
+~~~~~~~~{.vhdl}
+
+
+constant <clock>_period : time := 10 ns;
+
+   -- Clock process definitions
+   <clock>_process :process
+   begin
+    <clock> <= '0';
+    wait for <clock>_period/2;
+    <clock> <= '1';
+    wait for <clock>_period/2;
+   end process;
+
+~~~~~~~~
+
+
+### My Clock
 
 ~~~~~~~~{.vhdl}
 
 --proceso de reloj, útil para un testbech
 
 -- inicializar la variable en la zona de señales
-SIGNAL CLK  :  STD_LOGIC := '0';
+SIGNAL CLK  : STD_LOGIC := '0';
 
 
 clock : process(clk)
 begin
-   clk <= not clk after 20ns;
+  clk <= not clk after 20ns;
 end process;
 
+~~~~~~~~ 
+
+
+# Snippets
+
+## Rellenar un vector de ceros
+
+~~~~~~~~{.vhdl}
+vector <= (others => '0');
 ~~~~~~~~
+
+## Synchronous processes
 
 **Todos los procesos sincronos con resets**
 
@@ -179,87 +222,274 @@ end SR_Latch_arc;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-**D Flip-FLop**
+### Basic D Flip Flop (FD)
 
+$$
+\begin{circuitikz}
+  \draw
+  (0, 0) node[dFlipFlop2x2](IC) {}
+  ;
+\end{circuitikz}
+$$
+
+
+| $CLK$ | $D$ | $Q_{next}$ |
+| :---: | :-: | :--------: |
+|   ^   |  0  |     0      |
+|   ^   |  1  |     1      |
+|   0   |  X  |     Q      |
+|   1   |  X  |     Q      |
+
+#### Code
 
 ~~~~~~~~{.vhdl}
+-- Basic D Flip Flop
+
 
 library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.std_logic_1164.all;
 
-entity DFF is
-   port(
-      D : in std_logic; --Data input
-      C : in std_logic; --Clock signal
-      Q : out std_logic --Data output
-   );
-end DFF;
+entity DFlipFlop is
+  port(
+    D : in std_logic;
+    C : in std_logic;
+    Q : out std_logic
+  );
+end DFlipFlop;
 
-architecture Behavioral of DFF is
-
+Architecture Behavioral of DFlipFlop is
 begin
-   process(C)
-   begin
-      if rising_edge(C) then
-         Q <= D;
-      end if;
-   end process;
+  process(C)
+  begin
+    if rising_edge(C) then
+      Q <= D;
+    end if;
+  end process;
 end Behavioral;
-
 ~~~~~~~~
+
+
+
+#### Synthesis results
 
 ![Synthesis Result](images/DFF_synthesis.png)
 
 
-**D Flip Flop with Enable and Reset**
+* Target Device: xa3s500e-4cpg132
+* Design Goal: Balanced
 
-~~~~~~~~{.vhdl}
-
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx primitives in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
-
-entity DFF is
-   port(
-      D  : in  std_logic; --Data input
-      C  : in  std_logic; --Clock signal
-      EN : in  std_logic; --Enable signal
-      R  : in  std_logic; -- Asyncronous reset
-      Q  : out std_logic  --Data output
-   );
-end DFF;
-
-architecture Behavioral of DFF is
-begin
-   
-   process(C, R)
-   begin
-      if (R = '1') then
-         Q <= '0';
-      else if rising_edge(C) AND EN='1' then
-         Q <= D;
-      end if;
-      end if;
-   end process;
-
-end Behavioral;
 
 ~~~~~~~~
+Logic Utilization     Used    Available   Utilization 
+--------------------------------------------------------------------
+Number of bonded IOBs   3       210       1% 
+Number of BUFG/BUFGCTRLs  1       32        3% 
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : DFlipFlop.ngr
+Top Level Output File Name         : DFlipFlop
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : No
+
+Design Statistics
+# IOs                              : 3
+
+Cell Usage :
+# FlipFlops/Latches                : 1
+#      FD                          : 1
+# Clock Buffers                    : 1
+#      BUFGP                       : 1
+# IO Buffers                       : 2
+#      IBUF                        : 1
+#      OBUF                        : 1
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : xa3s500ecpg132-4 
+
+ Number of Slices:                        0  out of   4656     0%  
+ Number of IOs:                           3
+ Number of bonded IOBs:                   3  out of     92     3%  
+    IOB Flip Flops:                       1
+ Number of GCLKs:                         1  out of     24     4%  
+~~~~~~~~
+
+#### Testbench
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.vhdl}
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+ 
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--USE ieee.numeric_std.ALL;
+ 
+ENTITY tb IS
+END tb;
+ 
+ARCHITECTURE behavior OF tb IS 
+ 
+    -- Component Declaration for the Unit Under Test (UUT)
+ 
+    COMPONENT DFlipFlop
+    PORT(
+         D : IN  std_logic;
+         C : IN  std_logic;
+         Q : OUT  std_logic
+        );
+    END COMPONENT;
+    
+
+   --Inputs
+  signal C : std_logic := '0';
+   signal D : std_logic := '0';
+
+  --Outputs
+   signal Q : std_logic;
+ 
+BEGIN
+ 
+  -- Instantiate the Unit Under Test (UUT)
+   uut: DFlipFlop PORT MAP (
+          D => D,
+          C => C,
+          Q => Q
+        );
+ 
+  -- my clock process:
+  clock : process(C)
+  begin
+    C <= not C after 20ns;
+  end process;
+
+   -- Stimulus process
+   stim_proc: process
+   begin    
+      -- hold reset state for 100 ns.
+      wait for 110 ns;
+
+      -- insert stimulus here
+    D <= '1';
+    wait for 90ns;
+    D <= '0';
+    wait for 90ns;
+
+      wait;
+   end process;
+
+END;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+#### Simulation
+
+![](images/BasicDFlipFlopSimulation.png)
+
+
+
+### D Flip Flop with Enable and Asynchronous Reset
+
+#### Code
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.vhdl}
+-- D Flip Flop with Enable and Asynchronous Reset
+
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+entity DFlipFlop is
+  port(
+    D  : in std_logic;  -- Data input
+    C  : in std_logic;  -- Clock signal
+    EN : in std_logic;  -- Enable
+    R  : in std_logic;  -- Asynchronous enable
+    Q  : out std_logic  -- Data output
+  );
+end DFlipFlop;
+
+Architecture Behavioral of DFlipFlop is
+begin
+  process(C, R) -- Only clock and asynchronous signals in the sensitivity list
+  begin
+    if R = '1' then
+      Q <= '0';
+    elsif rising_edge(C) then
+      if EN = '1' then
+        Q <= D;
+      end if;
+    end if;
+  end process;
+end Behavioral;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#### Synthesis
 
 ![Synthesis Result](images/DFF2_synthesis.png)
 
-**D Flip Flop with Enable, Reset and Preset**
+XILINX primitive: FDCE, D Flip-Flop with Clock Enable and Asynchronous Clear
 
-~~~~~~~~{.vhdl}
+* Target Device: xa3s500e-4cpg132 
+* Design Goal: Balanced
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Logic utilization     Used    Available   Utilization 
+----------------------------------------------------------------
+Number of Slices    0       4656      0% 
+Number of bonded IOBs   5       92        5% 
+Number of GCLKs     1       24        4% 
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : DFlipFlop.ngr
+Top Level Output File Name         : DFlipFlop
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : No
+
+Design Statistics
+# IOs                              : 5
+
+Cell Usage :
+# FlipFlops/Latches                : 1
+#      FDCE                        : 1
+# Clock Buffers                    : 1
+#      BUFGP                       : 1
+# IO Buffers                       : 4
+#      IBUF                        : 3
+#      OBUF                        : 1
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : xa3s500ecpg132-4 
+
+ Number of Slices:                        0  out of   4656     0%  
+ Number of IOs:                           5
+ Number of bonded IOBs:                   5  out of     92     5%  
+    IOB Flip Flops:                       1
+ Number of GCLKs:                         1  out of     24     4%  
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+### D Flip Flop with Enable, Reset and Preset
+
+
+#### Code
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.vhdl}
 -- Code from Wikibooks:
 -- https://en.wikibooks.org/wiki/VHDL_for_FPGA_Design/D_Flip_Flop
 
@@ -296,30 +526,29 @@ begin
       end if;
    end process;
 end architecture Behavioral;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-~~~~~~~~
 
-**With Guarded Block**
+#### Synthesis
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.vhdl}
--- D Flip Flop with Guarded Block, from Circuit Design with VHDL
+Xilinx primitive: FDRSE
 
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
+FDRSE is a single D-type flip-flop with synchronous reset (R), synchronous set (S), clock enable (CE) inputs. The reset (R) input, when High, overrides all other inputs and resets the Q output Low during the Low-to-High clock transition. (Reset has precedence over Set.) When the set (S) input is High and R is Low, the flip-flop is set, output High, during the Low-to-High clock (C) transition. Data on the D input is loaded into the flip-flop when R and S are Low and CE is High during the Low-to-High clock transition.
 
-ENTITY dff IS
-   PORT (
-      d, clk, rst: IN STD_LOGIC;
-      q : out std_logic
-END dff;
 
-ARCHITECTURE dff OF dff IS
-BEGIN
-    b1: BLOCK (clk'EVENT AND clk='1')
-   BEGIN
-      q <= GUARDED '0' WHEN rst='1' ELSE d;
-    END BLOCK b1;
-END dff;
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Inputs Outputs
+---------------
+R S CE D C Q
+---------------
+1 X X  X ? 0
+0 1 X  X ? 1
+0 0 0  X X No Change
+0 0 1  1 ? 1
+0 0 1  0 ? 0
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
